@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Джавид Карибов — тренер по грэпплингу и БЖЖ · Datsiev Club</title>
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,900;1,900&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="media/coaches/karibov-djavid.jpg">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="nav nav--solid">
+  <div class="wrap nav__in">
+    <a class="logo" href="index.html" aria-label="Datsiev Club — на главную"><img src="media/logo.png" alt="Datsiev Club"></a>
+    <nav class="nav__links">
+      <a href="index.html#club">О&nbsp;клубе</a><a href="napravleniya.html">Секции</a><a href="raspisanie.html">Расписание</a>
+      <a href="treneri.html">Тренеры</a><a href="index.html#tseny">Цены</a><a href="sportsmenam.html">Спортсменам</a><a href="dostizheniya.html">Достижения</a><a href="uslugi.html">Доп. услуги</a>
+    </nav>
+    <a class="nav__phone" href="tel:+79271000033">+7&nbsp;927&nbsp;100-00-33</a>
+    <button class="burger" aria-label="Меню"><i></i><i></i><i></i></button>
+  </div>
+</header>
+
+<!-- ======================= 1. ПРОФИЛЬ ======================= -->
+<section class="chero"><div class="chero__in wrap">
+
+  <div class="chero__photo">
+    <img src="media/coaches/karibov-djavid.jpg" alt="Тренер Джавид Карибов" fetchpriority="high" decoding="async">
+  </div>
+
+  <h1 class="chero__name">Джавид<br>Карибов</h1>
+
+  <div class="chero__info">
+    <p class="chero__dir an">Грэпплинг<i>//</i>Бразильское джиу-джитсу</p>
+
+    <div class="chero__ages an">
+      <span>Дети 5–12</span>
+      <span>Взрослые 14+</span>
+    </div>
+
+    <ul class="wins an">
+      <li><b>1&nbsp;место</b> Первенство ПФО, <span class="nobr">но-ги</span> · 2026</li>
+      <li><b>1&nbsp;место</b> Первенство ПФО, ги · 2025&nbsp;и&nbsp;2026</li>
+      <li><b>2&nbsp;место</b> Первенство ПФО, <span class="nobr">но-ги</span> · 2025</li>
+    </ul>
+
+    <div class="cta chero__cta an">
+      <a class="btn btn--primary" href="#raspisanie">Записаться в&nbsp;группу</a>
+      <a class="btn btn--ghost" href="#personalno">Персональные тренировки</a>
+    </div>
+  </div>
+
+</div></section>
+
+<!-- ======================= 2. КАК РАБОТАЕТ ======================= -->
+<!-- sec--tight: заголовка у блока нет, поэтому верхний отступ меньше
+     обычного — иначе между первым экраном и карточкой зияет пустота -->
+<section class="sec sec--tight"><div class="wrap">
+  <!-- Блок обведён рамкой: текст и клип внутри одной границы, иначе они
+       расплываются по странице. Клип из сообщества клуба — плеер VK тянет
+       свои скрипты, поэтому до нажатия стоит обложка, а iframe создаётся
+       по клику (см. assets/site.js).
+       Кнопка — отдельным элементом сетки, а не внутри текста: на телефоне
+       она должна идти после видео, а на десктопе — под текстом слева. -->
+  <div class="clips rv">
+
+    <div class="clips__txt">
+      <p class="clips__lead">В&nbsp;грэпплинге важна не&nbsp;сила, а&nbsp;тонкое умение использовать приёмы на&nbsp;максимальный результат</p>
+      <p>Поэтому у&nbsp;Джавида каждая тренировка словно лекция по&nbsp;грэпплингу, но&nbsp;без&nbsp;тетрадок и&nbsp;«духоты». Сначала полный разбор приёма, а&nbsp;затем отработка до&nbsp;автоматизма</p>
+      <div class="clips__note">
+        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <rect x="1.4" y="6.4" width="29.2" height="21.2" rx="5.2" stroke="currentColor" stroke-width="1.7"/>
+          <path d="M13.4 12.2 21.4 17l-8 4.8z" fill="currentColor"/>
+        </svg>
+        <p>Делимся небольшим фрагментом с&nbsp;тренировки, через который можно окунуться в&nbsp;атмосферу секции</p>
+      </div>
+      <div class="clips__cta">
+        <a class="btn btn--primary btn--sm" href="#raspisanie">Хочу записаться<span class="btn__arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <figure class="clip"
+            data-clip="https://vkvideo.ru/video_ext.php?oid=-83890329&amp;id=456243068&amp;autoplay=1"
+            data-title="Клип: как&nbsp;проходят тренировки у&nbsp;Джавида Карибова">
+      <img class="clip__cover" src="media/coaches/karibov-clip-cover.jpg" width="360" height="640"
+           alt="Джавид Карибов" loading="lazy" decoding="async">
+      <button class="clip__play" type="button">
+        <span class="clip__ico" aria-hidden="true"></span>
+        <span class="clip__lbl">Клип · ВКонтакте</span>
+      </button>
+    </figure>
+
+  </div>
+</div></section>
+
+<!-- ======================= 3. РАСПИСАНИЕ ======================= -->
+<!-- id — цель кнопки «Хочу записаться» из блока выше -->
+<section class="sec" id="raspisanie"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Группы Джавида Карибова</h2>
+  </div>
+  <div class="steps rv" style="margin-top:26px">
+    <div class="slot">
+      <div class="slot__main">
+        <h3>Детская группа · 5–12&nbsp;лет</h3>
+        <div class="days"><span class="day">Вторник</span><span class="day">Четверг</span><span class="day">Суббота</span></div>
+      </div>
+      <span class="slot__time">17:00–18:30</span>
+      <button class="btn btn--ghost btn--sm" data-book="группа тренера" data-coach="Джавид Карибов" data-dir="Грэпплинг / БЖЖ" data-group="Детская группа · 5–12 лет" data-time="Вторник, четверг, суббота · 17:00–18:30">Записаться</button>
+    </div>
+    <div class="slot">
+      <div class="slot__main">
+        <h3>Смешанная группа · с&nbsp;14&nbsp;лет</h3>
+        <div class="days"><span class="day">Вторник</span><span class="day">Четверг</span><span class="day">Суббота</span></div>
+      </div>
+      <span class="slot__time">18:30–20:00</span>
+      <button class="btn btn--ghost btn--sm" data-book="группа тренера" data-coach="Джавид Карибов" data-dir="Грэпплинг / БЖЖ" data-group="Смешанная группа · с 14 лет" data-time="Вторник, четверг, суббота · 18:30–20:00">Записаться</button>
+    </div>
+  </div>
+  <p class="rv" style="margin-top:20px;text-align:center">
+    <a class="link" href="raspisanie.html">Полное расписание клуба&nbsp;→</a>
+  </p>
+</div></section>
+
+<!-- ======================= 4. ПЕРСОНАЛЬНЫЕ ======================= -->
+<section class="sec" id="personalno"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Персональные тренировки<br>с&nbsp;Джавидом</h2>
+  </div>
+  <!-- отдельный класс .pers, а не .goal: у того своя геометрия под фигуру
+       (квадратная пропорция и колонка текста в 54%) — заголовки здесь
+       из-за неё переносились раньше времени -->
+  <div class="grid g2 rv pers" style="margin-top:26px">
+    <div class="card pers__card">
+      <div class="pers__head">
+        <span class="pers__ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8.2" r="3.7" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M4.9 19.8c0-3.5 3.2-5.9 7.1-5.9s7.1 2.4 7.1 5.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <h3>Когда персональные подходят лучше группы</h3>
+      </div>
+      <ul class="list">
+        <li>Начинаете с&nbsp;нуля и&nbsp;не&nbsp;хотите догонять группу</li>
+        <li>Стесняетесь заниматься при&nbsp;людях с&nbsp;опытом</li>
+        <li>Готовитесь к&nbsp;конкретному старту</li>
+        <li>Не&nbsp;попадаете в&nbsp;расписание групп</li>
+      </ul>
+    </div>
+    <div class="card pers__card">
+      <div class="pers__head">
+        <span class="pers__ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M7.2 3.8h9.6v4.9a4.8 4.8 0 0 1-9.6 0V3.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M7.2 5.9H4.7v1.3a3.1 3.1 0 0 0 3.1 3.1M16.8 5.9h2.5v1.3a3.1 3.1 0 0 1-3.1 3.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M12 13.6v3.6M8.7 20.2h6.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <h3>Что&nbsp;вы&nbsp;получаете</h3>
+      </div>
+      <ul class="list">
+        <li>Всё внимание тренера: час только на&nbsp;вас</li>
+        <li>Ошибки правятся сразу, техника ставится быстрее</li>
+        <li>Темп и&nbsp;нагрузка под&nbsp;вашу форму</li>
+        <li>Время подбираете вы, а&nbsp;не&nbsp;расписание</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card pricebox rv" style="margin-top:14px">
+    <p class="pricebox__label"><span>Стоимость персональных тренировок у&nbsp;Джавида</span></p>
+    <p class="pricebox__sum">1&nbsp;500&nbsp;₽<i>за&nbsp;занятие</i></p>
+    <p class="pricebox__note">Можно совмещать с&nbsp;группой: несколько персональных занятий,
+      чтобы поставить базу, дальше обычная группа</p>
+    <button class="btn btn--primary pricebox__cta" data-book="персональные тренировки" data-coach="Джавид Карибов" data-kind="Персональная тренировка" data-price="1 500 ₽ за занятие">Записаться на&nbsp;персональную</button>
+  </div>
+  <!-- ссылка жила в удалённом блоке «Результаты учеников» — со страницы
+       иначе не остаётся пути к списку тренеров -->
+  <p class="rv" style="margin-top:26px;text-align:center">
+    <a class="link" href="treneri.html">Все тренеры клуба&nbsp;→</a>
+  </p>
+</div></section>
+
+<footer class="footer"><div class="wrap">
+  <div class="footer__in">
+    <img src="media/logo.png" alt="Datsiev Club">
+    <nav class="footer__links">
+      <a href="napravleniya.html">Секции</a><a href="raspisanie.html">Расписание</a><a href="treneri.html">Тренеры</a>
+      <a href="dostizheniya.html">Достижения</a><a href="uslugi.html">Доп. услуги</a><a href="sportsmenam.html">Действующим спортсменам</a>
+      <a href="index.html#kontakty">Контакты</a><a href="#">Партнёрам</a><a href="#">Вакансии</a>
+      <a href="#">Политика обработки данных</a>
+    </nav>
+  </div>
+  <p class="footer__meta">Саратов, ул.&nbsp;Астраханская, 103, 4&nbsp;этаж · ежедневно 9:30–22:00 · +7&nbsp;927&nbsp;100-00-33</p>
+</div></footer>
+<script src="assets/site.js" defer></script>
+</body>
+</html>
