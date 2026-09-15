@@ -1,0 +1,1839 @@
+/* DATSIEV CLUB — общие стили сайта.
+   Один файл на все страницы: главная, тренеры, профиль тренера.
+   Токены и компоненты менять здесь, а не в разметке страниц. */
+
+:root{
+  --bg:        #050506;
+  --surface:   #0D0D0F;
+  --surface-2: #141417;
+  --line:      rgba(255,255,255,.09);
+  --line-2:    rgba(255,255,255,.18);
+  --ink:       #FFFFFF;
+  --ink-2:     #9B9BA2;
+  --ink-3:     #6E6E76;
+
+  --r-pill: 999px;
+  --r-tile: 14px;
+  --r-card: 20px;
+
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ background:var(--bg); scroll-behavior:smooth; }
+body{
+  font-family:'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight:500; background:var(--bg); color:var(--ink);
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+img,video{ display:block; max-width:100%; }
+button{ font:inherit; cursor:pointer; }
+ul{ list-style:none; }
+/* слово через дефис не рвётся на две строки: «но-ги», «Jiu-Jitsu» */
+.nobr{ white-space:nowrap; }
+
+.wrap{ width:100%; max-width:1240px; margin:0 auto; padding:0 clamp(20px,4vw,48px); }
+/* шире общей сетки — для блоков, где карточке нужен почти квадрат.
+   1670 подобрано по референсу: при кадре 1663 сетка там 1574 px. */
+.wrap--wide{ max-width:1670px; }
+
+/* ============ ШАПКА ============ */
+.nav{ position:absolute; inset:0 0 auto 0; z-index:5; padding-top:clamp(16px,2.2vw,26px); }
+.nav__in{ display:flex; align-items:center; gap:clamp(16px,3vw,40px); }
+.logo{ background:none; border:0; padding:0; display:block; flex:0 0 auto; }
+.logo img{ height:44px; width:auto; }
+.nav__links{ display:flex; gap:clamp(14px,2vw,26px); flex:1; }
+.nav__links a{ color:rgba(255,255,255,.72); text-decoration:none; font-size:14px; font-weight:600;
+  white-space:nowrap; transition:color .2s var(--ease); }
+.nav__links a:hover{ color:var(--ink); }
+.nav__phone{ font-weight:600; font-size:14px; white-space:nowrap; color:var(--ink); text-decoration:none; }
+.burger{ display:none; width:44px; height:44px; background:none; border:0; padding:0;
+  flex-direction:column; align-items:center; justify-content:center; gap:5px; }
+.burger i{ display:block; width:20px; height:1.5px; background:var(--ink); }
+
+/* ============ МЕНЮ НА ТЕЛЕФОНЕ ============
+   Ниже 900 пунктов навигации в шапке нет — их заменяет бургер. Панель
+   строит site.js по ссылкам самой шапки, поэтому меню всегда совпадает
+   с навигацией и не расходится с ней при правках. */
+/* Закрывающий крестик живёт внутри панели, а не в шапке. Поднять бургер
+   над панелью нельзя: шапка лежит внутри своего слоя (у героя и у
+   .nav--solid свои z-index), и любое значение внутри него всё равно
+   остаётся ниже. Крестик ставится скриптом ровно туда, где был бургер,
+   поэтому визуально кнопка не прыгает. */
+.mnu__x{ position:fixed; width:44px; height:44px; padding:0; border:0; background:none;
+  display:grid; place-items:center; z-index:2; }
+.mnu__x i{ position:absolute; width:20px; height:1.5px; background:var(--ink); }
+.mnu__x i:nth-child(1){ transform:rotate(45deg); }
+.mnu__x i:nth-child(2){ transform:rotate(-45deg); }
+.burger.is-x i:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
+.burger.is-x i:nth-child(2){ opacity:0; }
+.burger.is-x i:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
+.burger i{ transition:transform .28s var(--ease), opacity .2s var(--ease); }
+
+.mnu{ position:fixed; inset:0; z-index:90; display:none;
+  padding:96px 20px 32px; overflow-y:auto; overscroll-behavior:contain;
+  background:rgba(5,5,6,.97); backdrop-filter:blur(8px); }
+.mnu.is-open{ display:block; }
+.mnu__list{ display:flex; flex-direction:column; gap:2px; max-width:520px; margin-inline:auto; }
+.mnu__list a{ display:flex; align-items:center; justify-content:space-between;
+  padding:17px 4px; font-size:19px; font-weight:700; color:var(--ink); text-decoration:none;
+  border-bottom:1px solid var(--line); }
+.mnu__list a::after{ content:'→'; color:var(--ink-3); font-size:17px; }
+.mnu__list a:active{ color:var(--ink-2); }
+.mnu__foot{ max-width:520px; margin:26px auto 0; text-align:center; }
+.mnu__tel{ display:block; font-size:21px; font-weight:800; color:var(--ink); text-decoration:none; }
+.mnu__addr{ margin:10px 0 0; font-size:13.5px; line-height:1.6; color:var(--ink-3); }
+.mnu__cta{ width:100%; margin-top:20px; }
+
+/* ============ HERO ============ */
+.hero{ position:relative; isolation:isolate; min-height:100svh; display:flex; align-items:center;
+  padding:clamp(120px,16vh,190px) 0 clamp(90px,14vh,150px); overflow:hidden; }
+.hero__media{ position:absolute; inset:0; z-index:-3; }
+.hero__media video, .hero__media img{ position:absolute; inset:0;
+  width:100%; height:100%; object-fit:cover; object-position:center;
+  animation:heroZoom 28s var(--ease) infinite alternate; }
+/* видео проявляется поверх заставки, когда пошло воспроизведение */
+.hero__media video{ opacity:0; transition:opacity .8s var(--ease); }
+.hero__media video.is-on{ opacity:1; }
+@keyframes heroZoom{ from{ transform:scale(1.04); } to{ transform:scale(1.12); } }
+/* Затемнение симметричное: текст стоит по центру, значит и тень под ним
+   должна быть по центру, иначе одна половина кадра проваливается.
+   Ролик — монтаж из полутора десятков сцен, среди них есть светлые:
+   потолочный свет, белые стены, светлый пол. Поэтому под текстом слой
+   плотнее, чем нужно было бы для одного тёмного плана.
+   Плотность подобрана так, чтобы в кадре читался зал: три слоя
+   перемножаются, и по центру раньше набегало ~0.79 общей заливки —
+   ролик уходил в чёрное. Сейчас там ~0.67: сцену видно, текст поверх
+   по-прежнему на плотной подложке. Края и низ трогали меньше — оттуда
+   первый экран уходит в фон страницы. */
+.hero__scrim{ position:absolute; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(74% 58% at 50% 47%, rgba(5,5,6,.56) 0%, rgba(5,5,6,.30) 55%, rgba(5,5,6,0) 82%),
+    linear-gradient(180deg, rgba(5,5,6,.74) 0%, rgba(5,5,6,.24) 22%, rgba(5,5,6,.28) 62%, rgba(5,5,6,.66) 100%),
+    radial-gradient(132% 108% at 50% 50%, rgba(5,5,6,0) 40%, rgba(5,5,6,.50) 100%); }
+.hero__fade{ position:absolute; left:0; right:0; bottom:-1px; height:46%; z-index:-1; pointer-events:none;
+  background:linear-gradient(180deg, transparent 0%, rgba(5,5,6,.55) 45%, var(--bg) 100%); }
+.hero__grain{ position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.hero__content{ position:relative; max-width:860px; margin-inline:auto; text-align:center; }
+
+h1{ font-weight:900; font-style:italic; text-transform:uppercase;
+  font-size:clamp(38px,7.2vw,86px); line-height:.98; letter-spacing:-.015em;
+  background:linear-gradient(168deg,#FFFFFF 8%,#F2F2F4 38%,#A7A7AE 78%,#86868E 100%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+  filter:drop-shadow(0 2px 24px rgba(0,0,0,.55)); }
+/* метка города над заголовком первого экрана: капсула без рамки,
+   чтобы не спорить с плитками направлений ниже */
+.hero__loc{ display:inline-flex; align-items:center; gap:7px; margin:0 0 clamp(14px,2vw,20px);
+  padding:6px 13px 6px 10px; border-radius:var(--r-pill);
+  font-size:12.5px; font-weight:600; letter-spacing:.01em; color:rgba(255,255,255,.86);
+  background:rgba(10,10,12,.46); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+.hero__loc svg{ width:14px; height:14px; flex:0 0 auto; fill:none; stroke:currentColor;
+  stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+.hero__lead{ margin:clamp(18px,2.4vw,26px) auto 0; max-width:620px;
+  font-size:clamp(15px,1.35vw,17.5px); line-height:1.6; color:#C9C9D1;
+  text-shadow:0 1px 14px rgba(0,0,0,.85), 0 0 34px rgba(0,0,0,.55); }
+/* На узком экране длинная строка распадается на два абзаца — так её
+   проще охватить взглядом. На широком остаётся одним предложением. */
+.hero__lead span{ display:inline; }
+/* Перенос только для телефона: там строка ломается сама и делает это
+   некрасиво. На десктопе br выключен, но пробел перед ним остаётся,
+   поэтому слова не слипаются. */
+.br-mob{ display:none; }
+@media (max-width:680px){ .br-mob{ display:inline; } }
+
+/* ============ ОБЩИЕ ЭЛЕМЕНТЫ ============ */
+.sec{ position:relative; padding:clamp(64px,8.5vh,110px) 0; }
+/* секция без заголовка — сверху столько пустоты не нужно */
+.sec--tight{ padding-top:clamp(24px,3.4vh,46px); }
+/* Заголовки и подзаголовки по центру. Содержимое карточек и списков
+   остаётся выровненным по левому краю — так его читать легче. */
+.h2{ font-weight:900; font-style:italic; text-transform:uppercase;
+  font-size:clamp(24px,3.5vw,46px); line-height:1.04; letter-spacing:-.012em;
+  max-width:960px; margin-inline:auto; text-align:center;
+  background:linear-gradient(160deg,#FFFFFF 10%,#EDEDEF 45%,#A9A9B0 100%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
+.sub{ margin:14px auto 0; max-width:720px; text-align:center;
+  font-size:clamp(14.5px,1.25vw,16.5px); line-height:1.6; color:var(--ink-2); }
+/* заголовок страницы-раздела крупнее обычного заголовка блока,
+   а подводка под ним — чуть тише, чтобы не спорила с ним */
+.h2--page{ font-size:clamp(32px,5vw,66px); line-height:1; }
+.sub--page{ margin-top:16px; font-size:clamp(13.5px,1.1vw,15px); }
+
+.grid{ display:grid; gap:14px; }
+.g2{ grid-template-columns:repeat(2,1fr); }
+.g3{ grid-template-columns:repeat(3,1fr); }
+.g4{ grid-template-columns:repeat(4,1fr); }
+/* Карточек меньше, чем колонок, — ряд не прижимаем влево. Каждая карточка
+   сохраняет ширину своей колонки, а сами карточки встают по центру.
+   Только там, где сетка действительно в несколько колонок: на узких
+   экранах карточки и так идут по одной во всю ширину. */
+@media (min-width:901px){
+  .grid.g3:has(> :last-child:nth-child(2)){ grid-template-columns:repeat(2, calc((100% - 28px) / 3)); justify-content:center; }
+  .grid.g3:has(> :only-child){ grid-template-columns:calc((100% - 28px) / 3); justify-content:center; }
+}
+@media (min-width:681px){
+  .grid.g2:has(> :only-child){ grid-template-columns:calc((100% - 14px) / 2); justify-content:center; }
+}
+@media (min-width:1001px){
+  .grid.g4:has(> :last-child:nth-child(3)){ grid-template-columns:repeat(3, calc((100% - 42px) / 4)); justify-content:center; }
+  .grid.g4:has(> :last-child:nth-child(2)){ grid-template-columns:repeat(2, calc((100% - 42px) / 4)); justify-content:center; }
+  .grid.g4:has(> :only-child){ grid-template-columns:calc((100% - 42px) / 4); justify-content:center; }
+}
+
+/* карточка с подсветкой-прожектором за курсором */
+.card{ position:relative; overflow:hidden; padding:22px;
+  background:linear-gradient(180deg,var(--surface-2),var(--surface));
+  border:1px solid var(--line); border-radius:var(--r-card);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.045);
+  transition:border-color .3s var(--ease), transform .3s var(--ease); }
+.card::before{ content:''; position:absolute; inset:0; pointer-events:none; opacity:0;
+  transition:opacity .35s var(--ease);
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%), rgba(255,255,255,.09), transparent 60%); }
+.card:hover{ border-color:var(--line-2); transform:translateY(-2px); }
+.card:hover::before{ opacity:1; }
+.card h3{ font-size:15.5px; font-weight:700; margin-bottom:8px; }
+.card p{ font-size:13.8px; line-height:1.58; color:var(--ink-2); }
+
+.ph{ position:relative; display:grid; place-items:center; text-align:center; padding:16px;
+  border:1px dashed rgba(255,255,255,.16); border-radius:var(--r-tile);
+  background:repeating-linear-gradient(135deg, rgba(255,255,255,.018) 0 12px, transparent 12px 24px), var(--surface); }
+.ph b{ display:block; font-size:12.5px; font-weight:700; color:rgba(255,255,255,.62); }
+.ph i{ display:block; margin-top:4px; font-style:normal; font-size:11.5px; color:var(--ink-3); }
+
+.tags{ display:flex; flex-wrap:wrap; gap:8px; }
+.tags--center{ justify-content:center; }
+.tag{ padding:10px 16px; border-radius:var(--r-tile); font-size:13px; font-weight:600;
+  color:rgba(255,255,255,.82); background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
+  border:1px solid var(--line); box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  transition:border-color .2s var(--ease), color .2s var(--ease); }
+.tag--lead{ color:var(--ink); border-color:var(--line-2); background:linear-gradient(180deg,rgba(255,255,255,.13),rgba(255,255,255,.05)); }
+.tag:hover{ border-color:var(--line-2); color:var(--ink); }
+
+.cta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:clamp(26px,3.4vw,38px); justify-content:center; }
+.btn{ display:inline-flex; align-items:center; justify-content:center; min-height:52px; padding:0 30px;
+  border-radius:var(--r-pill); font-size:15px; font-weight:700; white-space:nowrap; border:1px solid transparent;
+  text-decoration:none;   /* .btn ставится и на ссылки — иначе подчёркивание */
+  transition:transform .18s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease); }
+.btn:active{ transform:scale(.985); }
+.btn--primary{ color:#08080A; background:linear-gradient(180deg,#FFFFFF 0%,#F0F0F2 42%,#C9C9D0 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9), inset 0 -1px 0 rgba(0,0,0,.08), 0 12px 34px rgba(0,0,0,.55); }
+.btn--primary:hover{ background:linear-gradient(180deg,#FFFFFF 0%,#F7F7F9 42%,#DCDCE2 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 16px 42px rgba(0,0,0,.6); }
+.btn--gold{ color:#1B1509; font-weight:800;
+  background:linear-gradient(180deg,#F7DA97 0%,#EAC169 44%,#D6A238 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6), 0 12px 30px rgba(0,0,0,.5); }
+.btn--gold:hover{ background:linear-gradient(180deg,#FBE4AC 0%,#F0CC79 44%,#E0AF45 100%); }
+.btn--ghost{ color:var(--ink); background:transparent; border-color:rgba(255,255,255,.30); }
+.btn--ghost:hover{ border-color:rgba(255,255,255,.62); background:rgba(255,255,255,.05); }
+.btn--sm{ min-height:44px; padding:0 22px; font-size:14px; }
+.btn__arr{ display:inline-block; margin-left:11px; transition:transform .2s var(--ease); }
+.btn:hover .btn__arr{ transform:translateX(3px); }
+
+.link{ display:inline-block; font-size:14px; font-weight:600; color:var(--ink-2); text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.22); padding-bottom:2px;
+  transition:color .2s var(--ease), border-color .2s var(--ease); }
+.link:hover{ color:var(--ink); border-color:rgba(255,255,255,.55); }
+/* подчёркивание по тексту, а не рамкой снизу: при переносе на две строки
+   рамка тянулась во всю ширину блока */
+.hero__hint{ margin-top:clamp(18px,2.2vw,24px); color:#C9C9D1; border-bottom:0;
+  text-decoration:underline; text-decoration-color:rgba(255,255,255,.38);
+  text-underline-offset:5px; text-shadow:0 1px 12px rgba(0,0,0,.85); }
+.hero__hint:hover{ text-decoration-color:rgba(255,255,255,.75); }
+
+/* ============ БЛОК 2 — программы ============ */
+.segline{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px 26px;
+  margin-top:20px; padding-bottom:20px; border-bottom:1px solid var(--line); }
+.segline span{ position:relative; padding-left:16px; font-size:13px; color:var(--ink-2); }
+.segline span::before{ content:''; position:absolute; left:0; top:6px; width:6px; height:6px;
+  border:1px solid var(--ink-3); border-radius:50%; }
+
+/* пять вертикальных карточек направлений — на десктопе в один ряд */
+.dirs{ display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+.dir{ position:relative; display:block; aspect-ratio:5/7; overflow:hidden; isolation:isolate;
+  border-radius:var(--r-card); border:1px solid var(--line); background:var(--surface-2);
+  text-decoration:none; color:var(--ink);
+  transition:border-color .45s var(--ease), transform .45s var(--ease), box-shadow .45s var(--ease); }
+.dir img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  filter:grayscale(1) contrast(1.06) brightness(.88);
+  transform:scale(1.01); transform-origin:50% 42%;
+  transition:filter .65s var(--ease), transform .8s var(--ease); }
+/* затемнение снизу — чтобы подпись читалась на любом кадре */
+.dir::after{ content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg, rgba(5,5,6,.12) 0%, rgba(5,5,6,0) 34%, rgba(5,5,6,.62) 64%, rgba(5,5,6,.95) 100%); }
+.dir__txt{ position:absolute; z-index:2; left:14px; right:14px; bottom:13px;
+  display:flex; flex-direction:column; }
+/* две строки под заголовок, прижат к низу — длинные и короткие названия
+   встают на одну линию, пустая строка уходит вверх, на фото */
+.dir__txt b{ display:flex; align-items:flex-end; min-height:calc(1.25em * 2);
+  font-size:15px; font-weight:700; line-height:1.25; }
+/* три строки под перечисление резервируем всегда — иначе заголовки
+   в ряду встают на разной высоте и ряд выглядит рваным */
+.dir__txt i{ display:block; margin-top:5px; font-size:12.4px; line-height:1.45; font-style:normal;
+  color:var(--ink-2); min-height:calc(1.45em * 3); }
+
+/* активное состояние: наведение мышью или (без мыши) выход карточки на середину экрана */
+.dir:hover, .dir:focus-visible, .dir.is-live{ border-color:var(--line-2); }
+.dir:hover img, .dir:focus-visible img, .dir.is-live img{
+  filter:grayscale(0) contrast(1) brightness(1); transform:scale(1.09); }
+.dir:hover, .dir:focus-visible{ transform:translateY(-3px); box-shadow:0 22px 46px rgba(0,0,0,.5); }
+.dir:focus-visible{ outline:2px solid rgba(255,255,255,.55); outline-offset:3px; }
+
+/* ============ БЛОК 3 — цели ============
+   Собрано по референсу Влада, замеры с него: карточка 508×589 (0,862),
+   сетка 1574 при кадре 1663, текстовая колонка 69% ширины карточки,
+   поля 30 px, кегли 21 / 17 / 15 / 15.
+   Размеры внутри карточки заданы в cqw — долях её внутренней области.
+   Поэтому пропорции и переносы строк остаются такими же, как на
+   референсе, на любой ширине экрана, а не только на 1663.
+   Поля карточки при этом в процентах, а не в cqw: cqw считается ОТ
+   внутренней области, и поле в cqw даёт круговую зависимость —
+   кегли из-за неё уезжали почти вдвое.
+   Внутренняя область референса: 508 − 2×30 = 448 px, от неё и доли. */
+.goals{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.53%; }
+.goal{ container-type:inline-size;
+  position:relative; isolation:isolate; overflow:hidden;
+  display:flex; flex-direction:column;
+  aspect-ratio:508/589; padding:5.9%; }
+.goal__body{ position:relative; z-index:1; order:1;
+  display:flex; flex-direction:column; gap:3.6cqw; flex:0 0 auto; }
+.goal h3{ margin:0; font-size:4.37cqw; line-height:1.25; }
+.goal .goal__lead{ margin:0; font-size:3.54cqw; line-height:1.42; font-weight:700; color:var(--ink); }
+/* текст занимает левые две трети карточки — правая отдана фигуре */
+.goal .list{ max-width:var(--txt,78%); }
+.goal .goal__lead{ max-width:84%; }
+/* заголовок на референсе шире колонки пунктов и стоит в одну строку */
+.goal h3{ max-width:90%; }
+/* Обычный размер списка — в пикселях. Раньше здесь стояли cqw, но эти
+   единицы имеют смысл только внутри карточки цели: она единственная
+   объявлена контейнером. Во всех остальных местах — «что взять с собой»,
+   список зоны, карточки услуг — cqw пересчитывались от ширины экрана,
+   и пункты выходили под 26 px вместо пятнадцати. */
+.list{ display:grid; gap:10px; }
+.list li{ position:relative; padding-left:17px; font-size:15px; line-height:1.55; color:var(--ink-2); }
+.list li::before{ content:''; position:absolute; left:0; top:.72em; width:8px; height:1px;
+  background:rgba(255,255,255,.45); }
+
+/* А внутри карточек целей размер по-прежнему привязан к ширине карточки,
+   чтобы текст и переносы держались один в один с референсом. */
+.goal .list{ gap:2.2cqw; }
+.goal .list li{ padding-left:3.8cqw; font-size:3.25cqw; line-height:1.5; }
+.goal .list li::before{ width:1.8cqw; }
+
+/* Бокс фигуры повторяет пропорции самого кадра (--art-ar) и прижат
+   к правому нижнему углу. Так его края совпадают с краями фигуры,
+   и растворение работает по фигуре, а не по пустому полю рядом с ней.
+   Высота бокса задаёт и ширину: чем фигура выше, тем она шире. */
+/* --art-right уводит широкий кадр за правый край карточки: фигура остаётся
+   крупной, но её плотная часть смещается правее текстовой колонки */
+/* order:2 — в разметке фигура стоит перед текстом (так она рисуется под
+   ним), а в потоке на телефоне должна идти после него */
+.goal__bottom{ position:absolute; right:var(--art-right,0); bottom:var(--art-bottom,0); left:auto; top:auto;
+  margin:0; order:2; height:var(--art-h,64%); aspect-ratio:var(--art-ar,1); pointer-events:none; }
+/* Фон у файлов чёрный, screen съедает его целиком — ни рамки, ни стыка
+   с карточкой. Левый край фигуры растворяем: тогда её можно давать
+   крупно и заводить под текстовую колонку без всякого наложения. */
+/* width/height обязаны быть в CSS: у картинки есть атрибуты width/height,
+   и без явного правила они перебивают бокс, заданный inset */
+.goal__art{ position:absolute; inset:0; width:100%; height:100%;
+  object-fit:contain; object-position:100% 100%;
+  pointer-events:none; user-select:none;
+  mix-blend-mode:screen; filter:brightness(1.34) contrast(1.06);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 var(--art-fade-top,12%)),
+                     linear-gradient(90deg,transparent 0,#000 var(--art-fade,20%));
+          mask-image:linear-gradient(180deg,transparent 0,#000 var(--art-fade-top,12%)),
+                     linear-gradient(90deg,transparent 0,#000 var(--art-fade,20%));
+  -webkit-mask-composite:source-in; mask-composite:intersect; }
+
+/* Низ карточки притемняем мягким градиентом — без плашки и линии, просто
+   чтобы вывод и кнопка читались на любом кадре. Лежит поверх фигуры,
+   но под текстом: у текста z-index:1, у подложки — 0. */
+.goal--deal::after, .goal--grip::after{ display:none; }
+.goal::after{ content:''; position:absolute; left:0; right:0; bottom:0; height:38%;
+  z-index:0; pointer-events:none;
+  background:linear-gradient(0deg, rgba(5,5,6,.88) 0%, rgba(5,5,6,.42) 48%, rgba(5,5,6,0) 100%);
+  /* гасим только левую часть — под выводом и кнопкой, и не доводим тень
+     до фигуры. Раньше подложка шла во всю ширину и приглушала её саму */
+  -webkit-mask-image:linear-gradient(90deg,#000 0 var(--scrim-a,46%), transparent var(--scrim-b,80%));
+          mask-image:linear-gradient(90deg,#000 0 var(--scrim-a,46%), transparent var(--scrim-b,80%)); }
+
+/* Вывод — обычный текст в левом нижнем углу, шириной с текстовую колонку:
+   правее начинается плотная часть фигуры. */
+.goal .goal__foot{ position:relative; z-index:1; order:3; margin:auto 0 0; max-width:var(--txt,78%);
+  font-size:3.25cqw; line-height:1.5; color:var(--ink-2); }
+/* Вывод стоит на сплошной плашке во всю ширину карточки: она перекрывает
+   фигуру, а не притеняет её. Волосок сверху отделяет плашку от картинки.
+   Поля в cqw, а не в процентах: процент считается от внутренней области,
+   и до краёв карточки такой отступ не дотягивается. */
+.goal .goal__foot:not(.goal__foot--cta){
+  max-width:none; margin:auto -7.2cqw -7.2cqw;
+  /* поля сверху и снизу равные — текст стоит по центру плашки по высоте.
+     Держим их плотнее: при больших полях низ плашки читается как щель. */
+  padding:4.6cqw 6.7cqw;
+  border-top:1px solid var(--line); background:var(--surface);
+  /* вывод набран как подзаголовок выше — белым и жирным, чтобы читался
+     не как сноска, а как самостоятельная мысль */
+  font-weight:700; color:var(--ink); }
+/* Ширину строки держит обёртка, а не поле справа: подложка при этом идёт
+   во всю карточку. Через поле не выходило — на широкой третьей карточке
+   строка растягивалась и вывод шёл в одну строку вместо двух. */
+.goal .goal__foot > span{ display:block; max-width:78.6%; }
+.goal__foot--cta{ max-width:none; }
+.goal__foot--cta .btn{ width:auto; min-height:0;
+  padding:3.0cqw 4.9cqw; font-size:3.1cqw; border-radius:99px; }
+.goal__foot--cta .btn__arr{ margin-left:2.8cqw; }
+
+/* --art-ar — пропорции файла, --art-h — высота фигуры в высотах карточки,
+   --art-fade — сколько её левого края уходит в растворение, --txt — ширина
+   текстовой колонки. Кадры разной формы: вертикальному кубку высоты можно
+   дать много, лежачей паре и партеру — меньше. */
+/* У кубка фигура заходит левее остальных: рука с чашей начинает
+   рисоваться уже на 58,6% ширины карточки, и две строки списка на неё
+   наезжали. 70% — та ширина колонки, при которой вниз уходят ровно
+   наехавшие слова («победа на», «профессиональных»), а число строк
+   в каждом пункте остаётся прежним. Ниже 65% пункт про соревнования
+   распадается на четыре строки, выше 76% слова возвращаются на фигуру. */
+.goal--trophy{ --art-ar:430/900; --art-h:89%; --art-fade:18%; --txt:70%; }
+.goal--deal{   --art-ar:910/860; --art-h:73%; --art-fade:6%;  --art-fade-top:6%; --txt:78%; }
+.goal--grip{   --art-ar:962/745; --art-h:61.8%; --art-fade:3%; --art-fade-top:4%; --txt:78%;
+               --art-bottom:10%; --art-right:-5%; }
+
+/* ============ шаги ============ */
+.steps{ display:grid; gap:11px; }
+.step{ display:flex; gap:14px; align-items:flex-start; padding:16px 18px;
+  background:linear-gradient(180deg,var(--surface-2),var(--surface));
+  border:1px solid var(--line); border-radius:var(--r-tile); }
+.step__n{ flex:0 0 30px; height:30px; display:grid; place-items:center; border-radius:50%;
+  border:1px solid var(--line-2); font-size:12.5px; font-weight:700;
+  background:rgba(255,255,255,.05); }
+.step h3{ margin:0 0 4px; font-size:14.8px; font-weight:700; }
+.step p{ margin:0; font-size:13.6px; line-height:1.55; color:var(--ink-2); }
+
+/* Видео слева, три пункта справа, одной высоты.
+   Высоту задаёт квадрат видео (ширина колонки → высота через 1:1),
+   а пункты растягиваются на неё тремя равными строками. Наоборот —
+   «квадрат по высоте пунктов» — в вёрстке зациклено: ширина видео
+   влияет на ширину пунктов, та на их высоту, а высота обратно на видео. */
+.kid{ display:grid; grid-template-columns:38% 1fr; gap:14px; align-items:stretch; }
+.kid__vid{ position:relative; aspect-ratio:1; overflow:hidden;
+  border-radius:var(--r-card); border:1px solid var(--line);
+  background:repeating-linear-gradient(135deg, rgba(255,255,255,.018) 0 12px, transparent 12px 24px), var(--surface-2); }
+.kid__vid video, .kid__vid img{ position:absolute; inset:0; display:block;
+  width:100%; height:100%; object-fit:cover; }
+.kid__steps{ min-width:0; grid-template-rows:repeat(3,1fr); }
+.kid__steps .step{ align-items:center; }
+
+/* ============ клипы ВКонтакте ============
+   Одна рамка на весь блок, а не рамка в рамке: клип прижат к её краю,
+   поэтому граница блока и есть окно видео. Двойной контур с полем между
+   ними выглядел нагромождением, а внутри оставалась пустая полость.
+   Высоту блока задаёт клип — он держит пропорции плеера VK, 363×714. */
+.clips{ --clipw:363px;   /* родная ширина плеера VK — кадр не масштабируется */
+  display:grid; grid-template-columns:1fr var(--clipw);
+  gap:clamp(24px,3.2vw,44px); align-items:center;
+  padding:clamp(22px,2.6vw,34px); overflow:hidden;
+  border:1px solid var(--line-2); border-radius:var(--r-card);
+  /* низкополигональная текстура на всю карточку; слева слегка притемняем,
+     чтобы текст читался независимо от того, какая грань попала под него */
+  background:linear-gradient(100deg, rgba(5,5,6,.50) 0%, rgba(5,5,6,.26) 52%, rgba(5,5,6,.08) 100%),
+             url(../media/texture-poly.jpg) center/cover no-repeat, var(--surface-2);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05); }
+
+.clips__txt .clips__lead{ margin:0 0 16px; color:var(--ink); font-weight:600;
+  font-size:clamp(19px,2vw,26px); line-height:1.36; max-width:620px; }
+.clips__txt p{ margin:0 0 16px; color:var(--ink-2);
+  font-size:clamp(15.5px,1.45vw,18px); line-height:1.62; max-width:620px; }
+/* подводка к видео — отдельной плашкой со значком, как на референсе */
+.clips__note{ display:flex; align-items:center; gap:18px; max-width:560px;
+  margin:26px 0 0; padding:19px 24px; border-radius:17px;
+  border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.035); }
+.clips__note svg{ flex:0 0 auto; width:34px; height:34px; color:var(--ink-2); }
+.clips__txt .clips__note p{ margin:0; max-width:none;
+  font-size:15px; line-height:1.5; color:var(--ink-2); }
+.clips__cta{ display:flex; align-items:center; gap:22px; flex-wrap:wrap; margin-top:28px; }
+/* Окошко внутри карточки: свои скруглённые углы и поля от её краёв,
+   а не встык с рамкой. Высота — от собственной ширины. */
+.clip{ position:relative; margin:0; overflow:hidden; background:#000;
+  border:1px solid rgba(255,255,255,.16); border-radius:20px;
+  box-shadow:0 26px 60px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.06); }
+/* Пропорцию плеера (363×714) держим отступом, а не aspect-ratio: отступ
+   в процентах считается от ширины и участвует в расчёте высоты строки
+   во всех браузерах одинаково. На aspect-ratio растянутого элемента
+   полагаться нельзя — где-то он в расчёт не идёт, и кадр обрезало. */
+.clip::before{ content:''; display:block; padding-top:196.7%; }
+/* если строка всё же выше или ниже пропорции кадра, обрезаем от верха:
+   так в кадре остаётся лицо, а не середина корпуса */
+.clip__cover{ position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:50% 18%;
+  transition:transform .6s var(--ease); }
+.clip__play{ position:absolute; inset:0; width:100%; display:block; cursor:pointer;
+  border:0; padding:0; color:var(--ink);
+  background:linear-gradient(180deg, rgba(5,5,6,.15) 0%, rgba(5,5,6,.22) 40%, rgba(5,5,6,.72) 100%); }
+.clip__ico{ position:absolute; left:50%; top:50%; translate:-50% -50%;
+  width:66px; height:66px; border-radius:50%; display:grid; place-items:center;
+  background:rgba(255,255,255,.95); box-shadow:0 16px 38px rgba(0,0,0,.55);
+  transition:transform .25s var(--ease); }
+.clip__ico::before{ content:''; margin-left:5px; width:0; height:0;
+  border-left:18px solid #08080A; border-top:11px solid transparent; border-bottom:11px solid transparent; }
+/* подпись-плашка в углу: без неё кадр читается как фото, а не как видео */
+.clip__lbl{ position:absolute; right:12px; bottom:12px;
+  padding:6px 11px; border-radius:var(--r-pill);
+  border:1px solid rgba(255,255,255,.22); background:rgba(10,10,12,.55);
+  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  font-size:11.5px; font-weight:700; letter-spacing:.02em; color:var(--ink); }
+.clip:hover .clip__cover{ transform:scale(1.05); }
+.clip:hover .clip__ico{ transform:scale(1.08); }
+.clip__play:focus-visible{ outline:2px solid rgba(255,255,255,.6); outline-offset:-4px; }
+/* iframe подставляется скриптом на место обложки */
+.clip iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.clip.is-on .clip__cover, .clip.is-on .clip__play{ display:none; }
+
+/* ---- клипа ещё нет ----
+   Держим окно той же формы и того же размера, что и настоящее: когда
+   видео появится, блок не перестроится, кадр просто встанет на место. */
+.clip--soon{ background:var(--surface-2); border-style:dashed; border-color:var(--line-2);
+  box-shadow:none; }
+.clip__soon{ position:absolute; inset:0; display:grid; align-content:center; justify-items:center;
+  gap:11px; padding:26px; text-align:center; }
+.clip__soon svg{ width:40px; height:40px; color:var(--ink-3); }
+.clip__soon b{ font-size:15px; font-weight:700; }
+.clip__soon i{ font-style:normal; font-size:13px; line-height:1.5; color:var(--ink-2); }
+
+/* ---- две записи в одном блоке ----
+   Когда у тренера два клипа на разные темы, карусель прячет второй и
+   заставляет писать один текст сразу на оба. Ставим окна рядом, каждому
+   даём свою подпись — сразу видно, про что какое. Кадры уже, чем
+   в одиночном блоке, поэтому --clipw переопределяем. */
+.clips--two{ --clipw:286px; grid-template-columns:1fr calc(var(--clipw) * 2 + 14px); }
+.clips__pair{ display:grid; grid-template-columns:repeat(2, var(--clipw)); gap:14px; }
+.clips__one{ min-width:0; }
+.clips__cap{ margin:11px 2px 0; font-size:13px; line-height:1.45; color:var(--ink-2); }
+
+/* ============ КАРТА ============ */
+/* Виджет Яндекса — это ~730 КБ в полусотне запросов, поэтому он не грузится
+   вместе со страницей: скрипт создаёт его, когда блок подходит к экрану.
+   Пока карта едет, на её месте стоит заглушка в тёмной палитре. Рамка и
+   радиус те же, что у карточек, — светлый прямоугольник карты не выпадает
+   из вёрстки, а сидит в такой же оправе. */
+.map{ position:relative; margin:18px 0 0; overflow:hidden;
+  height:clamp(300px,32vw,420px);
+  border:1px solid var(--line-2); border-radius:var(--r-card);
+  background:radial-gradient(120% 130% at 50% 8%, #17171B 0%, var(--surface) 56%, #08080A 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05); }
+.map__face{ position:absolute; inset:0; width:100%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:15px;
+  padding:24px; border:0; background:none; color:var(--ink); text-align:center; }
+.map__pin{ display:grid; place-items:center; width:58px; height:58px; border-radius:50%;
+  background:rgba(255,255,255,.07); border:1px solid var(--line-2); }
+.map__pin svg{ width:27px; height:27px; fill:none; stroke:var(--ink);
+  stroke-width:1.7; stroke-linejoin:round; }
+.map__txt b{ display:block; font-size:clamp(16px,1.5vw,19px); font-weight:700; }
+.map__txt i{ display:block; margin-top:7px; font-style:normal;
+  font-size:14px; line-height:1.5; color:var(--ink-2); }
+.map iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.map.is-on .map__face{ display:none; }
+.map__links{ display:flex; gap:26px; flex-wrap:wrap; justify-content:center; margin-top:14px; }
+
+/* ============ ПОДАРОЧНЫЙ СЕРТИФИКАТ ============ */
+/* Карточка не «вставлена картинкой»: фон рендера чёрный, и режим screen
+   убирает его целиком — тот же приём, что у значков безопасности. Видно
+   сам сертификат, без прямоугольной рамки и стыка с фоном страницы.
+   Поэтому же вокруг нет панели: на её светлом фоне стык бы вылез.
+   Под карточкой тёплое пятно света — оно светит сквозь чёрные области
+   при screen, и предмет читается лежащим на странице, а не наклеенным. */
+.gift{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,540px);
+  align-items:center; gap:clamp(18px,3.2vw,50px); margin-top:26px; }
+.gift__txt h3{ margin:0 0 11px; font-size:clamp(19px,1.9vw,24px); line-height:1.2; }
+.gift__txt p{ margin:0 0 20px; max-width:440px;
+  font-size:15px; line-height:1.6; color:var(--ink-2); }
+/* без isolation и z-index: любой стековый контекст здесь погасит screen,
+   и карточка нарисуется чёрным прямоугольником */
+.gift__stage{ position:relative; }
+.gift__card{ display:block; width:100%; height:auto;
+  transition:transform .7s var(--ease); }
+.gift__stage:hover .gift__card{ transform:scale(1.03); }
+
+/* ============ ЛЕНТА ВКОНТАКТЕ ============ */
+/* Записи приходят из api/vk-posts.php и рисуются нашей вёрсткой — тремя
+   карточками в общем стиле сайта. Если сервер не ответил (сайт ещё не на
+   хостинге, токен не заведён, ВК недоступен), скрипт откатывается на
+   официальный виджет сообщества — блок в любом случае живой. */
+/* ============ КЛИПЫ СООБЩЕСТВА ============
+   Три вертикальных ролика в ряд. Пропорцию кадра держит сам .clip
+   (padding-top у ::before), поэтому колонкам достаточно задать ширину —
+   высота посчитается сама и останется одинаковой у всех трёх. */
+.reels{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:clamp(12px,1.6vw,18px); max-width:760px; margin:26px auto 0; }
+@media (max-width:680px){
+  /* Втроём в ряд на телефоне кадр ужимается до сотни пикселей — в нём
+     ничего не разобрать. Вместо этого лента с прокруткой вбок: первый
+     ролик целиком, край второго виден, значит понятно, что можно листать.
+     Строка выпущена за поля .wrap, чтобы клипы уходили в край экрана. */
+  .reels{ display:flex; max-width:none;
+    margin-inline:calc(clamp(20px,4vw,48px) * -1);
+    padding-inline:clamp(20px,4vw,48px);
+    overflow-x:auto; scroll-snap-type:x mandatory;
+    scrollbar-width:none; -ms-overflow-style:none; }
+  .reels::-webkit-scrollbar{ display:none; }
+  .reels .clip{ flex:0 0 63vw; scroll-snap-align:center; }
+}
+
+.vkfeed{ margin-top:22px; }
+
+/* --- заглушка: стоит, пока лента едет, и остаётся, если не приехала --- */
+.vkfeed__face{ max-width:380px; margin-inline:auto;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:13px; min-height:230px; padding:28px 24px; text-align:center;
+  border:1px solid var(--line-2); border-radius:var(--r-card); background:var(--surface); }
+.vkfeed__ico{ display:grid; place-items:center; width:54px; height:54px; border-radius:50%;
+  background:rgba(255,255,255,.06); border:1px solid var(--line-2); }
+.vkfeed__ico svg{ width:30px; height:30px; fill:var(--ink); }
+.vkfeed__txt b{ display:block; font-size:17px; font-weight:700; }
+.vkfeed__txt i{ display:block; margin-top:6px; font-style:normal; font-size:14px; color:var(--ink-2); }
+.vkfeed__alt{ display:none; }
+.vkfeed.is-on .vkfeed__face{ display:none; }
+.vkfeed.is-off .vkfeed__txt i::after{ content:' — не загрузилась'; }
+.vkfeed.is-off .vkfeed__alt{ display:inline-block; font-size:14px; font-weight:600;
+  color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line-2); }
+
+/* --- наши карточки записей --- */
+.vkposts{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.vkpost{ display:flex; flex-direction:column; overflow:hidden; text-decoration:none; color:var(--ink);
+  border:1px solid var(--line); border-radius:var(--r-card); background:var(--surface);
+  transition:border-color .4s var(--ease), transform .4s var(--ease), box-shadow .4s var(--ease); }
+.vkpost:hover{ border-color:var(--line-2); transform:translateY(-3px);
+  box-shadow:0 22px 46px rgba(0,0,0,.5); }
+.vkpost:focus-visible{ outline:2px solid rgba(255,255,255,.55); outline-offset:3px; }
+.vkpost__ph{ position:relative; aspect-ratio:16/10; overflow:hidden; background:var(--surface-2); }
+.vkpost__ph img{ width:100%; height:100%; object-fit:cover;
+  transition:transform .6s var(--ease); }
+.vkpost:hover .vkpost__ph img{ transform:scale(1.05); }
+/* значок на кадре видео — чтобы запись читалась как ролик, а не как фото */
+.vkpost__play{ position:absolute; left:50%; top:50%; translate:-50% -50%;
+  width:52px; height:52px; border-radius:50%; display:grid; place-items:center;
+  background:rgba(5,5,6,.55); border:1px solid rgba(255,255,255,.5);
+  backdrop-filter:blur(2px); }
+.vkpost__play::after{ content:''; width:0; height:0; margin-left:3px;
+  border:9px solid transparent; border-left:14px solid #fff; }
+.vkpost__body{ flex:1 1 auto; display:flex; flex-direction:column; gap:9px;
+  padding:16px 18px 18px; }
+.vkpost__date{ font-size:12.5px; font-weight:700; color:var(--ink-3); }
+/* пять строк анонса: дальше человек идёт читать во ВКонтакте */
+.vkpost__txt{ font-size:14px; line-height:1.55; color:var(--ink-2);
+  display:-webkit-box; -webkit-line-clamp:5; -webkit-box-orient:vertical; overflow:hidden; }
+.vkpost__go{ margin-top:auto; padding-top:4px; font-size:13.5px; font-weight:600; color:var(--ink); }
+
+/* --- запасной вариант: официальный виджет ВК --- */
+/* 380 px — не про красоту, а про арифметику: ВК отдаёт виджет высотой не
+   больше 1200 px, сколько ни проси, а высота записи растёт вместе с
+   шириной кадра. В колонке 520 px в потолок влезали две записи с хвостом
+   третьей, в 380 px — ровно три целиком. */
+.vkfeed__wid{ max-width:380px; margin-inline:auto; overflow:hidden;
+  border:1px solid var(--line-2); border-radius:var(--r-card); background:var(--surface); }
+.vkfeed__wid iframe{ display:block; width:100% !important; border:0; }
+
+@media (max-width:1100px){
+  /* тексту нужна ширина — кадр ужимаем, высота карточки пересчитается сама */
+  .clips{ --clipw:300px; }
+  /* два окна рядом с текстом уже не помещаются — кладём их под него */
+  .clips--two{ grid-template-columns:1fr; }
+  .clips--two .clips__pair{ margin:26px auto 0; }
+}
+@media (max-width:860px){
+  /* Клип остаётся тем же окошком, только во всю ширину карточки за
+     вычетом её полей, и стоит под текстом. */
+  /* Порядок на телефоне: текст → видео → кнопка. display:contents убирает
+     бокс текстовой колонки, её содержимое становится элементами сетки —
+     только так кнопка может встать после видео, оставаясь на десктопе
+     внутри левой колонки. Отступы задаём полями, не gap. */
+  .clips{ grid-template-columns:1fr; row-gap:0;
+    padding:clamp(18px,4.4vw,26px); text-align:center; }
+  .clips__txt{ display:contents; }
+  .clips__lead{ order:1; }
+  .clips__txt > p{ order:2; }
+  .clips__note{ order:3; margin-top:24px; }
+  .clip{ order:4; margin-top:26px; border-radius:18px; }
+  /* пара клипов на телефоне — столбиком, каждый во всю ширину карточки */
+  .clips--two{ --clipw:100%; }
+  .clips__pair{ order:4; grid-template-columns:1fr; gap:24px; margin-top:26px; }
+  .clips__pair .clip{ order:0; margin-top:0; }
+  .clips__cap{ text-align:center; }
+  .clips__cta{ order:5; margin-top:24px; justify-content:center; }
+  .clips__lead, .clips__txt p{ margin-inline:auto; }
+  /* значок над текстом: сбоку от четырёх строк он смотрится сдвинутым */
+  .clips__note{ flex-direction:column; gap:13px; padding:20px 22px;
+    margin-inline:auto; text-align:center; }
+  .clips__cta{ justify-content:center; gap:16px; }
+}
+
+/* ============ персональные тренировки ============
+   Две карточки со значком в кружке и списком, под ними широкая плашка
+   с ценой. Фон обычный, без текстуры. */
+.pers{ align-items:stretch; }
+.pers__card{ display:flex; flex-direction:column; padding:clamp(22px,2.2vw,28px); }
+.pers__head{ display:flex; align-items:center; gap:16px; margin-bottom:18px; }
+.pers__ico{ flex:0 0 auto; width:58px; height:58px; border-radius:50%;
+  display:grid; place-items:center; color:var(--ink);
+  border:1px solid var(--line-2);
+  background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.02));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10); }
+.pers__ico svg{ width:28px; height:28px; }
+.pers__card h3{ margin:0; font-style:italic; font-weight:800;
+  font-size:clamp(17px,1.5vw,20px); line-height:1.24; letter-spacing:-.005em;
+  text-wrap:balance; }   /* иначе последнее слово уходит на строку одно */
+.pers__card .list{ gap:13px; }
+.pers__card .list li{ font-size:clamp(14px,1.2vw,15.5px); line-height:1.5; }
+
+/* плашка с ценой */
+.pricebox{ padding:clamp(26px,3vw,38px) clamp(20px,3vw,40px) clamp(24px,2.8vw,34px);
+  text-align:center; }
+/* подпись с волосками по бокам: тонкие линии тянутся до краёв плашки */
+.pricebox__label{ display:flex; align-items:center; gap:clamp(14px,2vw,26px);
+  margin:0 0 clamp(10px,1.4vw,16px); }
+.pricebox__label::before, .pricebox__label::after{ content:''; flex:1 1 auto; height:1px;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.22)); }
+.pricebox__label::after{ background:linear-gradient(90deg, rgba(255,255,255,.22), transparent); }
+.pricebox__label span{ font-style:italic; font-weight:800; text-transform:uppercase;
+  font-size:clamp(12px,1.15vw,15px); letter-spacing:.05em; color:var(--ink-2); }
+
+.pricebox .pricebox__sum{ display:flex; align-items:baseline; justify-content:center;
+  gap:clamp(10px,1.2vw,18px); margin:0; font-weight:900; font-style:italic;
+  font-size:clamp(46px,6.8vw,92px); line-height:1.02; letter-spacing:-.02em;
+  background:linear-gradient(160deg,#FFFFFF 10%,#EDEDEF 45%,#A9A9B0 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent; }
+.pricebox .pricebox__sum i{ font-size:clamp(15px,1.55vw,21px); font-weight:800; letter-spacing:0;
+  color:var(--ink-2); -webkit-text-fill-color:var(--ink-2); }
+
+.pricebox .pricebox__note{ max-width:620px; margin:clamp(12px,1.4vw,18px) auto 0;
+  font-size:clamp(14.5px,1.3vw,16.5px); line-height:1.55; color:var(--ink-2); }
+.pricebox__cta{ margin-top:clamp(18px,2vw,26px); }
+
+@media (max-width:680px){
+  .pers__head{ gap:13px; margin-bottom:15px; }
+  .pers__ico{ width:46px; height:46px; }
+  .pers__ico svg{ width:23px; height:23px; }
+  /* волоски по бокам на узком экране съедают подпись — оставляем один снизу */
+  .pricebox__label{ display:block; padding-bottom:12px;
+    border-bottom:1px solid rgba(255,255,255,.14); }
+  .pricebox__label::before, .pricebox__label::after{ display:none; }
+  .pricebox .pricebox__sum{ flex-direction:column; align-items:center; gap:2px; }
+}
+
+/* полоса-акцент (оффер, сертификат) */
+.strip{ display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap;
+  padding:20px 22px; border-radius:var(--r-card); border:1px solid var(--line-2);
+  background:linear-gradient(120deg, rgba(255,255,255,.075), rgba(255,255,255,.02) 60%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07); }
+.strip h3{ margin:0 0 5px; font-size:16px; }
+.strip p{ margin:0; font-size:13.8px; line-height:1.55; color:var(--ink-2); max-width:760px; }
+/* вариант с содержимым по центру */
+.strip--center{ flex-direction:column; align-items:center; text-align:center; gap:16px;
+  padding:24px 22px; }
+.strip--center p{ margin-inline:auto; max-width:680px; }
+
+/* ============ БЛОК 4 — значки безопасности ============
+   Фон у значков чёрный и совпадает с фоном карточки, поэтому режим
+   screen убирает его целиком: видно только предмет, без рамки и стыка. */
+.safe{ display:grid; grid-template-columns:auto minmax(0,1fr); gap:14px;
+  align-items:center; isolation:isolate; }
+.safe__ic{ display:block; width:128px; height:86px; object-fit:contain;
+  mix-blend-mode:screen; filter:brightness(1.28) contrast(1.05);
+  pointer-events:none; user-select:none; }
+
+/* ============ БЛОК 6 — текст ============ */
+/* секция с фотографией на фоне */
+.sec--photo{ isolation:isolate; overflow:hidden;
+  padding-block:clamp(88px,11.5vh,146px); }
+.sec__bg{ position:absolute; inset:0; z-index:-1; }
+/* Кадр цветной, читаемость держим только затемнением поверх. Яркость
+   поднята умеренно: в цвете снимок и так активнее серого, сильный подъём
+   начинает спорить с текстом. */
+.sec__bg img{ width:100%; height:100%; object-fit:cover; object-position:50% 44%;
+  filter:brightness(1.12); }
+/* сверху и снизу уходим в цвет фона, в середине держим текст читаемым */
+.sec__bg::after{ content:''; position:absolute; inset:0;
+  background:
+    /* пятно вытянуто по высоте: текста в блоке два яруса — заголовок сверху
+       и вывод внизу, и оба должны попадать в затемнение, иначе нижний
+       ложится на светлую часть кадра и выглядит серым */
+    radial-gradient(80% 84% at 50% 48%, rgba(5,5,6,.58) 0%, rgba(5,5,6,.32) 64%, rgba(5,5,6,.08) 92%),
+    linear-gradient(180deg, var(--bg) 0%, rgba(5,5,6,.62) 14%, rgba(5,5,6,.56) 54%, rgba(5,5,6,.76) 90%, var(--bg) 100%); }
+.sec--photo .prose p{ color:#C6C6CE; text-shadow:0 1px 14px rgba(0,0,0,.8), 0 0 34px rgba(0,0,0,.5); }
+.sec--photo .prose b{ color:var(--ink); }
+.sec--photo .h2{ filter:drop-shadow(0 2px 20px rgba(0,0,0,.6)); }
+
+.prose{ max-width:800px; margin-inline:auto; text-align:center; }
+.prose p{ font-size:clamp(15.5px,1.5vw,18.5px); line-height:1.62; color:var(--ink-2); margin:0 0 14px; }
+.prose b{ color:var(--ink); font-weight:700; }
+/* вместо линии слева — разделитель сверху: текст теперь по центру */
+.prose__accent{ font-size:clamp(17px,1.9vw,23px) !important; line-height:1.45 !important; color:var(--ink) !important;
+  max-width:660px; margin:26px auto 0 !important; padding-top:24px;
+  border-top:1px solid rgba(255,255,255,.16); }
+
+/* ============ БЛОК 6 — кредо клуба ============
+   Две мысли-посылки в ряд через тонкую линию, под ними вывод крупно.
+   Порядок и разница в кегле сами говорят, что это манифест. */
+.creed{ max-width:960px; margin:clamp(26px,3.4vw,40px) auto 0; }
+/* Обе мысли держит одна рамка — так они читаются как связка, а не как
+   два независимых тезиса. Рамка градиентная: сплошной цвет границы CSS
+   не умеет, поэтому фон-градиент кладём в ::before и вырезаем середину
+   маской, оставляя только контур толщиной 1 px. */
+.creed__row{ position:relative; display:grid; grid-template-columns:1fr 1fr;
+  align-items:center; gap:clamp(26px,4vw,56px);
+  padding:clamp(26px,3.2vw,40px) clamp(26px,3.6vw,46px); border-radius:24px; }
+.creed__row::before{ content:''; position:absolute; inset:0; border-radius:inherit;
+  padding:1px; pointer-events:none;
+  /* ярче по краям, тише в середине: рамка «держит» оба абзаца за концы */
+  background:linear-gradient(90deg,
+    rgba(255,255,255,.78) 0%, rgba(255,255,255,.30) 26%,
+    rgba(255,255,255,.22) 50%,
+    rgba(255,255,255,.30) 74%, rgba(255,255,255,.78) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite:exclude; }
+/* шов посередине: к краям растворяется, поэтому читается не как стена
+   между абзацами, а как место их стыка */
+.creed__row::after{ content:''; position:absolute; left:50%; top:clamp(24px,3vw,38px);
+  bottom:clamp(24px,3vw,38px); width:1px; pointer-events:none;
+  background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.34) 28%,
+    rgba(255,255,255,.34) 72%, rgba(255,255,255,0) 100%); }
+/* левый абзац прижат к шву — так пара читается как одно целое,
+   а не как две колонки, брошенные по краям */
+.creed__row p:first-child{ text-align:right; }
+.creed__row p{ margin:0; text-align:left;
+  font-size:clamp(15px,1.5vw,17.5px); line-height:1.62; color:#C2C2CA;
+  text-shadow:0 1px 14px rgba(0,0,0,.85), 0 0 34px rgba(0,0,0,.55); }
+.creed__row p b{ color:var(--ink); font-weight:700; }
+
+
+.creed__final{ margin:clamp(42px,5.6vw,68px) auto 0; max-width:860px; text-align:center;
+  font-size:clamp(15.5px,1.6vw,19px); line-height:1.5; color:#A9A9B2;
+  text-shadow:0 1px 14px rgba(0,0,0,.85); }
+.creed__final b{ display:block; margin-top:clamp(10px,1.4vw,16px);
+  /* Тень родителя обязательно гасим. Буквы здесь залиты градиентом через
+     background-clip:text, то есть сам глиф прозрачный, — и унаследованный
+     text-shadow проступает сквозь него тёмным пятном в форме букв. Именно
+     это и выглядело грязью. У заголовка блока такой тени нет. */
+  text-shadow:none;
+  font-weight:900; font-style:italic; text-transform:uppercase;
+  font-size:clamp(23px,3.5vw,44px); line-height:1.06; letter-spacing:-.015em;
+  /* градиент и тень один в один как у .h2 — раньше здесь была своя,
+     более тяжёлая тень, и вокруг букв висел тёмный ореол */
+  background:linear-gradient(160deg,#FFFFFF 10%,#EDEDEF 45%,#A9A9B0 100%);
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; color:transparent;
+  filter:drop-shadow(0 2px 20px rgba(0,0,0,.6)); }
+
+/* ============ БЛОК 7 — карусель зон (coverflow) ============
+   Перспектива развёрнута: центральная карточка стоит к зрителю плашмя,
+   боковые поворачиваются внешним краем ВПЕРЁД — стойка раскрывается
+   на зрителя, а не складывается вглубь. */
+.cf{ --cf-w:clamp(190px,25vw,318px); }
+.cf__stage{ position:relative; overflow:hidden; padding:36px 0 30px;
+  perspective:calc(var(--cf-w) * 3); }
+/* мягкие края стойки — карточки уходят в фон, а не обрезаются линейкой */
+.cf__stage::before, .cf__stage::after{ content:''; position:absolute; top:0; bottom:0; width:13%;
+  z-index:150; pointer-events:none; }
+.cf__stage::before{ left:0;  background:linear-gradient(90deg, var(--bg) 8%, rgba(5,5,6,0) 100%); }
+.cf__stage::after{ right:0; background:linear-gradient(270deg, var(--bg) 8%, rgba(5,5,6,0) 100%); }
+.cf__rack{ position:relative; height:var(--cf-w); transform-style:preserve-3d;
+  cursor:grab; touch-action:pan-y; outline:none; }
+.cf__rack.is-drag{ cursor:grabbing; }
+.cf__rack:focus-visible{ outline:2px solid rgba(255,255,255,.5); outline-offset:8px; border-radius:var(--r-card); }
+
+.cf__card{ position:absolute; left:50%; top:0; width:var(--cf-w); height:var(--cf-w);
+  overflow:hidden; border-radius:var(--r-card); border:1px solid var(--line);
+  background:var(--surface-2); will-change:transform,opacity;
+  transition:transform .55s var(--ease), opacity .55s var(--ease); }
+.cf__rack.is-drag .cf__card{ transition:none; }
+.cf__card img{ width:100%; height:100%; object-fit:cover; display:block;
+  user-select:none; -webkit-user-drag:none; }
+/* затемняем всё, кроме активного кадра, чтобы центр читался первым */
+.cf__card::after{ content:''; position:absolute; inset:0; pointer-events:none;
+  background:rgba(5,5,6,.34); transition:background .55s var(--ease); }
+.cf__card.is-active{ border-color:var(--line-2); box-shadow:0 30px 70px rgba(0,0,0,.6); }
+.cf__card.is-active::after{ background:rgba(5,5,6,0); }
+
+.cf__arrow{ position:absolute; top:50%; z-index:200; width:44px; height:44px; margin-top:-22px;
+  display:grid; place-items:center; border-radius:50%; cursor:pointer;
+  border:1px solid var(--line-2); background:rgba(10,10,12,.62);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  transition:background .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease); }
+.cf__arrow--prev{ left:6px; } .cf__arrow--next{ right:6px; }
+.cf__arrow svg{ width:20px; height:20px; fill:none; stroke:var(--ink); stroke-width:1.7;
+  stroke-linecap:round; stroke-linejoin:round; }
+.cf__arrow:hover{ background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.4); }
+.cf__arrow:active{ transform:scale(.94); }
+
+.cf__cap{ margin-top:22px; text-align:center; min-height:74px;
+  transition:opacity .28s var(--ease), transform .28s var(--ease); }
+.cf__cap.is-swap{ opacity:0; transform:translateY(6px); }
+.cf__title{ margin:0 0 6px; font-size:clamp(17px,2vw,21px); font-weight:700; }
+.cf__desc{ margin:0 auto; max-width:520px; font-size:14.5px; line-height:1.55; color:var(--ink-2); }
+
+/* Навигация: 6 групп засечек — по одной группе на зону,
+   внутри группы по засечке на каждый кадр этой зоны. */
+.cf__nav{ display:flex; justify-content:center; align-items:center; gap:16px; margin-top:20px; flex-wrap:wrap; }
+.cf__grp{ display:flex; gap:5px; }
+.cf__tick{ width:22px; height:4px; padding:0; border:0; border-radius:99px; cursor:pointer;
+  background:rgba(255,255,255,.16); transition:background .25s var(--ease), width .25s var(--ease); }
+.cf__tick:hover{ background:rgba(255,255,255,.34); }
+.cf__tick.is-on{ background:var(--ink); width:30px; }
+
+/* ============ БЛОК 8 — гости ============ */
+.guest{ text-align:center; }   /* карточка «фото сверху, имя снизу» — центр читается лучше */
+.guest .ph{ height:200px; margin-bottom:12px; }
+.guest h3{ font-size:15px; margin-bottom:5px; }
+.guest p{ font-size:12.4px; line-height:1.5; color:var(--ink-3); }
+
+/* ============ БЛОК 10 — тренеры ============ */
+.bignum{ display:flex; align-items:baseline; gap:14px; }
+.bignum b{ font-size:clamp(64px,9vw,104px); line-height:.9; font-weight:900; font-style:italic;
+  background:linear-gradient(160deg,#FFF 10%,#B9B9C0 100%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.bignum span{ font-size:16px; color:var(--ink-2); }
+.check{ display:grid; gap:10px; }
+.check li{ position:relative; padding-left:26px; font-size:14.5px; color:var(--ink-2); }
+.check li::before{ content:''; position:absolute; left:2px; top:5px; width:10px; height:10px;
+  border:1.5px solid rgba(255,255,255,.55); border-radius:50%; }
+
+/* ============ БЛОК 11 — цены ============ */
+/* Карточка цены: число крупное, «в месяц» и «за занятие» — мельче,
+   тоньше и приглушённее, чтобы не спорили с суммой. */
+.price{ display:flex; flex-direction:column; text-align:left; }
+.price .kicker{ font-size:14px; font-weight:700; color:var(--ink); margin-bottom:12px; }
+.price .val{ display:flex; align-items:baseline; gap:6px; flex-wrap:wrap; }
+.price .val b{ font-weight:900; font-style:italic; letter-spacing:-.02em; line-height:1;
+  font-size:clamp(30px,3.6vw,42px); }
+.price .val i{ font-style:normal; font-weight:500; font-size:14.5px; color:var(--ink-3); }
+/* что именно стоит за числом занятий */
+.price__hint{ margin-top:10px; font-size:13.4px; line-height:1.5; color:var(--ink-2); }
+/* оплаты на сайте нет — говорим об этом прямо в карточке */
+.price__pay{ margin-top:auto; padding-top:14px; font-size:12.4px; line-height:1.45; color:var(--ink-3); }
+.price .btn{ margin-top:12px; align-self:flex-start; }
+.price--hot{ border-color:var(--line-2); background:linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.02)); }
+
+/* Заголовок группы цен: раньше был мелкой служебной строкой, из-за чего
+   было неясно, к чему относятся суммы под ним. */
+.phead{ margin:clamp(30px,4vw,46px) 0 6px; text-align:center;
+  font-weight:900; font-style:italic; text-transform:uppercase; line-height:1.1;
+  font-size:clamp(19px,2.3vw,27px); }
+.phead__sub{ margin:0 auto clamp(16px,2vw,22px); max-width:560px; text-align:center;
+  font-size:13.8px; line-height:1.55; color:var(--ink-2); }
+
+/* полоса с бесплатной первой тренировкой — единственная белая кнопка в блоке */
+.strip--free h3{ font-size:clamp(17px,2.1vw,22px); font-weight:900; font-style:italic;
+  text-transform:uppercase; }
+.loyal{ display:grid; gap:10px; }
+.loyal__item{ display:flex; gap:14px; align-items:flex-start; padding:15px 18px;
+  background:linear-gradient(180deg,var(--surface-2),var(--surface));
+  border:1px solid var(--line); border-radius:var(--r-tile); }
+.loyal__n{ flex:0 0 28px; height:28px; display:grid; place-items:center; border-radius:8px;
+  border:1px solid var(--line-2); background:rgba(255,255,255,.05); font-size:12px; font-weight:700; }
+.loyal__item h4{ margin:0 0 3px; font-size:14.5px; font-weight:700; }
+.loyal__item p{ margin:0; font-size:13.4px; line-height:1.5; color:var(--ink-2); }
+
+/* ============ ФУТЕР ============ */
+.footer{ border-top:1px solid var(--line); padding:clamp(40px,6vh,64px) 0 clamp(34px,5vh,52px); }
+.footer__in{ display:flex; gap:28px; justify-content:space-between; flex-wrap:wrap; }
+.footer img{ height:52px; width:auto; opacity:.9; }
+.footer__links{ display:flex; flex-wrap:wrap; gap:10px 24px; max-width:640px; }
+.footer__links a{ font-size:13.5px; color:var(--ink-2); text-decoration:none; transition:color .2s var(--ease); }
+.footer__links a:hover{ color:var(--ink); }
+.footer__meta{ margin-top:22px; font-size:12.5px; color:var(--ink-3); }
+
+/* ============ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ============
+   Скрываем блоки ТОЛЬКО если скрипт подтвердил, что умеет их показать
+   (класс js-rv на <html>). Иначе контент виден всегда — отказ скрипта
+   или наблюдателя не должен оставлять страницу пустой. */
+.js-rv .rv{ opacity:0; transform:translateY(22px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
+.js-rv .rv.in{ opacity:1; transform:none; }
+/* аварийный режим: показать без анимации */
+.rv-off .rv{ opacity:1 !important; transform:none !important; transition:none !important; }
+
+/* ============ АДАПТИВ ============ */
+@media (max-width:1000px){
+  .g4{ grid-template-columns:repeat(2,1fr); }
+  /* карточки сузились, но значок остался прежним — ужимаем его */
+  .safe__ic{ width:100px; height:67px; }
+  .safe{ gap:12px; }
+  /* Ряд из пяти не помещается: три карточки сверху, две снизу по центру.
+     Сетка на шесть колонок, каждая карточка занимает две — нижнюю пару
+     сдвигаем на одну колонку, и она встаёт ровно посередине. Все пять
+     одного формата: «Другие направления» больше не растягиваются. */
+  .dirs{ grid-template-columns:repeat(6,1fr); }
+  .dir{ grid-column:span 2; }
+  .dir:nth-child(4){ grid-column:2 / span 2; }
+}
+@media (max-width:900px){
+  .nav__links, .nav__phone{ display:none; }
+  .burger{ display:flex; }
+  .logo{ margin-right:auto; }
+  .logo img{ height:38px; }
+  .g3{ grid-template-columns:1fr; }
+  .cf{ --cf-w:clamp(200px,42vw,300px); }
+  /* Кадр вертикальный, текста больше — затемняем сильнее, но по-прежнему
+     симметрично, чтобы видео читалось на весь экран, а текст поверх него.
+     Ослаблено вместе с десктопным слоем: на телефоне ролик обрезан по
+     ширине и тёмных планов в кадре ещё больше. */
+  .hero__scrim{
+    background:
+      radial-gradient(96% 54% at 50% 44%, rgba(5,5,6,.46) 0%, rgba(5,5,6,.20) 60%, rgba(5,5,6,.05) 88%),
+      linear-gradient(180deg, rgba(5,5,6,.66) 0%, rgba(5,5,6,.15) 24%, rgba(5,5,6,.19) 64%, rgba(5,5,6,.62) 100%); }
+  .hero{ padding:clamp(92px,13vh,120px) 0 clamp(52px,8vh,80px); }
+  /* два отдельных абзаца — длинную строку на телефоне читать тяжело */
+  .hero__lead span{ display:block; }
+  .hero__lead span + span{ margin-top:9px; }
+}
+@media (max-width:900px){
+  /* в узком ряду пунктам не остаётся ширины — кладём видео сверху */
+  .kid{ grid-template-columns:1fr; }
+  .kid__steps{ grid-template-rows:none; }
+  .kid__steps .step{ align-items:flex-start; }
+  /* на телефоне из горизонтального кадра остаётся узкая полоса — она
+     плотнее и пестрее, поэтому затемняем сильнее */
+  .sec__bg::after{
+    background:
+      radial-gradient(84% 52% at 50% 50%, rgba(5,5,6,.62) 0%, rgba(5,5,6,.28) 72%, rgba(5,5,6,.08) 100%),
+      linear-gradient(180deg, var(--bg) 0%, rgba(5,5,6,.80) 12%, rgba(5,5,6,.78) 58%, rgba(5,5,6,.90) 90%, var(--bg) 100%); }
+}
+@media (max-width:680px){
+  .g2,.g4{ grid-template-columns:1fr; }
+  .creed__row{ grid-template-columns:1fr; gap:20px;
+    padding:24px 20px; border-radius:20px; }
+  .creed__row p, .creed__row p:first-child{ text-align:center; }
+  /* Абзацы встали друг под другом, вертикальный шов тут не к месту.
+     Кладём горизонтальный — но не псевдоэлементом строки (он не попадёт
+     точно в зазор сетки), а градиентной границей второго абзаца. */
+  .creed__row::after{ display:none; }
+  .creed__row p + p{ padding:20px 0 0; border-left:0;
+    border-top:1px solid transparent;
+    border-image:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.34) 28%,
+      rgba(255,255,255,.34) 72%, rgba(255,255,255,0)) 1; }
+  /* в одну колонку карточка узкая — значок уходит над текстом */
+  .safe{ grid-template-columns:1fr; gap:8px; }
+  .safe__ic{ width:116px; height:78px; }
+  .strip{ padding:18px; }
+  /* ---- Колода направлений: только телефон ----
+     Карточки прилипают к одной линии, и каждая следующая наезжает на
+     предыдущую. Сетка тут не работает: прилипающий элемент заперт в
+     своей ячейке и ехать ему некуда, поэтому ряд превращаем в поток.
+     Линия прилипания у каждой следующей на --peek ниже — из-под верхней
+     карточки видны корешки тех, что уже легли. Масштаб и затемнение
+     накрытых карточек считает site.js. */
+  .dirs{ --stack-top:16px; --peek:10px; display:block; }
+  /* до появления блок сдвинут по Y, а сдвиг у предка ломает прилипание —
+     на телефоне оставляем только проявление */
+  .js-rv .dirs.rv{ transform:none; }
+  .dir{ position:sticky; top:calc(var(--stack-top) + var(--i,0) * var(--peek));
+    aspect-ratio:4/5; margin:0 0 12px;
+    transform:scale(var(--s,1)); filter:brightness(var(--b,1));
+    box-shadow:0 -14px 34px rgba(0,0,0,.5);
+    transition:border-color .45s var(--ease); }
+  .dir:nth-child(2){ --i:1; } .dir:nth-child(3){ --i:2; }
+  .dir:nth-child(4){ --i:3; } .dir:nth-child(5){ --i:4; }
+  .dir:last-child{ margin-bottom:0; }
+  /* палец оставляет :hover висеть — на телефоне подъём карточки не нужен,
+     иначе он спорит с масштабом колоды */
+  .dir:hover, .dir:focus-visible{ transform:scale(var(--s,1));
+    box-shadow:0 -14px 34px rgba(0,0,0,.5); }
+  /* карточка теперь во всю ширину — подписи возвращаем нормальный кегль */
+  .dir__txt{ left:18px; right:18px; bottom:16px; }
+  .dir__txt b{ min-height:0; font-size:20px; }
+  .dir__txt i{ min-height:0; font-size:13.5px; }
+  /* три записи ВК в ряд на телефоне превращаются в марки — ставим столбиком */
+  .vkposts{ grid-template-columns:1fr; }
+  /* Сертификат уходит под текст и занимает всю ширину: рядом с текстом
+     на телефоне он был бы размером с марку, а на нём мелкий шрифт.
+     Порядок на телефоне: заголовок → текст → карточка → кнопка. Обёртку
+     текста растворяем через display:contents — иначе кнопку из неё не
+     вынуть, она уехала бы вниз вместе со всем абзацем. Отступы после
+     этого задаёт gap сетки, поэтому свои margin у заголовка и абзаца
+     обнуляем, чтобы они не складывались с ним. */
+  .gift{ grid-template-columns:1fr; gap:18px; }
+  .gift__txt{ display:contents; }
+  .gift__txt h3{ order:1; margin-bottom:0; }
+  .gift__txt p{ order:2; margin-bottom:0; max-width:none; }
+  .gift__stage{ order:3; }
+  .gift__txt .btn{ order:4; }
+  .cf{ --cf-w:clamp(178px,58vw,260px); }
+  .cf__stage{ padding:26px 0 22px; }
+  .cf__arrow{ display:none; }   /* на телефоне ведём пальцем */
+  .cf__nav{ gap:12px; }
+  .cf__tick{ width:16px; } .cf__tick.is-on{ width:24px; }
+}
+@media (max-width:1359px){
+  /* Ниже 1360 три колонки дают карточку уже 430 px, а композиции нужны
+     текст (~230) + фигура (~180) + поля. Переходим на две колонки,
+     третья карточка ложится широкой плашкой во всю строку. */
+  /* Строчный отступ задаём отдельно и в пикселях. Общий gap:1.53% для
+     колонок считается от ширины сетки и работает, а вот для строк доля
+     считается от её высоты — она здесь не задана, и процент схлопывается
+     в ноль. Из-за этого широкая карточка прилипала к двум верхним. */
+  .goals{ grid-template-columns:repeat(2,1fr); row-gap:16px; }
+  /* на широкой карточке фигура стоит по низу: подъём из квадратной
+     раскладки здесь выносит её за верх карточки */
+  /* min-height держит прежнюю высоту карточки: без него она схлопывалась
+     вслед за похудевшей плашкой и фигура уезжала вместе с ней */
+  .goal--grip{ grid-column:1/-1; aspect-ratio:auto; min-height:380px;
+    --art-h:100%; --art-fade:22%; --txt:56%; --art-right:2%; --art-bottom:0; }
+  .goal--grip .goal__body{ flex:1 1 auto; }
+  /* широкая карточка втрое шире квадратной — доли от её ширины дали бы
+     заголовок в 22 px и наезд на фигуру, поэтому здесь пиксели */
+  .goal--grip h3{ font-size:21px; max-width:56%; }
+  .goal--grip .goal__lead{ font-size:16px; max-width:56%; }
+  .goal--grip .list{ gap:9px; }
+  .goal--grip .list li{ font-size:14px; padding-left:17px; }
+  .goal--grip .list li::before{ width:8px; }
+  .goal--grip .goal__body{ gap:12px; }
+  .goal--grip .goal__foot{ font-size:13.4px; }
+  /* Плашка внизу съедала 143 px из 377 — треть карточки, и фигура была
+     обрезана по пояс. Причина в полях: они заданы в cqw, а эта карточка
+     вдвое шире квадратной, поэтому и поля выходили вдвое больше. Здесь
+     задаём их в пикселях по вертикали (по горизонтали оставляем доли,
+     иначе текст плашки разъедется с текстом выше). */
+  .goal--grip .goal__foot:not(.goal__foot--cta){ padding-block:17px; }
+  /* и пускаем строку шире — две строки вместо трёх */
+  .goal--grip .goal__foot > span{ max-width:56%; }
+}
+@media (max-width:899px){
+  /* Одна колонка. Ширину карточки ограничиваем: во всю строку она
+     превращается в баннер 720×330 с пустым полем между текстом и
+     фигурой. С потолком в 600 px это тот же квадрат, что и на десктопе. */
+  .goals{ grid-template-columns:1fr; gap:16px; }
+  .goal{ width:100%; max-width:600px; margin-inline:auto;
+    aspect-ratio:1/1.02; padding:24px; }
+  /* карточка тут не масштабируется вместе с экраном, поэтому кегли
+     возвращаем в пиксели: доли от ширины дали бы то мелкий, то крупный */
+  .goal h3{ font-size:19px; max-width:88%; }
+  .goal .goal__lead{ font-size:15.5px; max-width:84%; }
+  .goal .list li{ font-size:14px; padding-left:17px; }
+  .goal .list li::before{ width:8px; }
+  .goal .list{ gap:9px; }
+  .goal__body{ gap:12px; }
+  .goal .goal__foot{ font-size:13.4px; }
+  .goal .goal__foot:not(.goal__foot--cta){ margin:auto -24px -24px; padding:17px 24px; }
+  .goal__foot--cta .btn{ padding:13px 22px; font-size:14px; }
+  .goal__foot--cta .btn__arr{ margin-left:11px; }
+  /* третья карточка возвращается из широкой плашки в общий строй */
+  .goal--grip{ grid-column:auto; min-height:0;
+    --art-h:54%; --art-fade:32%; --txt:50%; --art-right:-6%; }
+}
+@media (max-width:620px){
+  /* Телефон: рядом текст и фигура не помещаются — фигура уходит под текст
+     и держит ту же диагональ, прижимаясь к правому нижнему углу. */
+  .goal{ padding:20px; min-height:0; max-width:none; aspect-ratio:auto; }
+  .goal h3, .goal .goal__lead, .goal .list{ max-width:none; }
+  .goal h3{ font-size:17px; }
+  .goal .goal__lead{ font-size:14.6px; }
+  .goal .list li{ font-size:13.6px; }
+  /* на телефоне фигура стоит по центру и целиком: прижатая к правому
+     краю и обрезанная полями карточки она выглядела обрубком */
+  .goal__bottom{ position:relative; right:auto; bottom:auto;
+    height:var(--art-h,190px); margin:8px auto 2px; }
+  .goal__art{ -webkit-mask-image:none; mask-image:none; }
+  .goal .goal__foot{ max-width:none; font-size:12.8px; }
+  .goal .goal__foot:not(.goal__foot--cta){ margin:auto -20px -20px; padding:15px 20px; }
+  .goal .goal__foot > span{ max-width:none; }
+  .goal::after{ height:26%; }
+  /* Кубок на телефоне: кадр вертикальный (0,48), поэтому по бокам его
+     оставалось по 110 px воздуха. Режем по пояс — cover с привязкой
+     к верху обрезает низ прямо в вёрстке, без второго файла, — и
+     задаём ширину от карточки, а высота считается из пропорции. */
+  .goal--trophy{ --art-ar:614/1000; }
+  .goal--trophy .goal__bottom{ width:84%; height:auto; }
+  .goal--trophy .goal__art{ object-fit:cover; object-position:50% 0; }
+  .goal--deal{   --art-h:252px; }
+  .goal--grip{   --art-h:216px; min-height:0; }
+}
+@media (max-width:520px){
+  .goal--deal{   --art-h:228px; }
+  .goal--grip{   --art-h:196px; }
+}
+@media (max-width:520px){
+  .btn{ width:100%; white-space:normal; line-height:1.25; padding:15px 22px; min-height:56px; font-size:14.5px; }
+  .cta{ gap:10px; }
+  h1{ font-size:clamp(34px,10vw,44px); }
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  .hero__media video{ display:none; }
+  .hero__media img{ display:block; animation:none; }
+  .js-rv .rv{ opacity:1; transform:none; }
+  *{ animation:none !important; transition:none !important; }
+}
+
+/* =====================================================================
+   ВНУТРЕННИЕ СТРАНИЦЫ: список тренеров и профиль тренера
+   ===================================================================== */
+
+/* На главной шапка лежит поверх видео. Здесь видео нет — становится
+   обычной полосой сверху, с той же типографикой и отступами. */
+.nav--solid{ position:relative; inset:auto; z-index:1;
+  padding:clamp(16px,2.2vw,26px) 0 clamp(15px,2vw,22px);
+  border-bottom:1px solid var(--line); background:var(--bg); }
+
+.page{ padding:clamp(28px,4.5vh,52px) 0 0; }
+.crumbs{ font-size:13px; color:var(--ink-3); }
+.crumbs a{ color:var(--ink-2); text-decoration:none; border-bottom:1px solid rgba(255,255,255,.2);
+  padding-bottom:1px; transition:color .2s var(--ease), border-color .2s var(--ease); }
+.crumbs a:hover{ color:var(--ink); border-color:rgba(255,255,255,.5); }
+
+/* ---------------- первый экран профиля тренера ----------------
+   Фото не в рамке, а частью блока: фон снимка чёрный и совпадает
+   с фоном сайта, поэтому кадр просто растворяется по краям.
+   Сетка одна на оба макета, меняется только раскладка областей:
+   на телефоне имя лежит поверх низа фото, на десктопе — справа. */
+.chero{ padding:clamp(10px,2vh,24px) 0 clamp(28px,5vh,56px); }
+.chero__in{ display:grid; align-items:end; }
+
+.chero__photo{ position:relative; min-width:0; }
+/* портрета ещё нет — на его месте держим кадр тех же размеров, чтобы
+   страница не перестраивалась, когда фотография появится */
+.chero__photo .ph{ width:100%; height:100%; border-radius:var(--r-card); }
+.chero__photo img{ display:block; width:100%; height:100%; object-fit:cover;
+  object-position:50% 12%;
+  /* растворяем все четыре края: у снимка чёрный фон, но он чуть светлее
+     фона сайта, и без этого по периметру виден прямоугольник */
+  -webkit-mask-image:
+    linear-gradient(180deg, rgba(0,0,0,0) 0, #000 6%, #000 56%, rgba(0,0,0,0) 100%),
+    linear-gradient(90deg, rgba(0,0,0,0) 0, #000 8%, #000 92%, rgba(0,0,0,0) 100%);
+  mask-image:
+    linear-gradient(180deg, rgba(0,0,0,0) 0, #000 6%, #000 56%, rgba(0,0,0,0) 100%),
+    linear-gradient(90deg, rgba(0,0,0,0) 0, #000 8%, #000 92%, rgba(0,0,0,0) 100%);
+  -webkit-mask-composite:source-in; mask-composite:intersect; }
+
+.chero__name{ margin:0; position:relative; z-index:2;
+  font-weight:900; font-style:italic; text-transform:uppercase;
+  font-size:clamp(46px,13vw,78px); line-height:.92; letter-spacing:-.02em;
+  background:linear-gradient(166deg,#FFFFFF 6%,#F2F2F4 42%,#AFAFB6 100%);
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; color:transparent;
+  filter:drop-shadow(0 3px 26px rgba(0,0,0,.7)); }
+
+.chero__info{ min-width:0; }
+
+/* направление — главная строка после имени */
+.chero__dir{ margin:0; font-weight:800; font-style:italic;
+  font-size:clamp(19px,2.3vw,26px); line-height:1.2; color:var(--ink); }
+.chero__dir i{ font-style:normal; color:var(--ink-3); padding:0 .28em; }
+
+/* возрастные группы — тише направления, поэтому мельче и приглушены */
+/* пометка над направлением — «Основатель клуба» и подобное.
+   Белая: золото на сайте закреплено только за кнопкой про достижения,
+   больше нигде акцентом не работает. */
+.chero__badge{ display:inline-block; margin:0 0 11px; padding:6px 13px;
+  border-radius:var(--r-pill); font-size:11.5px; font-weight:800;
+  letter-spacing:.07em; text-transform:uppercase; color:#08080A;
+  background:linear-gradient(180deg,#FFFFFF 0%,#F0F0F2 42%,#D9D9DF 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9); }
+.chero__ages{ display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; }
+.chero__ages span{ padding:6px 12px; border-radius:var(--r-pill);
+  border:1px solid var(--line); background:rgba(255,255,255,.04);
+  font-size:12.4px; color:var(--ink-2); }
+
+/* Достижения — компактными плашками, а не строками текста: раньше они
+   съедали половину текстового блока и перетягивали внимание с фото. */
+.wins{ display:flex; flex-wrap:wrap; gap:6px; margin-top:clamp(12px,1.8vw,20px); }
+.wins li{ display:inline-flex; align-items:baseline; gap:7px;
+  padding:6px 11px; border-radius:var(--r-pill);
+  border:1px solid var(--line); background:rgba(255,255,255,.035);
+  font-size:12.2px; line-height:1.35; color:var(--ink-3); }
+.wins b{ color:var(--ink); font-weight:700; white-space:nowrap; }
+
+/* строка групп: день, время, зал, возраст и кнопка записи */
+.slot{ display:flex; flex-wrap:wrap; align-items:center; gap:14px 22px; padding:16px 18px;
+  background:linear-gradient(180deg,var(--surface-2),var(--surface));
+  border:1px solid var(--line); border-radius:var(--r-tile); }
+.slot__main{ flex:1 1 240px; min-width:0; }
+.slot h3{ margin:0 0 4px; font-size:15px; font-weight:700; }
+.slot p{ margin:0; font-size:13.4px; line-height:1.5; color:var(--ink-2); }
+/* дни недели полными словами, каждый — светлой капсулой */
+.days{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.day{ padding:4px 11px; border-radius:var(--r-pill); font-size:12.4px; font-weight:600; line-height:1.4;
+  color:var(--ink); background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); }
+.slot__time{ flex:0 0 auto; font-weight:900; font-style:italic; font-size:17px; white-space:nowrap; }
+
+/* ---------------- карточка тренера в общем списке ---------------- */
+.people{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.person{ display:flex; flex-direction:column; gap:0; padding:0; overflow:hidden;
+  text-decoration:none; color:var(--ink); }
+.person__ph{ position:relative; aspect-ratio:3/4; overflow:hidden; border-bottom:1px solid var(--line);
+  background:repeating-linear-gradient(135deg, rgba(255,255,255,.018) 0 12px, transparent 12px 24px), var(--surface-2); }
+.person__ph img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  object-position:50% 16%; transition:transform .7s var(--ease); }
+.person:hover .person__ph img{ transform:scale(1.05); }
+.person__ph span{ position:absolute; inset:0; display:grid; place-items:center; text-align:center;
+  padding:14px; font-size:12px; color:var(--ink-3); }
+.person__body{ padding:16px 18px 18px; display:flex; flex-direction:column; gap:6px; flex:1; }
+.person__dir{ font-size:11.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); }
+.person h3{ margin:0; font-size:15px; font-weight:700; line-height:1.25; }
+.person__reg{ margin:0; font-size:12.6px; line-height:1.5; color:var(--ink-2); }
+.person__go{ margin-top:auto; padding-top:12px; font-size:13px; font-weight:600; color:var(--ink-2);
+  transition:color .2s var(--ease); }
+.person:hover .person__go{ color:var(--ink); }
+
+/* ---------------- появление на странице тренера ----------------
+   Порядок: кадр приближается, следом имя собирается из символов,
+   затем плашки и регалии. Каждый шаг объясняет следующий. */
+.js-coach .an{ opacity:0; transform:translateY(16px); }
+.js-coach .an.in{ opacity:1; transform:none;
+  transition:opacity .65s var(--ease), transform .65s var(--ease); }
+/* кадр открывается отдалением: стартует приближённым и отъезжает
+   на место, пока рядом проявляется текст */
+.js-coach .chero__photo img{ opacity:0; transform:scale(1.26); }
+.js-coach .chero__photo.in img{ opacity:1; transform:scale(1);
+  transition:opacity 1s var(--ease), transform 1.7s var(--ease); }
+
+@media (min-width:901px){
+  /* десктоп: фото слева на всю высоту блока, справа имя и вся информация */
+  .chero__in{ grid-template-columns:minmax(0,43%) minmax(0,1fr);
+    /* пустые строки сверху и снизу центрируют правую колонку по фото;
+       без них свободная высота уходит в разрыв между именем и текстом */
+    grid-template-rows:1fr min-content min-content 1fr;
+    column-gap:clamp(28px,4vw,64px); row-gap:0; }
+  .chero__photo{ grid-column:1; grid-row:1 / -1; align-self:stretch;
+    height:clamp(460px,56vw,640px); }
+  .chero__name{ grid-column:2; grid-row:2; margin-bottom:clamp(16px,2.2vw,26px); }
+  .chero__info{ grid-column:2; grid-row:3; }
+  .chero__cta{ margin-top:clamp(20px,2.6vw,28px); justify-content:flex-start; }
+}
+@media (max-width:1000px){
+  .people{ grid-template-columns:repeat(3,1fr); }
+}
+@media (max-width:900px){
+  /* телефон: фото сверху во всю ширину, имя лежит на его нижней части,
+     ниже направление и всё остальное по центру */
+  /* minmax(0,…): иначе колонка растягивается под самое длинное слово
+     («Султанмагомедов»), страница едет вбок, а подгонка имени не видит
+     переполнения — ширина-то уже совпала */
+  .chero__in{ grid-template-columns:minmax(0,1fr); }
+  .chero__photo{ grid-area:1/1; height:min(52svh,460px); }
+  /* max-width: при justify-self:center заголовок по умолчанию шириной во
+     всё своё слово, и подгонке имени не с чем сравнивать — длинная
+     фамилия просто обрезалась краями экрана */
+  .chero__name{ grid-area:1/1; align-self:end; justify-self:center; max-width:100%;
+    text-align:center; padding:0 4px 6px; }
+  .chero__info{ grid-area:2/1; text-align:center; margin-top:clamp(10px,1.8vh,18px); }
+  .chero__ages{ justify-content:center; padding-left:26px; }   /* чуть правее центра */
+  .wins{ justify-content:center; }
+  /* кнопка должна попадать на первый экран целиком */
+  .chero__cta{ margin-top:16px; }
+  .slot{ justify-content:center; text-align:center; }
+  .days{ justify-content:center; }
+  .slot__main{ flex:1 1 100%; }
+}
+@media (max-width:680px){
+  /* Тренеры идут по одному: карточка во всю ширину, а высота — по
+     содержимому. В две колонки у соседа с длинными регалиями короткая
+     карточка вытягивалась и под текстом оставалась пустая полоса. */
+  .people{ grid-template-columns:1fr; }
+  .person__ph{ aspect-ratio:4/5; }
+  .person__ph img{ object-position:50% 20%; }
+  .person__body{ padding:16px 18px 18px; }
+  .person h3{ font-size:17px; }
+  .person__reg{ font-size:13.4px; }
+  .person__go{ padding-top:10px; }
+}
+
+/* =====================================================================
+   СТРАНИЦА РАСПИСАНИЯ
+   ===================================================================== */
+
+/* фильтр-чип: то же семейство, что .tag, но с состоянием «выбран» */
+.chips{ display:flex; flex-wrap:wrap; gap:8px; }
+.chip{ padding:9px 15px; border-radius:var(--r-pill); cursor:pointer;
+  font-size:13px; font-weight:600; color:var(--ink-2);
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+  border:1px solid var(--line); box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  transition:border-color .2s var(--ease), color .2s var(--ease), background .2s var(--ease); }
+.chip:hover{ border-color:var(--line-2); color:var(--ink); }
+.chip--on{ color:#08080A; border-color:transparent;
+  background:linear-gradient(180deg,#FFFFFF,#DCDCE2);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 6px 18px rgba(0,0,0,.45); }
+
+/* ============ ПОДБОР ГРУППЫ ============
+   Фильтры убраны под кнопку и обведены рамкой: развёрнутые они занимали
+   целый экран и отодвигали вниз само расписание, ради которого страницу
+   и открывают. Свёрнутая шапка при этом показывает, что уже выбрано. */
+.fbox{ border:1px solid var(--line); border-radius:var(--r-card); overflow:hidden;
+  background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+  transition:border-color .2s var(--ease); }
+.fbox:hover, .fbox--open{ border-color:var(--line-2); }
+.fbox__hd{ display:flex; align-items:center; gap:14px; width:100%; font:inherit;
+  padding:clamp(14px,2vw,18px) clamp(16px,2.2vw,22px);
+  background:none; border:0; color:inherit; text-align:left; cursor:pointer; }
+.fbox__txt{ display:block; min-width:0; margin-right:auto; }
+.fbox__txt b{ display:block; font-size:clamp(15px,1.4vw,17px);
+  font-weight:800; font-style:italic; letter-spacing:-.005em; }
+.fbox__txt i{ display:block; margin-top:3px; font-style:normal;
+  font-size:13px; line-height:1.45; color:var(--ink-3); }
+.fbox__txt i.on{ color:var(--ink-2); }   /* когда фильтры уже выбраны */
+/* плюс-минус тот же, что в вопросах и ответах: одно движение на весь сайт */
+.fbox__mark{ position:relative; flex:0 0 auto; width:15px; height:15px; }
+.fbox__mark::before, .fbox__mark::after{ content:''; position:absolute; inset:50% 0 auto 0;
+  height:1.5px; background:var(--ink-2); transition:transform .25s var(--ease); }
+.fbox__mark::after{ transform:rotate(90deg); }
+.fbox--open .fbox__mark::after{ transform:rotate(0deg); }
+.fbox__body{ border-top:1px solid var(--line);
+  padding:clamp(16px,2vw,20px) clamp(16px,2.2vw,22px) clamp(18px,2.4vw,24px); }
+
+.fgroup{ margin-top:clamp(18px,2.4vw,26px); }
+.fgroup__hd{ margin-bottom:9px; font-size:12.5px; font-weight:700;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); }
+
+/* ---- возраст ---- */
+.agebox{ padding:clamp(16px,2.2vw,22px); border-radius:var(--r-card);
+  border:1px solid var(--line); background:linear-gradient(180deg,var(--surface-2),var(--surface)); }
+.ageval{ font-weight:900; font-style:italic; font-size:clamp(20px,2.4vw,26px); }
+.agehint{ margin-top:3px; font-size:13px; color:var(--ink-2); }
+.agebox input[type=range]{ -webkit-appearance:none; appearance:none;
+  width:100%; height:3px; margin:20px 0 10px; border-radius:99px; background:rgba(255,255,255,.16); }
+.agebox input[type=range].off{ background:rgba(255,255,255,.10); }
+.agebox input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none;
+  width:20px; height:20px; border-radius:50%; cursor:pointer; border:0;
+  background:linear-gradient(180deg,#FFFFFF,#CFCFD6);
+  box-shadow:0 2px 10px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.9); }
+.agebox input[type=range]::-moz-range-thumb{ width:20px; height:20px; border:0; border-radius:50%;
+  cursor:pointer; background:#fff; box-shadow:0 2px 10px rgba(0,0,0,.6); }
+.agescale{ display:flex; gap:2px; }
+.agescale i{ font-style:normal; font-size:11.5px; color:var(--ink-3);
+  padding-top:7px; border-top:1px solid var(--line); }
+.agescale i.on{ color:var(--ink); border-top-color:rgba(255,255,255,.55); }
+.agescale i span{ opacity:.55; }
+.agerow{ display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; margin-top:16px;
+  font-size:13px; color:var(--ink-3); }
+.agerow input[type=number]{ width:82px; padding:9px 12px; border-radius:var(--r-tile);
+  border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--ink);
+  font:inherit; font-size:14px; text-align:center; }
+.agerow input[type=number]:focus{ outline:none; border-color:var(--line-2); }
+.agerow button{ background:none; border:0; padding:0; cursor:pointer;
+  font:inherit; font-size:13px; font-weight:600; color:var(--ink-2);
+  border-bottom:1px solid rgba(255,255,255,.22); }
+.agerow button:hover{ color:var(--ink); border-color:rgba(255,255,255,.55); }
+
+/* ---- строка результата ---- */
+.resbar{ display:flex; flex-wrap:wrap; gap:14px 20px; align-items:center;
+  justify-content:space-between; padding-bottom:16px; border-bottom:1px solid var(--line); }
+.resbar b{ font-size:15px; }
+.resbar span{ color:var(--ink-3); font-size:13.5px; }
+/* таблица только на десктопе — порог тот же, что в schedule.js */
+@media (max-width:1000px){ .resbar__view{ display:none; } }
+
+/* ---- список групп ---- */
+.sgroup{ margin-top:clamp(22px,3vw,32px); }
+/* название направления — главная опора взгляда в длинном списке:
+   крупно, чтобы своё направление находилось сразу */
+.sgroup__hd{ margin:0 0 6px; font-weight:900; font-style:italic; text-transform:uppercase;
+  font-size:clamp(26px,3.2vw,38px); line-height:1.05; }
+/* Имя тренера — вторая по важности строка в расписании после самой группы:
+   к конкретному наставнику идут не реже, чем на конкретное время. Поэтому
+   кегль поднят с 13.5 до 16 и имя сделано ссылкой на карточку. */
+.sgroup__coach{ margin:17px 0 9px; font-size:16px; font-weight:700; color:var(--ink); }
+.sgroup__lbl{ font-weight:600; color:var(--ink-3); }
+.scoach{ color:inherit; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.26);
+  transition:color .2s var(--ease), border-color .2s var(--ease); }
+.scoach:hover{ color:#FFF; border-bottom-color:rgba(255,255,255,.75); }
+.sgroup .slot + .slot{ margin-top:9px; }
+.sgroup__none{ font-size:14px; color:var(--ink-3); }
+
+.sempty{ padding:22px; }
+.sempty h3{ margin:0 0 8px; font-size:16px; }
+.sempty p{ margin:0 0 8px; font-size:13.8px; line-height:1.55; color:var(--ink-2); }
+.sempty__alt b{ color:var(--ink); }
+.sempty .btn{ margin-top:6px; }
+
+/* ---- таблица, повторяющая лист Excel клуба ---- */
+.tscroll{ overflow-x:auto; margin-top:20px;
+  border:1px solid var(--line); border-radius:var(--r-card); }
+.xls{ border-collapse:collapse; width:100%; min-width:860px;
+  font-size:12.4px; background:var(--surface); }
+.xls th, .xls td{ padding:8px 9px; text-align:left; vertical-align:middle;
+  border-bottom:1px solid var(--line); border-right:1px solid var(--line); white-space:nowrap; }
+/* длинные названия переносим — иначе таблица уезжает далеко вправо
+   и приходится скроллить ради двух последних колонок */
+.xdir, .xcoach{ white-space:normal; }
+.xdir{ min-width:104px; } .xcoach{ min-width:112px; }
+.xls th{ position:sticky; top:0; z-index:1; background:var(--surface-2);
+  font-size:11.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3); }
+.xls tr:last-child td{ border-bottom:0; }
+.xls th:last-child, .xls td:last-child{ border-right:0; }
+.xdir{ font-weight:700; color:var(--ink); background:rgba(255,255,255,.035); }
+/* в таблице кегль общий и мелкий, поэтому имя выделяем весом и цветом,
+   а не размером — иначе строка перестанет держать одну высоту */
+.xcoach{ color:var(--ink); font-weight:700; font-size:13px; }
+.xls td{ color:var(--ink-2); }
+.xls .col-on{ background:rgba(255,255,255,.045); }
+.xls .cell-on{ color:var(--ink); font-weight:700; }
+.xls .dim{ opacity:.32; }
+.xact{ text-align:right; }
+
+@media (max-width:680px){
+  /* «дошкольнику» на шкале достаётся ~19 px из 375 — верхняя граница
+     туда не влезает, оставляем только нижние: 3 · 7 · 14 · 18 */
+  .agescale i span{ display:none; }
+  .page + .sec .agebox{ margin-top:6px; }
+  .fgroup__hd{ margin-top:6px; }
+  .resbar{ justify-content:flex-start; }
+  .agerow{ justify-content:center; }
+  .sgroup__hd, .sgroup__coach{ text-align:center; }
+  .fgroup__hd{ text-align:center; }
+  .chips{ justify-content:center; }
+  .agehead{ text-align:center; }
+  .sempty{ text-align:center; }
+}
+
+/* ============ КАТАЛОГ НАПРАВЛЕНИЙ ============
+   Пять групп по 2–3 направления. В карточке только название и «с какого
+   возраста» — одинаковый набор полей снимает вопрос «почему это выше».
+   Количество групп сознательно не показано: у ММА их девять, у тайского
+   бокса одна, и цифра создала бы ложную иерархию. */
+
+.dirgroup{ margin-top:clamp(26px,3vw,38px); }
+.dirgroup__h{ display:flex; flex-wrap:wrap; align-items:baseline; gap:10px 14px;
+  margin:0 0 14px; font-size:clamp(17px,1.7vw,21px); font-weight:800; font-style:italic; }
+.dirgroup__h i{ font-style:normal; font-weight:600; font-size:13.5px; color:var(--ink-3); }
+
+.dircards{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.dircard{ display:flex; flex-direction:column; padding:0; overflow:hidden;
+  text-decoration:none; color:inherit; }
+.dircard__ph{ position:relative; display:grid; place-items:center; aspect-ratio:4/3;
+  border-bottom:1px solid var(--line); color:var(--ink-3); text-align:center;
+  font-size:12.5px; line-height:1.4; padding:14px;
+  background:repeating-linear-gradient(135deg, rgba(255,255,255,.02) 0 12px, transparent 12px 24px), var(--surface-2); }
+/* Иллюстрация секции ложится поверх штриховки-заглушки: если файла нет,
+   onerror убирает картинку и снова видна подпись «Фото направления». */
+.dircard__ph img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  transition:transform .6s var(--ease); }
+.dircard:hover .dircard__ph img{ transform:scale(1.05); }
+.dircard__body{ display:flex; flex-direction:column; gap:5px; padding:16px 18px 18px; }
+.dircard__body b{ font-size:16px; font-weight:700; line-height:1.25; }
+.dircard__body i{ font-style:normal; font-size:13px; color:var(--ink-2); }
+.dircard__go{ position:absolute; right:16px; bottom:16px; font-size:16px; color:var(--ink-3);
+  transition:transform .2s var(--ease), color .2s var(--ease); }
+.dircard{ position:relative; }
+.dircard:hover .dircard__go{ color:var(--ink); transform:translateX(3px); }
+/* направление, у которого страница ещё не свёрстана, ничем не выделяем:
+   иначе появится та самая иерархия, которой каталог избегает */
+.dircard--ready{ }
+/* гаснут, но остаются на месте — иначе человек решит, что клуб маленький */
+
+@media (max-width:900px){ .dircards{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:620px){
+  /* Компактные строки без фото: «Подробнее» съедало ~90 px, из-за чего
+     длинные названия переносились и карточки получались разной высоты —
+     ровно то визуальное неравенство, которого каталог избегает. */
+  .dircards{ grid-template-columns:1fr; gap:10px; }
+  .dircard{ flex-direction:row; align-items:center; }
+  .dircard__ph{ display:none; }
+  .dircard__body{ padding:14px 44px 14px 16px; gap:3px; }
+  .dircard__go{ right:14px; bottom:auto; top:50%; translate:0 -50%; }
+}
+
+/* ============ СТРАНИЦА НАПРАВЛЕНИЯ ============ */
+/* тренеров у направления обычно двое-трое — общая сетка в четыре колонки
+   оставляла бы полстроки пустой */
+.people--few{ grid-template-columns:repeat(auto-fit,minmax(230px,290px));
+  justify-content:center; }
+.dhero__in{ display:grid; grid-template-columns:1fr minmax(300px,44%);
+  gap:clamp(22px,3vw,40px); align-items:center; margin-top:18px; }
+.dhero__txt{ min-width:0; }
+.dhero__h{ text-align:left; margin-inline:0; max-width:none; }
+.dhero__addr{ margin:14px 0 0; font-size:13.5px; color:var(--ink-3); }
+.dhero__lead{ margin:14px 0 0; max-width:600px;
+  font-size:clamp(15px,1.4vw,17.5px); line-height:1.6; color:var(--ink-2); }
+.dhero__facts{ justify-content:flex-start; margin-top:20px; }
+.dhero__cta{ justify-content:flex-start; margin-top:22px; }
+.dhero__ph{ min-height:clamp(240px,26vw,340px); }
+/* Иллюстрация секции — без рамки и без подложки: фон у рисунка чёрный и
+   совпадает с фоном страницы, поэтому прямоугольника не видно, кадр
+   просто лежит на странице. Края растворяем маской: там, где рисунок
+   доходит до границы (пол ринга, ковёр), он уходит в фон, а не
+   обрывается по линейке. */
+.dhero__art{ display:block; width:100%; height:auto;
+  -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%),
+                     linear-gradient(180deg, transparent 0, #000 8%, #000 89%, transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%),
+             linear-gradient(180deg, transparent 0, #000 8%, #000 89%, transparent 100%);
+  mask-composite:intersect; }
+
+/* карточки «кому подходит» */
+.who__age{ display:inline-flex; align-items:center; padding:7px 14px; margin-bottom:12px;
+  border-radius:var(--r-pill); border:1px solid var(--line-2);
+  background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.03));
+  font-size:13px; font-weight:700; }
+.card.who p, .card.path p{ margin:0; font-size:14.5px; line-height:1.6; color:var(--ink-2); }
+.card.path h3{ margin:0 0 10px; font-size:clamp(16px,1.5vw,19px);
+  font-weight:800; font-style:italic; }
+
+/* нумерованные шаги тренировки */
+.steps--num .step{ align-items:center; }
+.step__n{ flex:0 0 auto; width:38px; height:38px; border-radius:50%; display:grid; place-items:center;
+  border:1px solid var(--line-2); background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.02));
+  font-size:14px; font-weight:900; font-style:italic; }
+
+/* карточки безопасности: текст своей типографики, без фотографии */
+.safe--txt{ grid-template-columns:1fr; }
+.safe--txt h3{ margin:0 0 6px; font-size:15.5px; font-weight:700; }
+.safe--txt p{ margin:0; font-size:14px; line-height:1.55; color:var(--ink-2); }
+
+/* ============ КОНТУРНЫЕ ЗНАЧКИ В КАРТОЧКАХ ============
+   Значки из набора Lucide (лицензия ISC, коммерческое использование
+   разрешено) вклеены в разметку как SVG: внешних запросов нет, цвет
+   наследуется от текста, на любом экране остаются резкими.
+   Оформление повторяет кружок у персональных тренировок — чтобы на
+   сайте не завелось двух разных языков иконок. */
+.cico{ flex:0 0 auto; display:grid; place-items:center;
+  width:46px; height:46px; border-radius:50%; color:var(--ink);
+  border:1px solid var(--line-2);
+  background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.02));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10); }
+.cico svg{ width:23px; height:23px; fill:none; stroke:currentColor;
+  stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+/* .safe--txt схлопывает сетку в одну колонку — со значком возвращаем две.
+   Правило обязано идти ПОСЛЕ .safe--txt, вес у селекторов одинаковый. */
+.safe--ico{ grid-template-columns:auto minmax(0,1fr); }
+/* Крестик у карточек с проблемами: тот же кружок, но приглушённый и
+   мельче. Блок перечисляет то, что человек теряет, — знак не должен
+   выглядеть так же весомо, как значки у выгод рядом. */
+.cico--no{ width:38px; height:38px; color:var(--ink-3);
+  border-color:var(--line); background:rgba(255,255,255,.03); box-shadow:none; }
+.cico--no svg{ width:19px; height:19px; stroke-width:2; }
+.loss .cico, .svc .cico{ margin-bottom:14px; }
+
+/* В «вашем пути» значок стоит НАД заголовком, а не слева: там длинные
+   заголовки и абзац на три строки — в строку карточка ломалась бы. */
+.card.path .cico{ width:52px; height:52px; margin-bottom:14px; }
+.card.path .cico svg{ width:26px; height:26px; }
+@media (max-width:520px){
+  .cico{ width:42px; height:42px; }
+  .cico svg{ width:21px; height:21px; }
+  .card.path .cico{ width:46px; height:46px; margin-bottom:12px; }
+}
+
+.zone{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); gap:14px; align-items:stretch; }
+.zone__txt h3{ margin:0 0 12px; font-size:clamp(16px,1.5vw,19px); font-weight:800; font-style:italic; }
+.zone__txt .link{ margin-top:16px; }
+.zone__ph{ min-height:260px; }
+
+.bring__cap{ display:block; margin-bottom:12px; font-size:12.5px; font-weight:700;
+  letter-spacing:.05em; text-transform:uppercase; color:var(--ink-3); }
+
+/* вопросы и ответы */
+.faq{ display:grid; gap:10px; max-width:860px; margin-inline:auto; }
+.faq__item{ border:1px solid var(--line); border-radius:var(--r-tile);
+  background:linear-gradient(180deg,var(--surface-2),var(--surface));
+  transition:border-color .25s var(--ease); }
+.faq__item[open], .faq__item:hover{ border-color:var(--line-2); }
+.faq__item summary{ position:relative; display:block; cursor:pointer; list-style:none;
+  padding:17px 54px 17px 20px; font-size:15.5px; font-weight:700; line-height:1.4; }
+.faq__item summary::-webkit-details-marker{ display:none; }
+.faq__mark{ position:absolute; right:20px; top:50%; translate:0 -50%;
+  width:14px; height:14px; }
+.faq__mark::before, .faq__mark::after{ content:''; position:absolute; inset:50% 0 auto 0;
+  height:1.5px; background:var(--ink-2); transition:transform .25s var(--ease); }
+.faq__mark::after{ transform:rotate(90deg); }
+.faq__item[open] .faq__mark::after{ transform:rotate(0deg); }
+.faq__item > p{ margin:0; padding:0 20px 18px; font-size:14.5px; line-height:1.6; color:var(--ink-2); }
+
+@media (max-width:900px){
+  .dhero__in{ grid-template-columns:1fr; }
+  .dhero__ph{ order:-1; min-height:220px; }
+  .dhero__art{ order:-1; }
+  .zone{ grid-template-columns:1fr; }
+}
+@media (max-width:680px){
+  .dhero__h{ text-align:center; }
+  .dhero__addr, .dhero__lead{ text-align:center; margin-inline:auto; }
+  .dhero__facts, .dhero__cta{ justify-content:center; }
+  /* Хлебных крошек над первым экраном больше нет, поэтому страница
+     начинается сразу с рисунка — верхний отступ сокращаем, иначе под
+     шапкой остаётся пустая полоса от снятой строки. */
+  .dhero.page{ padding-top:clamp(12px,1.8vh,20px); }
+  .dhero__in{ margin-top:10px; }
+  /* Освободившееся место отдаём фигуре: рисунок выпускаем за поля .wrap,
+     на всю ширину экрана. Рамки у него нет, края растворены маской —
+     в край он уходит естественно, а не обрезается по линейке.
+     max-width:none обязателен: общее правило img{max-width:100%} иначе
+     упирает ширину в поля, и за них рисунок не выходит. */
+  .dhero__art{ width:calc(100% + 2 * clamp(20px,4vw,48px)); max-width:none;
+    margin-inline:calc(clamp(20px,4vw,48px) * -1); }
+}
+
+/* ============ ДОСТИЖЕНИЯ ============ */
+.nums{ margin-top:0; }
+.num{ text-align:center; padding:24px 18px; }
+.num b{ display:block; font-weight:900; font-style:italic; line-height:1;
+  font-size:clamp(34px,3.6vw,50px);
+  background:linear-gradient(160deg,#FFFFFF 10%,#EDEDEF 45%,#A9A9B0 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent; }
+.num span{ display:block; margin-top:9px; font-size:13.2px; line-height:1.45; color:var(--ink-2); }
+
+.athletes{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; align-items:start; }
+.athlete{ display:flex; flex-direction:column; padding:0; overflow:hidden;
+  text-decoration:none; color:inherit; }
+.athlete__ph{ position:relative; display:grid; place-items:center; aspect-ratio:4/5; overflow:hidden;
+  border-bottom:1px solid var(--line); color:var(--ink-3);
+  text-align:center; font-size:12.5px; line-height:1.45; padding:14px;
+  background:repeating-linear-gradient(135deg, rgba(255,255,255,.02) 0 12px, transparent 12px 24px), var(--surface-2); }
+.athlete__ph img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  transition:transform .5s var(--ease); }
+.athlete:hover .athlete__ph img{ transform:scale(1.05); }
+.athlete__body{ padding:18px 20px 20px; }
+.athlete__body h4{ margin:0; font-size:16px; font-weight:700; line-height:1.25; }
+.athlete__title{ margin:6px 0 0; font-size:12.6px; line-height:1.45; color:var(--ink-3); }
+.athlete__body .list{ margin-top:14px; gap:7px; }
+.athlete__body .list li{ font-size:13.2px; line-height:1.5; }
+.athlete__go{ display:inline-block; margin-top:14px; font-size:13px; font-weight:600; color:var(--ink-2);
+  transition:color .2s var(--ease); }
+.athlete:hover .athlete__go{ color:var(--ink); }
+
+@media (max-width:1000px){ .athletes{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:620px){
+  .athletes{ grid-template-columns:1fr; }
+  /* фото сверху во всю ширину, имя и регалии под ним — узкая полоска
+     фото слева на телефоне не читалась */
+  .athlete__body{ padding:16px 18px 18px; }
+}
+
+/* ============ ДОП. УСЛУГИ ============ */
+.svc{ display:flex; flex-direction:column; padding:clamp(22px,2.2vw,28px); }
+.svc h3{ margin:0; font-size:clamp(16px,1.5vw,19px); font-weight:800; font-style:italic; }
+.svc__lead{ margin:8px 0 0; font-size:14px; color:var(--ink-2); }
+.svc .list{ margin-top:16px; }
+.svc .list li{ font-size:14px; line-height:1.5; }
+/* приписка про стоимость прижата к низу, чтобы в паре карточек она стояла в строку */
+.svc__note{ margin:auto 0 0; padding-top:16px; font-size:12.8px; line-height:1.5; color:var(--ink-3); }
+.svc .list + .svc__note{ margin-top:16px; }
+
+/* форма заявки */
+.frm{ padding:clamp(22px,2.6vw,32px); }
+.frm__grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+.field{ display:block; min-width:0; }
+.field > span{ display:block; margin-bottom:7px; font-size:12.5px; font-weight:700;
+  letter-spacing:.04em; text-transform:uppercase; color:var(--ink-3); }
+.field input{ width:100%; padding:13px 15px; border-radius:var(--r-tile);
+  border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--ink);
+  font:inherit; font-size:14.5px;
+  transition:border-color .2s var(--ease), background .2s var(--ease); }
+.field input::placeholder{ color:var(--ink-3); }
+.field input:hover{ border-color:var(--line-2); }
+.field input:focus{ outline:none; border-color:rgba(255,255,255,.45); background:rgba(255,255,255,.07); }
+.frm__foot{ display:flex; flex-wrap:wrap; align-items:center; gap:14px 22px; margin-top:22px; }
+.frm__note{ flex:1 1 260px; margin:0; font-size:12.4px; line-height:1.5; color:var(--ink-3); }
+
+@media (max-width:680px){
+  .frm__grid{ grid-template-columns:1fr; }
+  .frm__foot{ flex-direction:column; align-items:stretch; }
+  .frm__note{ text-align:center; }
+}
+
+/* ============ ФОРМА ЗАПИСИ (модальное окно) ============ */
+/* Одна форма на весь сайт: разметку создаёт site.js, кнопки только
+   передают контекст через data-атрибуты. Состав полей и «что уходит
+   менеджеру» — из согласованного прототипа. */
+.bk{ position:fixed; inset:0; z-index:80; display:none;
+  padding:clamp(14px,4vh,48px) 16px; overflow-y:auto; overscroll-behavior:contain; }
+.bk.is-open{ display:flex; align-items:flex-start; justify-content:center; }
+.bk__veil{ position:fixed; inset:0; background:rgba(3,3,4,.76); }
+.bk__win{ position:relative; width:100%; max-width:520px; margin:auto;
+  padding:clamp(24px,3vw,34px);
+  border:1px solid var(--line-2); border-radius:var(--r-card); background:var(--surface);
+  box-shadow:0 40px 100px rgba(0,0,0,.72); }
+.bk__x{ position:absolute; right:12px; top:12px; width:40px; height:40px; padding:0;
+  display:grid; place-items:center; border:0; border-radius:50%;
+  background:rgba(255,255,255,.06); color:var(--ink-2); font-size:19px; line-height:1;
+  transition:background .2s var(--ease), color .2s var(--ease); }
+.bk__x:hover{ background:rgba(255,255,255,.13); color:var(--ink); }
+.bk__k{ margin:0 0 7px; font-size:11.5px; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--ink-3); }
+.bk__h{ margin:0 0 8px; font-size:clamp(20px,2.2vw,25px); font-weight:700; line-height:1.2;
+  padding-right:34px; }
+.bk__sub{ margin:0 0 18px; font-size:14px; line-height:1.55; color:var(--ink-2); }
+/* сводка «проверьте, всё ли верно» — то, что человек уже выбрал на сайте */
+.bk__recap{ margin:0 0 18px; padding:14px 16px;
+  border:1px solid var(--line); border-radius:var(--r-tile); background:var(--surface-2); }
+.bk__recap dl{ display:grid; grid-template-columns:auto minmax(0,1fr); gap:7px 16px; margin:0; }
+.bk__recap dt{ font-size:12.5px; color:var(--ink-3); }
+.bk__recap dd{ margin:0; font-size:13.6px; font-weight:600; line-height:1.4; }
+.bk__fields{ display:grid; gap:13px; }
+/* «нужна помощь с выбором» — две кнопки-переключателя */
+.bk__opts{ display:flex; gap:9px; flex-wrap:wrap; }
+.bk__opt{ padding:11px 17px; border-radius:var(--r-pill); font-size:13.5px; font-weight:600;
+  border:1px solid var(--line-2); background:transparent; color:var(--ink-2);
+  transition:border-color .2s var(--ease), color .2s var(--ease), background .2s var(--ease); }
+.bk__opt:hover{ border-color:rgba(255,255,255,.4); color:var(--ink); }
+.bk__opt.is-on{ background:var(--ink); border-color:var(--ink); color:#08080A; }
+.bk__consent{ margin:16px 0 0; font-size:12.4px; line-height:1.5; color:var(--ink-3); }
+.bk__submit{ width:100%; margin-top:14px; }
+.bk__err{ margin:12px 0 0; font-size:13px; color:#F2A0A0; }
+.bk__phone{ margin:16px 0 0; padding-top:14px; border-top:1px solid var(--line);
+  font-size:12.6px; line-height:1.55; color:var(--ink-3); }
+.bk__phone a{ color:var(--ink-2); }
+/* экран «заявка отправлена» */
+.bk__ok{ text-align:center; }
+.bk__tick{ width:58px; height:58px; margin:0 auto 16px; border-radius:50%;
+  display:grid; place-items:center;
+  background:rgba(255,255,255,.08); border:1px solid var(--line-2); }
+.bk__tick svg{ width:26px; height:26px; fill:none; stroke:var(--ink); stroke-width:2.2;
+  stroke-linecap:round; stroke-linejoin:round; }
+@media (max-width:520px){
+  .bk__win{ padding:22px 18px 24px; }
+  .bk__recap dl{ grid-template-columns:1fr; gap:3px; }
+  .bk__recap dt{ margin-top:7px; }
+  .bk__recap div:first-child dt{ margin-top:0; }
+}
+
+/* ============ ДЕЙСТВУЮЩИМ СПОРТСМЕНАМ ============ */
+/* что ломает переезд — короткие карточки-констатации */
+/* Снимок зала в общей сетке. Кадры квадратные 1080×1080, но полоса под
+   них шире, чем выше, — поэтому обрезаем по центру заданной высотой. */
+.shot{ margin:0; overflow:hidden; border-radius:var(--r-card); border:1px solid var(--line);
+  background:var(--surface-2); }
+.shot img{ display:block; width:100%; height:clamp(200px,24vw,280px); object-fit:cover; }
+
+.loss{ padding:20px; }
+.loss h3{ margin:0 0 8px; font-size:15px; font-weight:700; line-height:1.3; }
+.loss p{ margin:0; font-size:13.4px; line-height:1.5; color:var(--ink-2); }
+
+/* снятие возражения — список с галочками, а не с тире:
+   здесь каждый пункт это «да, так и есть», а не перечисление */
+.checks{ display:grid; gap:12px; max-width:820px; margin-inline:auto; list-style:none; }
+.checks li{ position:relative; padding:16px 20px 16px 56px;
+  border:1px solid var(--line); border-radius:var(--r-tile);
+  background:linear-gradient(180deg,var(--surface-2),var(--surface));
+  font-size:14.6px; line-height:1.55; color:var(--ink-2); }
+.checks li::before{ content:''; position:absolute; left:20px; top:19px;
+  width:16px; height:9px; border-left:2px solid var(--ink); border-bottom:2px solid var(--ink);
+  transform:rotate(-45deg); }
+
+/* цитаты из отзывов */
+.quote{ display:flex; flex-direction:column; justify-content:center; gap:14px;
+  padding:clamp(24px,2.6vw,34px); margin:0; }
+.quote p{ margin:0; font-size:clamp(17px,1.8vw,22px); line-height:1.4;
+  font-weight:800; font-style:italic; color:var(--ink); }
+.quote p::before{ content:'«'; }
+.quote p::after{ content:'»'; }
+.quote footer{ font-size:12.8px; color:var(--ink-3); }
+
+@media (max-width:900px){ .grid.g4{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:560px){
+  .grid.g4{ grid-template-columns:1fr; }
+  .checks li{ padding:15px 18px 15px 50px; }
+  .checks li::before{ left:17px; }
+}
+
+/* Семь пунктов меню в узком десктопе перестают помещаться рядом с телефоном:
+   сначала поджимаем шаг и кегль, потом убираем телефон — он есть в подвале
+   и в мобильном меню. */
+@media (max-width:1160px){
+  .nav__links{ gap:15px; }
+  .nav__links a{ font-size:13.2px; }
+  .nav__in{ gap:20px; }
+}
+@media (max-width:1010px){
+  .nav__phone{ display:none; }
+}

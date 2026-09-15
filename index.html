@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<!--
+  DATSIEV CLUB — дизайн главной страницы.
+  Структура — из утверждённого каркаса (datsiev-club-prototype).
+  Места под фотографии оставлены пустыми с подписью, что именно туда нужно.
+-->
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Datsiev Club — клуб единоборств в Саратове</title>
+
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,900;1,900&display=swap" rel="stylesheet">
+<!-- заставка первого экрана: на телефоне своя, под вертикальный ролик,
+     иначе при появлении видео кадр дёрнется -->
+<link rel="preload" as="image" href="media/hero-poster.jpg" media="(min-width: 600px)">
+<link rel="preload" as="image" href="media/hero-poster-vert.jpg" media="(max-width: 599px)">
+
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- ======================= 1. ПЕРВЫЙ ЭКРАН ======================= -->
+<section class="hero">
+  <!-- Кадр-заставка лежит отдельным слоем и рисуется сразу, видео
+       проявляется поверх него, когда действительно начало играть.
+       Так первый экран виден мгновенно, а подмены картинки не заметно. -->
+  <!-- Два ролика: на телефоне — вертикальный, на планшете и компьютере —
+       горизонтальный 1080p. Оба стоят без пережатия. Граница 600 px:
+       уже её в портрете только телефоны, с 600 начинаются планшеты.
+       Порядок источников важен: горизонтальный первым и с условием, а
+       вертикальный вторым без условия. Браузер, не понимающий media у
+       <source>, возьмёт первый — то есть просто получит полный ролик. -->
+  <div class="hero__media">
+    <picture>
+      <source media="(max-width: 599px)" srcset="media/hero-poster-vert.jpg">
+      <img src="media/hero-poster.jpg" alt="" fetchpriority="high" decoding="async">
+    </picture>
+    <video autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="media/hero.mp4" type="video/mp4" media="(min-width: 600px)">
+      <source src="media/hero-vert.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero__scrim"></div>
+  <div class="hero__grain"></div>
+  <div class="hero__fade"></div>
+
+  <header class="nav">
+    <div class="wrap nav__in">
+      <button class="logo" aria-label="Datsiev Club — на главную"><img src="media/logo.png" alt="Datsiev Club"></button>
+      <nav class="nav__links">
+        <a href="#club">О&nbsp;клубе</a><a href="napravleniya.html">Секции</a><a href="raspisanie.html">Расписание</a>
+        <a href="treneri.html">Тренеры</a><a href="#tseny">Цены</a><a href="sportsmenam.html">Спортсменам</a><a href="dostizheniya.html">Достижения</a><a href="uslugi.html">Доп. услуги</a>
+      </nav>
+      <a class="nav__phone" href="tel:+79271000033">+7&nbsp;927&nbsp;100-00-33</a>
+      <button class="burger" aria-label="Меню"><i></i><i></i><i></i></button>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="hero__content">
+      <!-- Метка города над заголовком: одним взглядом понятно, что это Саратов.
+           Нарочно не похожа на плитки направлений ниже — капсула без рамки. -->
+      <p class="hero__loc">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>
+        Саратов, Астраханская, 103
+      </p>
+      <h1>Путь чемпиона<br>начинается здесь!</h1>
+      <p class="hero__lead"><span>15&nbsp;спортивных направлений <br class="br-mob">для&nbsp;детей и&nbsp;взрослых.</span>
+        <span>Начинайте с&nbsp;нуля, занимайтесь для&nbsp;себя или&nbsp;развивайтесь до&nbsp;соревнований</span></p>
+      <div class="tags tags--center" style="margin-top:clamp(22px,3vw,32px)">
+        <span class="tag tag--lead">8&nbsp;секций единоборств</span>
+        <span class="tag">Кроссфит</span><span class="tag">Воркаут</span>
+        <span class="tag">Акробатика</span><span class="tag">Гимнастика</span>
+      </div>
+      <div class="cta">
+        <button class="btn btn--primary" data-book="первый экран" data-kind="Бесплатная первая тренировка">Записаться на&nbsp;бесплатную тренировку</button>
+        <a class="btn btn--ghost" href="raspisanie.html">Смотреть расписание</a>
+      </div>
+      <a class="link hero__hint" href="#" data-book="подбор секции" data-age="no" data-title="Подберём&nbsp;секцию&nbsp;за&nbsp;2&nbsp;минуты" data-sub="Оставьте контакты&nbsp;— менеджер задаст пару вопросов о&nbsp;возрасте, опыте и&nbsp;целях и&nbsp;предложит подходящие группы." data-cta="Помогите выбрать">Не&nbsp;знаете, что&nbsp;выбрать? Подберём&nbsp;за&nbsp;2&nbsp;минуты&nbsp;→</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 2. ПРОГРАММЫ ======================= -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Тренировки расписаны<br>для&nbsp;всех возрастов и&nbsp;уровней подготовки</h2>
+    <div class="segline">
+      <span>Для&nbsp;мальчиков и&nbsp;девочек от&nbsp;3-х лет</span>
+      <span>Для&nbsp;школьников и&nbsp;студентов: действующих и&nbsp;начинающих спортсменов</span>
+      <span>Для&nbsp;мужчин и&nbsp;женщин любого возраста</span>
+    </div>
+  </div>
+  <!-- Пять вертикальных карточек в один ряд. Фото по умолчанию ч/б,
+       на наведении — цвет и приближение. Без мыши то же самое включается,
+       когда карточка доходит до середины экрана при прокрутке. -->
+  <div class="dirs rv" style="margin-top:18px">
+    <a class="dir" href="napravleniya.html">
+      <img src="media/dirs/dir-strike.jpg" width="1080" height="1350" alt="Юный боксёр в стойке на тренировке" loading="lazy" decoding="async">
+      <span class="dir__txt"><b>Ударные</b><i>Бокс · Кикбоксинг · Тайский бокс</i></span>
+    </a>
+    <a class="dir" href="napravleniya.html">
+      <img src="media/dirs/dir-grappling.jpg" width="1080" height="1350" alt="Борцовский захват в стойке" loading="lazy" decoding="async">
+      <span class="dir__txt"><b>Борцовские</b><i>Вольная борьба · Грэпплинг и&nbsp;БЖЖ · Дзюдо</i></span>
+    </a>
+    <a class="dir" href="napravleniya.html">
+      <img src="media/dirs/dir-mixed.jpg" width="1080" height="1350" alt="Спарринг в шлемах, удар ногой" loading="lazy" decoding="async">
+      <span class="dir__txt"><b>Смешанные</b><i>ММА · Рукопашный бой</i></span>
+    </a>
+    <a class="dir" href="napravleniya.html">
+      <img src="media/dirs/dir-fitness.jpg" width="1080" height="1350" alt="Жим штанги лёжа в зале кроссфита" loading="lazy" decoding="async">
+      <span class="dir__txt"><b>Физподготовка</b><i>Кроссфит · ОФП и&nbsp;воркаут · Функциональная подготовка</i></span>
+    </a>
+    <a class="dir dir--wide" href="napravleniya.html">
+      <img src="media/dirs/dir-other.jpg" width="1080" height="1350" alt="Растяжка на занятии в танцевальной студии клуба" loading="lazy" decoding="async">
+      <span class="dir__txt"><b>Другие направления клуба</b><i>Акробатика · Художественная гимнастика · Танцы · Лезгинка</i></span>
+    </a>
+  </div>
+  <p class="rv" style="margin-top:22px;display:flex;gap:24px;flex-wrap:wrap;justify-content:center">
+    <a class="link" href="napravleniya.html">Все направления подробно&nbsp;→</a>
+    <a class="link" href="raspisanie.html">Смотреть расписание&nbsp;→</a>
+  </p>
+</div></section>
+
+<!-- ======================= 3. ЦЕЛЬ ======================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="rv">
+      <h2 class="h2">У&nbsp;вас есть цель&nbsp;— мы&nbsp;проложим путь к&nbsp;результату</h2>
+    </div>
+  </div>
+  <!-- Сетка блока шире общей: композиция референса (текст слева, фигура
+       справа во всю высоту) собирается только на почти квадратной
+       карточке, а в общих 1240 px колонка выходит вертикальной. -->
+  <div class="wrap wrap--wide">
+  <div class="goals rv" style="margin-top:26px">
+
+    <div class="card goal goal--trophy">
+      <!-- фигура — отдельный ребёнок карточки, а не часть блока текста:
+           z-index на тексте создаёт контекст наложения, и mix-blend-mode
+           у кадра перестаёт видеть фон карточки -->
+      <div class="goal__bottom">
+        <img class="goal__art" src="media/goal-1.jpg" width="430" height="900" alt="" loading="lazy" decoding="async">
+      </div>
+      <div class="goal__body">
+        <h3>Стремитесь к&nbsp;победам в&nbsp;спорте?</h3>
+        <p class="goal__lead">У&nbsp;нас есть команда, которая имеет результаты</p>
+        <ul class="list">
+          <li>Первые и&nbsp;призовые места в&nbsp;региональных турнирах</li>
+          <li>Регулярные призовые места на&nbsp;Всероссийских соревнованиях, победа на&nbsp;международном уровне</li>
+          <li>Регулярные победы в&nbsp;профессиональных боях</li>
+        </ul>
+      </div>
+      <div class="goal__foot goal__foot--cta">
+        <a class="btn btn--gold" href="dostizheniya.html">Подробнее о&nbsp;достижениях<span class="btn__arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <div class="card goal goal--deal">
+      <div class="goal__bottom">
+        <img class="goal__art" src="media/goal-2.jpg" width="654" height="760" alt="" loading="lazy" decoding="async">
+      </div>
+      <div class="goal__body">
+        <h3>Хотите успеха по&nbsp;жизни?</h3>
+        <p class="goal__lead">Техника единоборств, контактная работа и&nbsp;дисциплина дают три навыка:</p>
+        <ul class="list">
+          <li>Спокойствие под&nbsp;давлением</li>
+          <li>Уверенно защищать свои границы</li>
+          <li>Быстрее принимать решения</li>
+        </ul>
+      </div>
+      <p class="goal__foot"><span>Эти качества прокачивают вас вне зала: в&nbsp;учёбе, работе и&nbsp;бизнесе</span></p>
+    </div>
+
+    <div class="card goal goal--grip">
+      <div class="goal__bottom">
+        <img class="goal__art" src="media/goal-3.jpg" width="752" height="620" alt="" loading="lazy" decoding="async">
+      </div>
+      <div class="goal__body">
+        <h3>Вам нужно «умное» развитие тела?</h3>
+        <p class="goal__lead">Единоборства развивают вас через постоянно меняющиеся задачи</p>
+        <ul class="list">
+          <li>Двигаться и&nbsp;сохранять баланс</li>
+          <li>Контролировать дистанцию</li>
+          <li>Реагировать на&nbsp;действия партнёра</li>
+        </ul>
+      </div>
+      <p class="goal__foot"><span>Вы&nbsp;не&nbsp;просто повторяете упражнения ради нагрузки, а&nbsp;осваиваете интересные навыки</span></p>
+    </div>
+
+  </div>
+  </div>
+</section>
+
+<!-- ======================= 4. БЕЗОПАСНОСТЬ ======================= -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Мы&nbsp;за&nbsp;безопасность и&nbsp;комфорт на&nbsp;тренировках</h2>
+  </div>
+  <div class="grid g2 rv" style="margin-top:26px">
+    <div class="card safe"><img class="safe__ic" src="media/icons/safe-sparring.jpg" width="420" height="280" alt="Боксёр в стойке перед мешком" loading="lazy" decoding="async"><div><h3>Новичка не&nbsp;ставят в&nbsp;спарринг, пока он не&nbsp;готов</h3><p>Контакт вводится постепенно, пары подбираются по&nbsp;уровню, весу и&nbsp;возрасту.</p></div></div>
+    <div class="card safe"><img class="safe__ic" src="media/icons/safe-levels.jpg" width="420" height="280" alt="Три пары в стойке друг напротив друга" loading="lazy" decoding="async"><div><h3>Внутри группы делим по&nbsp;уровню</h3><p>Новичок работает с&nbsp;новичком, опытный с&nbsp;опытным. К&nbsp;каждому персональный подход.</p></div></div>
+    <div class="card safe"><img class="safe__ic" src="media/icons/safe-ages.jpg" width="420" height="280" alt="Ребёнок, подросток и взрослый рядом" loading="lazy" decoding="async"><div><h3>Начать можно в&nbsp;любом возрасте</h3><p>Взрослые новички 30+ приходят регулярно. Есть персональные занятия, чтобы поставить базу.</p></div></div>
+    <div class="card safe"><img class="safe__ic" src="media/icons/safe-gear.jpg" width="420" height="280" alt="Боксёрская перчатка и шлем" loading="lazy" decoding="async"><div><h3>Экипировка не&nbsp;нужна на&nbsp;старте</h3><p>На&nbsp;первую тренировку&nbsp;— только форма для&nbsp;спорта. Всё остальное потом и&nbsp;по&nbsp;мере необходимости.</p></div></div>
+  </div>
+</div></section>
+
+<!-- ======================= 5. АДАПТАЦИЯ ======================= -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <!-- max-width снят: вторая строка длиннее обычного и в 960px не влезала -->
+    <h2 class="h2" style="max-width:none">Ребёнок боится идти в&nbsp;группу?<br>Вы&nbsp;не&nbsp;платите, пока он не&nbsp;привыкнет</h2>
+    <p class="sub">Слёзы и&nbsp;«не&nbsp;пойду» на&nbsp;первых занятиях&nbsp;— обычное начало для&nbsp;трёх-пятилетнего, а&nbsp;не&nbsp;сигнал, что&nbsp;спорт не&nbsp;подошёл.</p>
+  </div>
+  <div class="kid rv" style="margin-top:26px">
+    <!-- Источник подставляется скриптом, когда блок подходит к экрану:
+         видео не тянется одновременно с первым экраном и не тормозит его. -->
+    <div class="kid__vid">
+      <video data-src="media/kid-adapt.mp4" poster="media/kid-adapt-poster.jpg"
+             muted loop playsinline preload="none" aria-label="Занятие младшей группы"></video>
+    </div>
+    <div class="steps kid__steps">
+      <div class="step"><span class="step__n">1</span><div><h3>Приходите вдвоём</h3>
+        <p>Ребёнок сидит рядом с&nbsp;вами и&nbsp;просто смотрит, как&nbsp;занимаются другие. Никто не&nbsp;тянет его в&nbsp;круг.</p></div></div>
+      <div class="step"><span class="step__n">2</span><div><h3>Тренер знакомится</h3>
+        <p>Втягивает в&nbsp;разминку и&nbsp;игры по&nbsp;чуть-чуть&nbsp;— ровно настолько, насколько ребёнок готов сегодня.</p></div></div>
+      <div class="step"><span class="step__n">3</span><div><h3>Ребёнок остаётся сам</h3>
+        <p>Когда ему станет интересно и&nbsp;он спокойно останется в&nbsp;группе&nbsp;— вот тогда вы&nbsp;покупаете абонемент.</p></div></div>
+    </div>
+  </div>
+  <div class="strip strip--center rv" style="margin-top:14px">
+    <div><h3>Всё, что&nbsp;было до&nbsp;этого&nbsp;— бесплатно</h3>
+      <p>Не&nbsp;привык? Вы&nbsp;ничего не&nbsp;потеряли.<br>Наши тренеры умеют расположить к&nbsp;себе ребёнка, который боится нового</p></div>
+    <button class="btn btn--primary btn--sm" data-book="блок адаптации" data-kind="Первое занятие вместе с ребёнком">Прийти вместе с&nbsp;ребёнком</button>
+  </div>
+</div></section>
+
+<!-- ======================= 6. ПУТЬ ЧЕМПИОНА ======================= -->
+<section class="sec sec--photo">
+  <div class="sec__bg" aria-hidden="true">
+    <img src="media/club-bg.jpg" width="1673" height="940" alt="" loading="lazy" decoding="async">
+  </div>
+  <div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Путь чемпиона заключается<br>не&nbsp;только в&nbsp;медалях и&nbsp;званиях</h2>
+  </div>
+  <!-- Ритм манифеста: две мысли-посылки рядом, тихо, и под ними вывод
+       крупно. Что это блок о философии, считывается из самой раскладки,
+       подписывать это словом не нужно. -->
+  <div class="creed rv">
+    <div class="creed__row">
+      <p>Спорт учит <b>ставить цели</b>, <b>соблюдать дисциплину</b> и&nbsp;продолжать работать, даже когда не&nbsp;всё получается с&nbsp;первого раза</p>
+      <p>Эти качества остаются с&nbsp;вами <b>за&nbsp;пределами зала</b> и&nbsp;помогают увереннее чувствовать себя в&nbsp;учёбе, работе, бизнесе</p>
+    </div>
+    <p class="creed__final">Поэтому мы&nbsp;готовим не&nbsp;только чемпионов в&nbsp;спорте
+      <b>Мы&nbsp;помогаем каждому стать чемпионом по&nbsp;жизни</b></p>
+  </div>
+</div></section>
+
+<!-- ======================= 7. ЗАЛ ======================= -->
+<section class="sec" id="club"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">В&nbsp;таком зале вам захочется побеждать в&nbsp;спорте и&nbsp;в&nbsp;жизни</h2>
+  </div>
+  <!-- Карусель зон. Слайд = кадр, подпись = зона. У зоны может быть
+       несколько кадров — они идут подряд, подпись при этом не меняется,
+       а в навигации внизу зона показана группой засечек. -->
+  <div class="cf rv" id="cfZones" style="margin-top:26px">
+    <div class="cf__stage" id="cfStage">
+      <button class="cf__arrow cf__arrow--prev" type="button" aria-label="Предыдущий кадр">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="cf__rack" id="cfRack" role="group" aria-label="Фотографии зон клуба" tabindex="0"></div>
+      <button class="cf__arrow cf__arrow--next" type="button" aria-label="Следующий кадр">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+
+    <div class="cf__cap" id="cfCap" aria-live="polite">
+      <h3 class="cf__title" id="cfTitle"></h3>
+      <p class="cf__desc" id="cfDesc"></p>
+    </div>
+
+    <div class="cf__nav" id="cfNav"></div>
+  </div>
+
+  <div class="rv" id="kontakty" style="margin-top:52px;text-align:center">
+    <h3 style="font-size:18px;font-weight:700;margin-bottom:10px">Как&nbsp;нас найти</h3>
+    <p style="font-size:15px;color:var(--ink-2);line-height:1.6">Саратов, ул.&nbsp;Астраханская, 103, 4&nbsp;этаж<br>
+      Ежедневно 9:30–22:00 · <a class="link" href="tel:+79271000033">+7&nbsp;927&nbsp;100-00-33</a></p>
+  </div>
+  <!-- Карта. Метку не ставим руками: встроена карточка организации с
+       Яндекс Карт, поэтому в ней уже верное название, 239 отзывов,
+       часы работы, телефон и рабочая кнопка маршрута.
+       Виджет создаётся скриптом, когда блок подходит к экрану: он тянет
+       ~730 КБ в полусотне запросов, и на первом экране этого груза быть
+       не должно. Пока карта едет, на её месте стоит тёмная заглушка. -->
+  <figure class="map rv" data-map="https://yandex.ru/map-widget/v1/org/datsiev_club/176712651857/?ll=46.012984%2C51.543293&amp;z=17">
+    <div class="map__face" aria-hidden="true">
+      <span class="map__pin">
+        <svg viewBox="0 0 24 24"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>
+      </span>
+      <span class="map__txt">
+        <b>Datsiev Club на&nbsp;карте</b>
+        <i>Остановка «Улица Зарубина / Губернский рынок»&nbsp;— 123&nbsp;м</i>
+      </span>
+    </div>
+  </figure>
+  <p class="map__links rv">
+    <a class="link" href="https://yandex.ru/maps/org/datsiev_club/176712651857/" target="_blank" rel="noopener">Открыть в&nbsp;Яндекс Картах&nbsp;→</a>
+    <a class="link" href="https://yandex.ru/maps/?mode=routes&amp;rtext=~51.543293%2C46.012984" target="_blank" rel="noopener">Проложить маршрут&nbsp;→</a>
+  </p>
+</div></section>
+
+<!-- ======================= 8. ГОСТИ ======================= -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Наши гости&nbsp;— именитые спортсмены</h2>
+    <p class="sub">Которые делятся с&nbsp;нашими воспитанниками ценными и&nbsp;уникальными знаниями на&nbsp;мастер-классах</p>
+  </div>
+  <div class="grid g4 rv" style="margin-top:26px">
+    <div class="card guest"><div class="ph"><div><b>Фото гостя</b><i>Владимир Минеев</i></div></div>
+      <h3>Владимир Минеев</h3><p>Действующий чемпион AMC Fight Nights в&nbsp;среднем весе, победитель первенств Европы и&nbsp;мира</p></div>
+    <div class="card guest"><div class="ph"><div><b>Фото гостя</b><i>Александр Шаблий</i></div></div>
+      <h3>Александр Шаблий</h3><p>Выступал в&nbsp;ведущих российских и&nbsp;мировых лигах: ProFC, Fight Nights Global, ACB, WFCA, Bellator и&nbsp;PFL</p></div>
+    <div class="card guest"><div class="ph"><div><b>Фото гостя</b><i>Юсуф Раисов</i></div></div>
+      <h3>Юсуф Раисов</h3><p>Бывший чемпион лиги ACB в&nbsp;полулёгком весе и&nbsp;обладатель эксклюзивного титула ACA BMF</p></div>
+    <div class="card guest"><div class="ph"><div><b>Фото гостя</b><i>Ринат Фахретдинов</i></div></div>
+      <h3>Ринат Фахретдинов</h3><p>Боец UFC</p></div>
+  </div>
+</div></section>
+
+<!-- ======================= 9. ОТЗЫВЫ ======================= -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Отзывы и&nbsp;результаты</h2>
+  </div>
+  <div class="grid g2 rv" style="margin-top:26px">
+    <div class="card"><p style="color:var(--ink);font-size:15px;line-height:1.55">«Приходят ребята серьёзного уровня, всегда есть с&nbsp;кем постоять и&nbsp;научиться»</p>
+      <p style="margin-top:10px;font-size:12.5px;color:var(--ink-3)">Антон&nbsp;Б. · Яндекс Карты, сентябрь 2025</p></div>
+    <div class="card"><p style="color:var(--ink);font-size:15px;line-height:1.55">«Стал гораздо дисциплинированнее и&nbsp;увереннее в&nbsp;себе»</p>
+      <p style="margin-top:10px;font-size:12.5px;color:var(--ink-3)">Али&nbsp;А. · 2ГИС, родитель</p></div>
+    <div class="card"><p style="color:var(--ink);font-size:15px;line-height:1.55">«Я&nbsp;пришла с&nbsp;нулевым опытом&nbsp;— всё понятно объяснил»</p>
+      <p style="margin-top:10px;font-size:12.5px;color:var(--ink-3)">Екатерина&nbsp;Г. · Яндекс Карты, декабрь 2025</p></div>
+    <div class="card"><p style="color:var(--ink);font-size:15px;line-height:1.55">«К&nbsp;каждому ребёнку особый подход. Очень внимательный, ребёнок с&nbsp;удовольствием ходит на&nbsp;тренировки»</p>
+      <p style="margin-top:10px;font-size:12.5px;color:var(--ink-3)">Елена&nbsp;Ш. · Яндекс Карты, родитель</p></div>
+  </div>
+</div></section>
+
+<!-- ======================= 10. ТРЕНЕРЫ ======================= -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Тренируйтесь под&nbsp;руководством опытных наставников</h2>
+  </div>
+  <div class="grid g2 rv" style="margin-top:26px;align-items:center">
+    <div>
+      <div class="bignum"><b>17</b><span>тренеров в&nbsp;клубе</span></div>
+      <ul class="check" style="margin-top:18px">
+        <li>Тренерский стаж 5+&nbsp;лет</li>
+        <li>Заслуженные мастера спорта и&nbsp;чемпионы</li>
+        <li>Действующие спортсмены</li>
+      </ul>
+      <a class="btn btn--primary" href="treneri.html" style="margin-top:22px">Все тренеры клуба</a>
+    </div>
+    <div class="ph" style="height:260px"><div><b>Фото: тренерский состав</b><i>групповой кадр в&nbsp;зале</i></div></div>
+  </div>
+</div></section>
+
+<!-- ======================= 11. ЦЕНЫ ======================= -->
+<section class="sec" id="tseny"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Стоимость групповых занятий</h2>
+  </div>
+
+  <!-- Бесплатная первая тренировка вынесена из ряда абонементов: это не тариф,
+       а вход, и рядом с суммами она читалась как ещё один абонемент.
+       Здесь же единственная белая кнопка блока — акцент только на ней. -->
+  <div class="strip strip--free rv" style="margin-top:24px">
+    <div><h3>Первая тренировка&nbsp;— бесплатно</h3>
+      <p>Приходите посмотреть зал и&nbsp;попробовать направление. Платить в&nbsp;этот день ничего не&nbsp;нужно.</p></div>
+    <button class="btn btn--primary" data-book="блок цен" data-kind="Бесплатная первая тренировка">Записаться бесплатно</button>
+  </div>
+
+  <h3 class="phead rv">Абонементы</h3>
+  <p class="phead__sub rv">Занятия по&nbsp;месячному абонементу. Записаться можно на&nbsp;сайте, оплата&nbsp;— у&nbsp;администратора в&nbsp;клубе.</p>
+  <div class="grid g2 rv">
+    <div class="card price">
+      <div class="kicker">8&nbsp;занятий в&nbsp;месяц</div>
+      <div class="val"><b>3&nbsp;700&nbsp;₽</b><i>/ в&nbsp;месяц</i></div>
+      <p class="price__hint">В&nbsp;среднем 2&nbsp;тренировки в&nbsp;неделю</p>
+      <p class="price__pay">Оплата у&nbsp;администратора в&nbsp;клубе</p>
+      <button class="btn btn--ghost btn--sm" data-book="блок цен" data-kind="Абонемент, 8 занятий в месяц" data-price="3 700 ₽ в месяц">Записаться в&nbsp;группу</button>
+    </div>
+    <div class="card price">
+      <div class="kicker">12&nbsp;занятий в&nbsp;месяц</div>
+      <div class="val"><b>4&nbsp;800&nbsp;₽</b><i>/ в&nbsp;месяц</i></div>
+      <p class="price__hint">В&nbsp;среднем 3&nbsp;тренировки в&nbsp;неделю</p>
+      <p class="price__pay">Оплата у&nbsp;администратора в&nbsp;клубе</p>
+      <button class="btn btn--ghost btn--sm" data-book="блок цен" data-kind="Абонемент, 12 занятий в месяц" data-price="4 800 ₽ в месяц">Записаться в&nbsp;группу</button>
+    </div>
+  </div>
+
+  <h3 class="phead rv">Разовое посещение</h3>
+  <p class="phead__sub rv">Одно занятие без&nbsp;абонемента&nbsp;— если пока не&nbsp;готовы ходить регулярно.</p>
+  <div class="grid g2 rv">
+    <div class="card price">
+      <div class="kicker">Детям</div>
+      <div class="val"><b>550&nbsp;₽</b><i>/ за&nbsp;занятие</i></div>
+      <p class="price__pay">Оплата у&nbsp;администратора в&nbsp;клубе</p>
+      <button class="btn btn--ghost btn--sm" data-book="блок цен" data-kind="Разовое посещение, детям" data-price="550 ₽ за занятие">Записаться на&nbsp;занятие</button>
+    </div>
+    <div class="card price">
+      <div class="kicker">Взрослым</div>
+      <div class="val"><b>700&nbsp;₽</b><i>/ за&nbsp;занятие</i></div>
+      <p class="price__pay">Оплата у&nbsp;администратора в&nbsp;клубе</p>
+      <button class="btn btn--ghost btn--sm" data-book="блок цен" data-kind="Разовое посещение, взрослым" data-price="700 ₽ за занятие">Записаться на&nbsp;занятие</button>
+    </div>
+  </div>
+
+  <div class="strip rv" style="margin-top:26px">
+    <div><h3>Персональные тренировки</h3>
+      <p>Занятие один на&nbsp;один: поставить базу с&nbsp;нуля, разобрать технику или&nbsp;подготовиться к&nbsp;старту. Стоимость зависит от&nbsp;тренера&nbsp;— выберите, к&nbsp;кому хотите попасть, и&nbsp;записывайтесь на&nbsp;его странице.</p></div>
+    <a class="btn btn--ghost btn--sm" href="treneri.html">Выбрать тренера</a>
+  </div>
+
+  <h3 class="phead rv">Программа лояльности</h3>
+  <p class="phead__sub rv">Скидки на&nbsp;абонементы. Действуют при&nbsp;оплате в&nbsp;клубе, суммировать их нельзя.</p>
+  <div class="loyal rv">
+    <div class="loyal__item"><span class="loyal__n">1</span><div><h4>Скидка студентам 20%</h4>
+      <p>При&nbsp;предъявлении действительного студенческого билета. Не&nbsp;действует при&nbsp;оплате разовых посещений и&nbsp;на&nbsp;секцию «Национальные танцы».</p></div></div>
+    <div class="loyal__item"><span class="loyal__n">2</span><div><h4>Два абонемента сразу&nbsp;— дешевле</h4>
+      <p>При&nbsp;покупке двух абонементов одновременно одним клиентом: на&nbsp;8&nbsp;занятий&nbsp;— минус 400&nbsp;₽ с&nbsp;каждого, на&nbsp;12&nbsp;занятий&nbsp;— минус 600&nbsp;₽ с&nbsp;каждого.</p></div></div>
+    <div class="loyal__item"><span class="loyal__n">3</span><div><h4>Всей семьёй в&nbsp;Datsiev Club</h4>
+      <p>При&nbsp;покупке от&nbsp;трёх абонементов на&nbsp;двух членов семьи&nbsp;— 10% скидки на&nbsp;каждый абонемент.</p></div></div>
+    <div class="loyal__item"><span class="loyal__n">4</span><div><h4>5% за&nbsp;отзыв</h4>
+      <p>Оставьте отзыв на&nbsp;Яндекс.Картах или&nbsp;в&nbsp;2ГИС и&nbsp;покажите его администратору&nbsp;— скидка на&nbsp;следующий абонемент.</p></div></div>
+  </div>
+
+  <!-- Сертификат показываем самой карточкой, а не описанием. Рендер лежит
+       на чёрном, поэтому режим screen убирает фон целиком — карточка стоит
+       прямо на странице, без рамки и стыка. Плашку-панель вокруг не ставим
+       намеренно: на её светлом фоне стык был бы виден. -->
+  <div class="gift rv">
+    <div class="gift__txt">
+      <h3>Подарочный сертификат</h3>
+      <p>Абонемент или&nbsp;пакет персональных тренировок можно подарить&nbsp;— сертификатом на&nbsp;любую из&nbsp;сумм. Заполняем имя и&nbsp;номинал при&nbsp;вас.</p>
+      <button class="btn btn--ghost btn--sm" data-book="подарочный сертификат" data-age="no" data-title="Оформить подарочный сертификат" data-sub="Оставьте контакты&nbsp;— менеджер перезвонит, уточнит номинал и&nbsp;подготовит сертификат к&nbsp;выдаче." data-cta="Оформить сертификат">Оформить</button>
+    </div>
+    <div class="gift__stage">
+      <img class="gift__card" src="media/gift-card.jpg" width="1120" height="876"
+           alt="Подарочный сертификат Datsiev Club: чёрная карточка с полями «Для» и «На сумму», телефоном и адресом клуба"
+           loading="lazy" decoding="async">
+    </div>
+  </div>
+</div></section>
+
+<!-- ======================= 12. ВОПРОСЫ И ОТВЕТЫ ======================= -->
+<!-- Стоит сразу после цен: вопросы, которые задают перед записью, почти
+     всегда всплывают именно после суммы. Раньше свой блок был у каждого
+     направления, но там он повторялся четырнадцать раз почти дословно —
+     остался один, общий по клубу. -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Вопросы и&nbsp;ответы</h2>
+    <p class="sub">Самое частое, что&nbsp;спрашивают перед первой тренировкой.</p>
+  </div>
+  <div class="faq rv" style="margin-top:26px">
+    <details class="faq__item">
+      <summary>С&nbsp;какого возраста берёте?<span class="faq__mark" aria-hidden="true"></span></summary>
+      <p>С&nbsp;3&nbsp;лет&nbsp;— самые младшие группы в&nbsp;ММА и&nbsp;в&nbsp;художественной гимнастике. Верхней границы нет: взрослые новички приходят и&nbsp;в&nbsp;30, и&nbsp;в&nbsp;50.</p>
+    </details>
+    <details class="faq__item">
+      <summary>Я&nbsp;никогда не&nbsp;занимался спортом. Возьмут?<span class="faq__mark" aria-hidden="true"></span></summary>
+      <p>Да, и&nbsp;это самая частая ситуация. Нагрузка на&nbsp;первых занятиях подбирается под&nbsp;вас, догонять группу не&nbsp;придётся.</p>
+    </details>
+    <details class="faq__item">
+      <summary>Первая тренировка правда бесплатная?<span class="faq__mark" aria-hidden="true"></span></summary>
+      <p>Да, на&nbsp;любое направление. Приходите, посмотрите зал, познакомьтесь с&nbsp;тренером&nbsp;— решение принимаете уже после.</p>
+    </details>
+    <details class="faq__item">
+      <summary>Что&nbsp;взять на&nbsp;первое занятие?<span class="faq__mark" aria-hidden="true"></span></summary>
+      <p>Спортивную форму, сменную обувь и&nbsp;воду. Покупать ничего не&nbsp;нужно: экипировку берут позже, когда решают заниматься.</p>
+    </details>
+    <details class="faq__item">
+      <summary>Меня сразу поставят в&nbsp;спарринг?<span class="faq__mark" aria-hidden="true"></span></summary>
+      <p>Нет. В&nbsp;ударных и&nbsp;борцовских секциях контакт вводится постепенно и&nbsp;только тогда, когда тренер видит готовность. В&nbsp;детских группах работы в&nbsp;полную силу нет.</p>
+    </details>
+    <details class="faq__item">
+      <summary>Обязательно&nbsp;ли выступать на&nbsp;соревнованиях?<span class="faq__mark" aria-hidden="true"></span></summary>
+      <p>Нет. Большинство занимается для&nbsp;себя&nbsp;— для&nbsp;формы, характера и&nbsp;нового навыка. Соревнования это отдельный путь, на&nbsp;него переходят по&nbsp;желанию.</p>
+    </details>
+    <details class="faq__item">
+      <summary>Можно ходить на&nbsp;два направления?<span class="faq__mark" aria-hidden="true"></span></summary>
+      <p>Да, так делают многие. ОФП, воркаут и&nbsp;кроссфит чаще всего берут вторым направлением к&nbsp;единоборствам.</p>
+    </details>
+    <details class="faq__item">
+      <summary>Сколько стоит абонемент и&nbsp;как&nbsp;платить?<span class="faq__mark" aria-hidden="true"></span></summary>
+      <p>8&nbsp;занятий в&nbsp;месяц&nbsp;— 3&nbsp;700&nbsp;₽, 12&nbsp;занятий&nbsp;— 4&nbsp;800&nbsp;₽. Записаться можно на&nbsp;сайте, оплата у&nbsp;администратора в&nbsp;клубе.</p>
+    </details>
+  </div>
+</div></section>
+
+<!-- ======================= 13. ДОП. УСЛУГИ ======================= -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Чем&nbsp;ещё может помочь вам наш спортивный клуб</h2>
+  </div>
+  <div class="tags tags--center rv" style="margin-top:22px">
+    <span class="tag">Аренда зала</span><span class="tag">Аренда шкафчиков</span>
+    <span class="tag">Корпоративные тренировки</span><span class="tag">Дни рождения в&nbsp;зале</span>
+    <span class="tag">Мероприятия в&nbsp;зале</span>
+  </div>
+  <div class="cta rv"><a class="btn btn--ghost" href="uslugi.html">Подробнее об&nbsp;услугах</a></div>
+</div></section>
+
+<!-- ======================= 14. СОЦСЕТИ ======================= -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Подписывайтесь на&nbsp;наши соцсети</h2>
+    <p class="sub">Где&nbsp;мы&nbsp;публикуем актуальные новости и&nbsp;полезный контент для&nbsp;вас</p>
+  </div>
+  <div class="cta rv" style="margin-top:20px">
+    <a class="btn btn--primary btn--sm" href="https://vk.ru/datsiev_club" target="_blank" rel="noopener">Открыть сообщество ВКонтакте</a>
+  </div>
+  <!-- Три клипа из сообщества вместо ленты-виджета. Виджет ВК — чужой
+       iframe с vk.com: его внутренности переверстать нельзя, поэтому он
+       и выбивался из стиля. Здесь та же вертикальная карточка, что на
+       страницах тренеров: плеер ВК тянет свои скрипты на каждый ролик,
+       поэтому до нажатия стоит обложка, а iframe создаётся по клику
+       (см. assets/site.js).
+       Обложки вынуты из самих клипов, лежат в media/clips.
+       Модуль ленты в site.js остался. Серверную часть (api/vk-posts.php)
+       в рабочую папку не переносили: сайт её не использует, она лежит
+       в старой datsiev-club-design. Когда появятся токен и хостинг,
+       ленту можно вернуть сюда же. -->
+  <div class="reels rv">
+    <figure class="clip"
+            data-clip="https://vkvideo.ru/video_ext.php?oid=-83890329&amp;id=456243142&amp;autoplay=1"
+            data-title="Клип Datsiev Club">
+      <img class="clip__cover" src="media/clips/reel-1.jpg" width="720" height="1280"
+           alt="Тренер и воспитанник в зале" loading="lazy" decoding="async">
+      <button class="clip__play" type="button">
+        <span class="clip__ico" aria-hidden="true"></span>
+        <span class="clip__lbl">Клип · ВКонтакте</span>
+      </button>
+    </figure>
+    <figure class="clip"
+            data-clip="https://vkvideo.ru/video_ext.php?oid=-83890329&amp;id=456243107&amp;autoplay=1"
+            data-title="Клип Datsiev Club">
+      <img class="clip__cover" src="media/clips/reel-2.jpg" width="360" height="640"
+           alt="Тренер с младшей группой на ковре" loading="lazy" decoding="async">
+      <button class="clip__play" type="button">
+        <span class="clip__ico" aria-hidden="true"></span>
+        <span class="clip__lbl">Клип · ВКонтакте</span>
+      </button>
+    </figure>
+    <figure class="clip"
+            data-clip="https://vkvideo.ru/video_ext.php?oid=-83890329&amp;id=456243090&amp;autoplay=1"
+            data-title="Клип Datsiev Club">
+      <img class="clip__cover" src="media/clips/reel-3.jpg" width="360" height="640"
+           alt="Жим штанги лёжа в зале кроссфита" loading="lazy" decoding="async">
+      <button class="clip__play" type="button">
+        <span class="clip__ico" aria-hidden="true"></span>
+        <span class="clip__lbl">Клип · ВКонтакте</span>
+      </button>
+    </figure>
+  </div>
+</div></section>
+
+<!-- ======================= 15. ФУТЕР ======================= -->
+<footer class="footer"><div class="wrap">
+  <div class="footer__in">
+    <img src="media/logo.png" alt="Datsiev Club">
+    <nav class="footer__links">
+      <a href="napravleniya.html">Секции</a><a href="raspisanie.html">Расписание</a><a href="treneri.html">Тренеры</a>
+      <a href="dostizheniya.html">Достижения</a><a href="uslugi.html">Доп. услуги</a><a href="sportsmenam.html">Действующим спортсменам</a>
+      <a href="index.html#kontakty">Контакты</a><a href="#">Партнёрам</a><a href="#">Вакансии</a>
+      <a href="#">Политика обработки данных</a>
+    </nav>
+  </div>
+  <p class="footer__meta">Саратов, ул.&nbsp;Астраханская, 103, 4&nbsp;этаж · ежедневно 9:30–22:00 · +7&nbsp;927&nbsp;100-00-33</p>
+</div></footer>
+
+<script src="assets/site.js" defer></script>
+</script>
+</body>
+</html>
