@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<!--
+  Страница направления — образец для остальных тринадцати.
+  Порядок блоков из утверждённого каркаса: сначала всё, что нужно
+  человеку, пока он выбирает, ГДЕ заниматься; тренеры и расписание
+  ниже — их смотрят уже после решения прийти.
+  Тексты взяты из DIR_CONTENT прототипа, расписание и возрасты — из SCHED.
+  Количество групп здесь показано (в каталоге — нет): на своей странице
+  направлению не с чем сравниваться, и цифра работает как честный
+  сигнал «времени на выбор много».
+-->
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ММА в Саратове — Datsiev Club</title>
+<meta name="description" content="ММА в Datsiev Club, Саратов: Смешанные единоборства: ударная техника, борьба и работа в партере в одном виде. Группы от малышей до взрослых, утренние и вечерние.">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,900;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="nav nav--solid">
+  <div class="wrap nav__in">
+    <a class="logo" href="index.html" aria-label="Datsiev Club — на главную"><img src="media/logo.png" alt="Datsiev Club"></a>
+    <nav class="nav__links">
+      <a href="index.html#club">О&nbsp;клубе</a><a href="napravleniya.html">Секции</a><a href="raspisanie.html">Расписание</a>
+      <a href="treneri.html">Тренеры</a><a href="index.html#tseny">Цены</a><a href="sportsmenam.html">Спортсменам</a><a href="dostizheniya.html">Достижения</a><a href="uslugi.html">Доп. услуги</a>
+    </nav>
+    <a class="nav__phone" href="tel:+79271000033">+7&nbsp;927&nbsp;100-00-33</a>
+    <button class="burger" aria-label="Меню"><i></i><i></i><i></i></button>
+  </div>
+</header>
+
+<!-- ======================= 1. ПЕРВЫЙ ЭКРАН ======================= -->
+<!-- Страница работает автономно: человек может попасть сюда из поиска
+     или с карт, минуя главную, поэтому H1 с городом и адрес рядом. -->
+<section class="sec page dhero"><div class="wrap">
+  <div class="dhero__in rv">
+    <div class="dhero__txt">
+      <h1 class="h2 dhero__h">ММА<br>в&nbsp;Саратове</h1>
+      <p class="dhero__addr">Datsiev Club · ул.&nbsp;Астраханская, 103, 4&nbsp;этаж</p>
+      <p class="dhero__lead">Смешанные единоборства: ударная техника, борьба и&nbsp;работа в&nbsp;партере в&nbsp;одном виде. Группы от&nbsp;малышей до&nbsp;взрослых, утренние и&nbsp;вечерние.</p>
+      <div class="tags tags--center dhero__facts">
+        <span class="tag tag--lead">дети и&nbsp;взрослые</span>
+        <span class="tag">с&nbsp;3&nbsp;лет</span>
+        <span class="tag">3&nbsp;тренера</span>
+      </div>
+      <div class="cta dhero__cta">
+        <button class="btn btn--primary" data-book="страница направления" data-dir="ММА" data-kind="Бесплатная первая тренировка">Записаться на&nbsp;бесплатную</button>
+        <a class="btn btn--ghost" href="#raspisanie">Смотреть расписание</a>
+      </div>
+    </div>
+    <img class="dhero__art" src="media/sections/mma-card.jpg" width="800" height="600"
+         alt="ММА в Datsiev Club" fetchpriority="high" decoding="async">
+  </div>
+</div></section>
+
+<!-- ======================= 2. КОМУ ПОДХОДИТ ======================= -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Группы для&nbsp;любого уровня, целей и&nbsp;возраста</h2>
+  </div>
+  <div class="grid g3 rv" style="margin-top:26px">
+    <div class="card who">
+      <span class="who__age">3–13&nbsp;лет</span>
+      <p>Координация, характер, умение постоять за&nbsp;себя без&nbsp;агрессии. Дисциплина без&nbsp;грубости</p>
+    </div>
+    <div class="card who">
+      <span class="who__age">14–17&nbsp;лет</span>
+      <p>Физическая форма и&nbsp;уверенность среди сверстников. Научим с&nbsp;полного нуля, даже если ранее не&nbsp;занимался спортом</p>
+    </div>
+    <div class="card who">
+      <span class="who__age">Взрослым до&nbsp;60+&nbsp;лет</span>
+      <p>Новый навык и&nbsp;интенсивная нагрузка вместо однообразного зала. Можно заниматься без&nbsp;спаррингов и&nbsp;без&nbsp;соревнований с&nbsp;нуля</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ======================= 3. ВАШ ПУТЬ ======================= -->
+<!-- Блок разводит две несовместимые мотивации, которые иначе конфликтуют
+     в одном тексте: спортивный результат и занятия для себя. -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Вы&nbsp;сами выбираете, каким будет ваш путь</h2>
+  </div>
+  <div class="grid g2 rv" style="margin-top:26px">
+    <div class="card path">
+      <span class="cico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.7V17c0 .6-.5 1-1 1.2-1.1.6-2 2-2 3.8"/><path d="M14 14.7V17c0 .6.5 1 1 1.2 1.1.6 2 2 2 3.8"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></span>
+      <h3>Для&nbsp;спортивного результата</h3>
+      <p>Готовим к&nbsp;крупным соревнованиям в&nbsp;Саратове и&nbsp;помогаем выходить на&nbsp;региональный и&nbsp;более высокий уровень. Работаем на&nbsp;результат: техника, тактика и&nbsp;разбор ошибок</p>
+    </div>
+    <div class="card path">
+      <span class="cico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></svg></span>
+      <h3>Для&nbsp;себя и&nbsp;физической формы</h3>
+      <p>Развивайте силу, выносливость и&nbsp;спортивное тело в&nbsp;комфортном темпе и&nbsp;в&nbsp;кругу единомышленников. К&nbsp;спаррингам переходить только по&nbsp;желанию&nbsp;— без&nbsp;давления и&nbsp;принуждения</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ======================= 4. КАК ПРОХОДИТ ТРЕНИРОВКА ======================= -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Как&nbsp;проходит тренировка</h2>
+  </div>
+  <div class="steps steps--num rv" style="margin-top:26px">
+    <div class="step"><span class="step__n">1</span>
+      <div><h3>Разминка</h3><p>Суставная, кардио, акробатика и&nbsp;страховка.</p></div></div>
+    <div class="step"><span class="step__n">2</span>
+      <div><h3>Ударная техника</h3><p>Руки, ноги, работа на&nbsp;лапах и&nbsp;мешках.</p></div></div>
+    <div class="step"><span class="step__n">3</span>
+      <div><h3>Борьба и&nbsp;партер</h3><p>Переводы, контроль, работа снизу и&nbsp;сверху.</p></div></div>
+    <div class="step"><span class="step__n">4</span>
+      <div><h3>ОФП и&nbsp;заминка</h3><p>Силовая часть, растяжка, восстановление.</p></div></div>
+  </div>
+</div></section>
+
+<!-- ======================= 5. БЕЗОПАСНОСТЬ ======================= -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Меры безопасности<br>на&nbsp;каждой тренировке</h2>
+  </div>
+  <div class="grid g2 rv" style="margin-top:26px">
+    <div class="card safe safe--txt safe--ico"><span class="cico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.3 3 8.2 7 9.5 4-1.3 7-5.2 7-9.5V6l-7-3Z"/></svg></span><div><p>Новичка не&nbsp;ставят в&nbsp;спарринг, пока он не&nbsp;готов. Сначала снаряды и&nbsp;лёгкий контакт.</p></div></div>
+    <div class="card safe safe--txt safe--ico"><span class="cico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M7 21h10"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/><path d="m2 16 3-8 3 8c-.9.7-1.9 1-3 1s-2.1-.3-3-1Z"/><path d="m16 16 3-8 3 8c-.9.7-1.9 1-3 1s-2.1-.3-3-1Z"/></svg></span><div><p>Пары подбираются по&nbsp;уровню, весу и&nbsp;возрасту.</p></div></div>
+    <div class="card safe safe--txt safe--ico"><span class="cico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.3 3 8.2 7 9.5 4-1.3 7-5.2 7-9.5V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><div><p>В&nbsp;спарринге обязательны шлем, капа, перчатки и&nbsp;защита голени.</p></div></div>
+    <div class="card safe safe--txt safe--ico"><span class="cico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5S14.5 8 13 8c-1.5 0-2.5-.5-2.5-1.5"/></svg></span><div><p>В&nbsp;детских группах ударов в&nbsp;полную силу и&nbsp;жёсткой борьбы нет.</p></div></div>
+  </div>
+</div></section>
+
+<!-- ======================= 6. ЗАЛ ======================= -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Вы&nbsp;будете заниматься<br>в&nbsp;современном зале</h2>
+  </div>
+  <!-- Та же карусель, что на главной, но показывает только зоны этого
+       направления: сначала зал, где идут занятия, потом общие —
+       ожидание и раздевалки. Набор и порядок задаёт data-zones. -->
+  <div class="cf rv" id="cfZones" data-zones="wrestling,boxing,waiting,locker" style="margin-top:26px">
+    <div class="cf__stage" id="cfStage">
+      <button class="cf__arrow cf__arrow--prev" type="button" aria-label="Предыдущий кадр">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="cf__rack" id="cfRack" role="group" aria-label="Фотографии зон клуба" tabindex="0"></div>
+      <button class="cf__arrow cf__arrow--next" type="button" aria-label="Следующий кадр">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+
+    <div class="cf__cap" id="cfCap" aria-live="polite">
+      <h3 class="cf__title" id="cfTitle"></h3>
+      <p class="cf__desc" id="cfDesc"></p>
+    </div>
+
+    <div class="cf__nav" id="cfNav"></div>
+  </div>
+
+  <div class="rv" style="margin-top:52px;text-align:center">
+    <h3 style="font-size:18px;font-weight:700;margin-bottom:10px">Как&nbsp;нас найти</h3>
+    <p style="font-size:15px;color:var(--ink-2);line-height:1.6">Саратов, ул.&nbsp;Астраханская, 103, 4&nbsp;этаж<br>
+      Ежедневно 9:30–22:00 · <a class="link" href="tel:+79271000033">+7&nbsp;927&nbsp;100-00-33</a></p>
+  </div>
+  <!-- Карта. Метку не ставим руками: встроена карточка организации с
+       Яндекс Карт, поэтому в ней уже верное название, 239 отзывов,
+       часы работы, телефон и рабочая кнопка маршрута.
+       Виджет создаётся скриптом, когда блок подходит к экрану: он тянет
+       ~730 КБ в полусотне запросов, и на первом экране этого груза быть
+       не должно. Пока карта едет, на её месте стоит тёмная заглушка. -->
+  <figure class="map rv" data-map="https://yandex.ru/map-widget/v1/org/datsiev_club/176712651857/?ll=46.012984%2C51.543293&amp;z=17">
+    <div class="map__face" aria-hidden="true">
+      <span class="map__pin">
+        <svg viewBox="0 0 24 24"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>
+      </span>
+      <span class="map__txt">
+        <b>Datsiev Club на&nbsp;карте</b>
+        <i>Остановка «Улица Зарубина / Губернский рынок»&nbsp;— 123&nbsp;м</i>
+      </span>
+    </div>
+  </figure>
+  <p class="map__links rv">
+    <a class="link" href="https://yandex.ru/maps/org/datsiev_club/176712651857/" target="_blank" rel="noopener">Открыть в&nbsp;Яндекс Картах&nbsp;→</a>
+    <a class="link" href="https://yandex.ru/maps/?mode=routes&amp;rtext=~51.543293%2C46.012984" target="_blank" rel="noopener">Проложить маршрут&nbsp;→</a>
+  </p>
+</div></section>
+
+<!-- ======================= 7. ЧТО ВЗЯТЬ С СОБОЙ ======================= -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Что&nbsp;взять с&nbsp;собой</h2>
+  </div>
+  <div class="grid g2 rv" style="margin-top:26px">
+    <div class="card bring">
+      <span class="bring__cap">На&nbsp;первую тренировку</span>
+      <ul class="list">
+        <li>Спортивная форма</li>
+        <li>Сменная обувь</li>
+        <li>Вода</li>
+      </ul>
+    </div>
+    <div class="card bring">
+      <span class="bring__cap">Когда решите заниматься</span>
+      <ul class="list">
+        <li>Перчатки и&nbsp;капа</li>
+        <li>Защита голени</li>
+        <li>Рашгард и&nbsp;шорты</li>
+      </ul>
+    </div>
+  </div>
+  <div class="strip rv" style="margin-top:16px">
+    <div><p>На&nbsp;первую тренировку покупать ничего не&nbsp;нужно&nbsp;— приходите в&nbsp;обычной спортивной форме. Экипировку берут позже, когда решают заниматься: сейчас важно просто начать.</p></div>
+  </div>
+</div></section>
+
+<!-- ======================= 8. ЦЕНЫ ======================= -->
+<!-- Блок общий с главной. Цена персональных здесь не указана: она зависит
+     от тренера и живёт только в его профиле, иначе прайс пришлось бы
+     синхронизировать в трёх местах. -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Стоимость тренировок</h2>
+  </div>
+
+  <div class="strip strip--free rv" style="margin-top:24px">
+    <div><h3>Первая тренировка&nbsp;— бесплатно</h3>
+      <p>Приходите посмотреть зал и&nbsp;попробовать направление. Платить в&nbsp;этот день ничего не&nbsp;нужно.</p></div>
+    <button class="btn btn--primary" data-book="страница направления" data-dir="ММА" data-kind="Бесплатная первая тренировка">Записаться бесплатно</button>
+  </div>
+
+  <h3 class="phead rv">Абонементы</h3>
+  <p class="phead__sub rv">Занятия по&nbsp;месячному абонементу. Записаться можно на&nbsp;сайте, оплата&nbsp;— у&nbsp;администратора в&nbsp;клубе.</p>
+  <div class="grid g2 rv">
+    <div class="card price">
+      <div class="kicker">8&nbsp;занятий в&nbsp;месяц</div>
+      <div class="val"><b>3&nbsp;700&nbsp;₽</b><i>/ в&nbsp;месяц</i></div>
+      <p class="price__hint">В&nbsp;среднем 2&nbsp;тренировки в&nbsp;неделю</p>
+      <p class="price__pay">Оплата у&nbsp;администратора в&nbsp;клубе</p>
+      <button class="btn btn--ghost btn--sm" data-book="страница направления" data-dir="ММА" data-kind="Абонемент, 8 занятий в месяц" data-price="3 700 ₽ в месяц">Записаться в&nbsp;группу</button>
+    </div>
+    <div class="card price">
+      <div class="kicker">12&nbsp;занятий в&nbsp;месяц</div>
+      <div class="val"><b>4&nbsp;800&nbsp;₽</b><i>/ в&nbsp;месяц</i></div>
+      <p class="price__hint">В&nbsp;среднем 3&nbsp;тренировки в&nbsp;неделю</p>
+      <p class="price__pay">Оплата у&nbsp;администратора в&nbsp;клубе</p>
+      <button class="btn btn--ghost btn--sm" data-book="страница направления" data-dir="ММА" data-kind="Абонемент, 12 занятий в месяц" data-price="4 800 ₽ в месяц">Записаться в&nbsp;группу</button>
+    </div>
+  </div>
+
+  <h3 class="phead rv">Разовое посещение</h3>
+  <p class="phead__sub rv">Одно занятие без&nbsp;абонемента&nbsp;— если пока не&nbsp;готовы ходить регулярно.</p>
+  <div class="grid g2 rv">
+    <div class="card price">
+      <div class="kicker">Детям</div>
+      <div class="val"><b>550&nbsp;₽</b><i>/ за&nbsp;занятие</i></div>
+      <p class="price__pay">Оплата у&nbsp;администратора в&nbsp;клубе</p>
+      <button class="btn btn--ghost btn--sm" data-book="страница направления" data-dir="ММА" data-kind="Разовое посещение, детям" data-price="550 ₽ за занятие">Записаться на&nbsp;занятие</button>
+    </div>
+    <div class="card price">
+      <div class="kicker">Взрослым</div>
+      <div class="val"><b>700&nbsp;₽</b><i>/ за&nbsp;занятие</i></div>
+      <p class="price__pay">Оплата у&nbsp;администратора в&nbsp;клубе</p>
+      <button class="btn btn--ghost btn--sm" data-book="страница направления" data-dir="ММА" data-kind="Разовое посещение, взрослым" data-price="700 ₽ за занятие">Записаться на&nbsp;занятие</button>
+    </div>
+  </div>
+
+  <div class="strip rv" style="margin-top:26px">
+    <div><h3>Персональные тренировки</h3>
+      <p>Занятие один на&nbsp;один: поставить базу с&nbsp;нуля, разобрать технику или&nbsp;подготовиться к&nbsp;старту. Стоимость зависит от&nbsp;тренера&nbsp;— выберите, к&nbsp;кому хотите попасть, и&nbsp;записывайтесь на&nbsp;его странице.</p></div>
+    <a class="btn btn--ghost btn--sm" href="#treneri">Выбрать тренера</a>
+  </div>
+</div></section>
+
+<!-- ======================= 9. ТРЕНЕРЫ НАПРАВЛЕНИЯ ======================= -->
+<section class="sec" id="treneri"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Тренеры направления</h2>
+  </div>
+  <div class="people people--few rv" style="margin-top:26px">
+    <a class="card person" href="trener-datsiev.html">
+      <span class="person__ph"><img src="media/coaches/datsiev-datsi.jpg" alt="Тренер Даци Дациев" loading="lazy" decoding="async"></span>
+      <span class="person__body">
+        <span class="person__dir">ММА</span>
+        <h3>Даци Дациев</h3>
+        <p class="person__reg">Заслуженный мастер спорта, чемпион мира по&nbsp;кикбоксингу</p>
+        <span class="person__go">Профиль&nbsp;→</span>
+      </span>
+    </a>
+    <a class="card person" href="trener-karibov-djeihun.html">
+      <span class="person__ph"><img src="media/coaches/karibov-djeihun.jpg" alt="Тренер Джейхун Карибов" loading="lazy" decoding="async"></span>
+      <span class="person__body">
+        <span class="person__dir">ММА</span>
+        <h3>Джейхун Карибов</h3>
+        <p class="person__reg">Призёр региональных и&nbsp;межрегиональных турниров</p>
+        <span class="person__go">Профиль&nbsp;→</span>
+      </span>
+    </a>
+    <a class="card person" href="trener-zainulabidov.html">
+      <span class="person__ph"><img src="media/coaches/zainulabidov-nuhbek.jpg" alt="Тренер Нухбек Зайнулабидов" loading="lazy" decoding="async"></span>
+      <span class="person__body">
+        <span class="person__dir">ММА</span>
+        <h3>Нухбек Зайнулабидов</h3>
+        <p class="person__reg">Мастер спорта по&nbsp;ММА, двукратный серебряный призёр Чемпионата России</p>
+        <span class="person__go">Профиль&nbsp;→</span>
+      </span>
+    </a>
+  </div>
+</div></section>
+
+<!-- ======================= 10. РАСПИСАНИЕ ======================= -->
+<section class="sec" id="raspisanie"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Расписание направления</h2>
+  </div>
+  <!-- группы разбиты по тренерам, как в общем расписании.
+       Новую группу ставить под строку своего тренера -->
+  <div class="sgroup rv">
+    <p class="sgroup__coach"><span class="sgroup__lbl">Тренер:</span> <a class="scoach" href="trener-datsiev.html">Дациев&nbsp;Даци</a></p>
+    <div class="slot">
+      <div class="slot__main">
+        <h3>Детская группа · с&nbsp;3&nbsp;лет</h3>
+        <div class="days"><span class="day">Понедельник</span><span class="day">Среда</span><span class="day">Пятница</span></div>
+      </div>
+      <span class="slot__time">16:00–17:00</span>
+      <button class="btn btn--ghost btn--sm" data-book="строка расписания" data-dir="ММА" data-group="Детская группа · с 3 лет" data-time="Понедельник, среда, пятница · 16:00–17:00" data-coach="Даци Дациев">Записаться</button>
+    </div>
+    <div class="slot">
+      <div class="slot__main">
+        <h3>Детская группа · с&nbsp;8&nbsp;лет</h3>
+        <div class="days"><span class="day">Понедельник</span><span class="day">Среда</span><span class="day">Пятница</span></div>
+      </div>
+      <span class="slot__time">17:00–18:30</span>
+      <button class="btn btn--ghost btn--sm" data-book="строка расписания" data-dir="ММА" data-group="Детская группа · с 8 лет" data-time="Понедельник, среда, пятница · 17:00–18:30" data-coach="Даци Дациев">Записаться</button>
+    </div>
+    <div class="slot">
+      <div class="slot__main">
+        <h3>Взрослая группа · с&nbsp;14&nbsp;лет</h3>
+        <div class="days"><span class="day">Понедельник</span><span class="day">Среда</span><span class="day">Пятница</span></div>
+      </div>
+      <span class="slot__time">18:30–20:00</span>
+      <button class="btn btn--ghost btn--sm" data-book="строка расписания" data-dir="ММА" data-group="Взрослая группа · с 14 лет" data-time="Понедельник, среда, пятница · 18:30–20:00" data-coach="Даци Дациев">Записаться</button>
+    </div>
+    <div class="slot">
+      <div class="slot__main">
+        <h3>Взрослая группа · с&nbsp;16&nbsp;лет</h3>
+        <div class="days"><span class="day">Понедельник</span><span class="day">Среда</span><span class="day">Пятница</span></div>
+      </div>
+      <span class="slot__time">20:00–21:30</span>
+      <button class="btn btn--ghost btn--sm" data-book="строка расписания" data-dir="ММА" data-group="Взрослая группа · с 16 лет" data-time="Понедельник, среда, пятница · 20:00–21:30" data-coach="Даци Дациев">Записаться</button>
+    </div>
+    <p class="sgroup__coach"><span class="sgroup__lbl">Тренер:</span> <a class="scoach" href="trener-karibov-djeihun.html">Карибов&nbsp;Джейхун</a></p>
+    <div class="slot">
+      <div class="slot__main">
+        <h3>Детская группа · с&nbsp;3&nbsp;лет</h3>
+        <div class="days"><span class="day">Понедельник</span><span class="day">Среда</span><span class="day">Пятница</span></div>
+      </div>
+      <span class="slot__time">10:00–11:30</span>
+      <button class="btn btn--ghost btn--sm" data-book="строка расписания" data-dir="ММА" data-group="Детская группа · с 3 лет" data-time="Понедельник, среда, пятница · 10:00–11:30" data-coach="Джейхун Карибов">Записаться</button>
+    </div>
+    <div class="slot">
+      <div class="slot__main">
+        <h3>Детская группа · с&nbsp;4&nbsp;лет</h3>
+        <div class="days"><span class="day">Понедельник</span><span class="day">Среда</span><span class="day">Пятница</span></div>
+      </div>
+      <span class="slot__time">10:00–11:30</span>
+      <button class="btn btn--ghost btn--sm" data-book="строка расписания" data-dir="ММА" data-group="Детская группа · с 4 лет" data-time="Понедельник, среда, пятница · 10:00–11:30" data-coach="Джейхун Карибов">Записаться</button>
+    </div>
+    <div class="slot">
+      <div class="slot__main">
+        <h3>Взрослая группа · с&nbsp;16&nbsp;лет</h3>
+        <div class="days"><span class="day">Вторник</span><span class="day">Четверг</span><span class="day">Суббота</span></div>
+      </div>
+      <span class="slot__time">9:00–10:30</span>
+      <button class="btn btn--ghost btn--sm" data-book="строка расписания" data-dir="ММА" data-group="Взрослая группа · с 16 лет" data-time="Вторник, четверг, суббота · 9:00–10:30" data-coach="Джейхун Карибов">Записаться</button>
+    </div>
+    <div class="slot">
+      <div class="slot__main">
+        <h3>Детская группа · 6–14&nbsp;лет</h3>
+        <div class="days"><span class="day">Вторник</span><span class="day">Четверг</span><span class="day">Суббота</span></div>
+      </div>
+      <span class="slot__time">17:00–18:30</span>
+      <button class="btn btn--ghost btn--sm" data-book="строка расписания" data-dir="ММА" data-group="Детская группа · 6–14 лет" data-time="Вторник, четверг, суббота · 17:00–18:30" data-coach="Джейхун Карибов">Записаться</button>
+    </div>
+    <div class="slot">
+      <div class="slot__main">
+        <h3>Смешанная группа · 6–14&nbsp;лет</h3>
+        <div class="days"><span class="day">Вторник</span><span class="day">Четверг</span><span class="day">Суббота</span></div>
+      </div>
+      <span class="slot__time">18:30–20:00</span>
+      <button class="btn btn--ghost btn--sm" data-book="строка расписания" data-dir="ММА" data-group="Смешанная группа · 6–14 лет" data-time="Вторник, четверг, суббота · 18:30–20:00" data-coach="Джейхун Карибов">Записаться</button>
+    </div>
+    <p class="sgroup__coach"><span class="sgroup__lbl">Тренер:</span> <a class="scoach" href="trener-zainulabidov.html">Зайнулабидов&nbsp;Нухбек</a></p>
+    <div class="slot">
+      <div class="slot__main">
+        <h3>Взрослая группа · с&nbsp;16&nbsp;лет</h3>
+        <div class="days"><span class="day">Вторник</span><span class="day">Четверг</span><span class="day">Суббота</span></div>
+      </div>
+      <span class="slot__time">20:00–21:30</span>
+      <button class="btn btn--ghost btn--sm" data-book="строка расписания" data-dir="ММА" data-group="Взрослая группа · с 16 лет" data-time="Вторник, четверг, суббота · 20:00–21:30" data-coach="Нухбек Зайнулабидов">Записаться</button>
+    </div>
+  </div>
+  <p class="rv" style="margin-top:20px;text-align:center">
+    <a class="link" href="raspisanie.html">Полное расписание клуба&nbsp;→</a>
+  </p>
+</div></section>
+
+<!-- ======================= 11. ФОРМА ЗАПИСИ ======================= -->
+<section class="sec"><div class="wrap">
+  <div class="strip strip--free rv">
+    <div><h3>Записаться на&nbsp;ММА</h3>
+      <p>Оставьте имя и&nbsp;телефон&nbsp;— администратор перезвонит, подберёт группу по&nbsp;возрасту и&nbsp;запишет на&nbsp;бесплатную тренировку.</p></div>
+    <button class="btn btn--primary" data-book="страница направления" data-dir="ММА" data-kind="Бесплатная первая тренировка">Записаться на&nbsp;бесплатную</button>
+  </div>
+  <p class="rv" style="margin-top:22px;text-align:center">
+    <a class="link" href="napravleniya.html">Все направления клуба&nbsp;→</a>
+  </p>
+</div></section>
+
+<footer class="footer"><div class="wrap">
+  <div class="footer__in">
+    <img src="media/logo.png" alt="Datsiev Club">
+    <nav class="footer__links">
+      <a href="napravleniya.html">Секции</a><a href="raspisanie.html">Расписание</a><a href="treneri.html">Тренеры</a>
+      <a href="dostizheniya.html">Достижения</a><a href="uslugi.html">Доп. услуги</a><a href="sportsmenam.html">Действующим спортсменам</a>
+      <a href="index.html#kontakty">Контакты</a><a href="#">Партнёрам</a><a href="#">Вакансии</a>
+      <a href="#">Политика обработки данных</a>
+    </nav>
+  </div>
+  <p class="footer__meta">Саратов, ул.&nbsp;Астраханская, 103, 4&nbsp;этаж · ежедневно 9:30–22:00 · +7&nbsp;927&nbsp;100-00-33</p>
+</div></footer>
+<script src="assets/site.js" defer></script>
+</body>
+</html>

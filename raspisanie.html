@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Расписание тренировок — Datsiev Club</title>
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,900;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="nav nav--solid">
+  <div class="wrap nav__in">
+    <a class="logo" href="index.html" aria-label="Datsiev Club — на главную"><img src="media/logo.png" alt="Datsiev Club"></a>
+    <nav class="nav__links">
+      <a href="index.html#club">О&nbsp;клубе</a><a href="napravleniya.html">Секции</a><a href="raspisanie.html">Расписание</a>
+      <a href="treneri.html">Тренеры</a><a href="index.html#tseny">Цены</a><a href="sportsmenam.html">Спортсменам</a><a href="dostizheniya.html">Достижения</a><a href="uslugi.html">Доп. услуги</a>
+    </nav>
+    <a class="nav__phone" href="tel:+79271000033">+7&nbsp;927&nbsp;100-00-33</a>
+    <button class="burger" aria-label="Меню"><i></i><i></i><i></i></button>
+  </div>
+</header>
+
+<!-- ======================= 1. ШАПКА РАЗДЕЛА ======================= -->
+<section class="sec page"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Расписание тренировок</h2>
+    <p class="sub">15&nbsp;направлений клуба в&nbsp;одном списке. Используйте фильтр,
+      чтобы персонально подобрать расписание</p>
+  </div>
+</div></section>
+
+<!-- ======================= 2. ФИЛЬТРЫ =======================
+     Возраст стоит первым: это единственный фильтр, который отсекает
+     группы жёстко. Направление и дни идут после него.
+     Весь подбор убран под кнопку и обведён рамкой: раскрытые фильтры
+     занимали целый экран и отодвигали само расписание вниз, а нужны они
+     не каждому — многие приходят просто посмотреть, что когда идёт. -->
+<section class="sec" style="padding-top:clamp(18px,3vh,28px)"><div class="wrap">
+  <div class="rv">
+   <div class="fbox" id="fBox">
+    <button class="fbox__hd" type="button" id="fToggle" aria-expanded="false" aria-controls="fBody">
+      <span class="cico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 4h-7"/><path d="M10 4H3"/><path d="M21 12h-9"/><path d="M8 12H3"/><path d="M21 20h-5"/><path d="M12 20H3"/><path d="M14 2v4"/><path d="M8 10v4"/><path d="M16 18v4"/></svg></span>
+      <span class="fbox__txt">
+        <b>Подобрать группу под&nbsp;себя</b>
+        <i id="fSummary">Удобный фильтр по&nbsp;возрасту, дням и&nbsp;времени</i>
+      </span>
+      <span class="fbox__mark" aria-hidden="true"></span>
+    </button>
+    <div class="fbox__body" id="fBody" hidden>
+    <p class="fgroup__hd">Сколько лет занимающемуся</p>
+    <div class="agebox">
+      <div class="agehead">
+        <div class="ageval" id="ageVal">Любой возраст</div>
+        <div class="agehint" id="ageHint">Показаны все группы клуба</div>
+      </div>
+      <input id="fAgeRange" type="range" min="3" max="60" value="3" class="off" aria-label="Возраст занимающегося">
+      <div class="agescale" id="ageScale"></div>
+      <div class="agerow">
+        <span>или&nbsp;впишите точно:</span>
+        <input id="fAge" type="number" min="3" max="60" placeholder="—" aria-label="Точный возраст">
+        <button type="button" id="ageAny">Любой возраст</button>
+      </div>
+    </div>
+
+    <div class="fgroup">
+      <p class="fgroup__hd">Направление</p>
+      <div class="chips" id="fDir"></div>
+    </div>
+
+    <div class="fgroup">
+      <p class="fgroup__hd">Когда удобно ходить</p>
+      <div class="chips" id="fTrack"></div>
+    </div>
+
+    <div class="fgroup">
+      <p class="fgroup__hd">Время</p>
+      <div class="chips" id="fTime"></div>
+    </div>
+
+    <div class="cta" style="margin-top:20px">
+      <button class="btn btn--ghost btn--sm" type="button" id="fReset">Сбросить фильтры</button>
+    </div>
+    </div>
+   </div>
+  </div>
+</div></section>
+
+<!-- ======================= 3. РЕЗУЛЬТАТ ======================= -->
+<section class="sec" style="padding-top:0"><div class="wrap">
+  <div class="rv">
+    <div class="resbar">
+      <div id="schedCount"></div>
+      <!-- переключатель вида — только на десктопе: на телефоне и планшете
+           таблица не влезает, её пришлось бы листать вбок -->
+      <div class="chips resbar__view">
+        <button class="chip chip--on" type="button" id="vList">Списком</button>
+        <button class="chip" type="button" id="vTable">Таблицей&nbsp;— всё расписание</button>
+      </div>
+    </div>
+    <div id="schedOut"></div>
+  </div>
+</div></section>
+
+<!-- ======================= 4. УТРЕННИЕ СЕКЦИИ ======================= -->
+<section class="sec"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2">Утренние секции</h2>
+    <p class="sub">Группы до&nbsp;обеда&nbsp;— для&nbsp;тех, кому вечернее время не&nbsp;подходит: студентам между парами, работающим по&nbsp;сменам, родителям в&nbsp;декрете.</p>
+  </div>
+  <div class="rv" id="daySched" style="margin-top:8px"></div>
+  <div class="cta rv" style="margin-top:26px">
+    <button class="btn btn--primary" data-book="страница расписания" data-kind="Бесплатная первая тренировка">Записаться на&nbsp;бесплатную тренировку</button>
+  </div>
+</div></section>
+
+<footer class="footer"><div class="wrap">
+  <div class="footer__in">
+    <img src="media/logo.png" alt="Datsiev Club">
+    <nav class="footer__links">
+      <a href="napravleniya.html">Секции</a><a href="raspisanie.html">Расписание</a><a href="treneri.html">Тренеры</a>
+      <a href="dostizheniya.html">Достижения</a><a href="uslugi.html">Доп. услуги</a><a href="sportsmenam.html">Действующим спортсменам</a>
+      <a href="index.html#kontakty">Контакты</a><a href="#">Партнёрам</a><a href="#">Вакансии</a>
+      <a href="#">Политика обработки данных</a>
+    </nav>
+  </div>
+  <p class="footer__meta">Саратов, ул.&nbsp;Астраханская, 103, 4&nbsp;этаж · ежедневно 9:30–22:00 · +7&nbsp;927&nbsp;100-00-33</p>
+</div></footer>
+<script src="assets/site.js" defer></script>
+<script src="assets/schedule.js" defer></script>
+</body>
+</html>

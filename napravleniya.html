@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!--
+  Каталог направлений. Структура из утверждённого каркаса:
+  пять блоков по 2–3 направления, внутри блока строго по алфавиту,
+  у карточки только название и «с какого возраста». Количество групп
+  намеренно не показано — иначе ММА выглядел бы сильным, а тайский
+  бокс умирающим.
+-->
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Секции — Datsiev Club</title>
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,900;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="nav nav--solid">
+  <div class="wrap nav__in">
+    <a class="logo" href="index.html" aria-label="Datsiev Club — на главную"><img src="media/logo.png" alt="Datsiev Club"></a>
+    <nav class="nav__links">
+      <a href="index.html#club">О&nbsp;клубе</a><a href="napravleniya.html">Секции</a><a href="raspisanie.html">Расписание</a>
+      <a href="treneri.html">Тренеры</a><a href="index.html#tseny">Цены</a><a href="sportsmenam.html">Спортсменам</a><a href="dostizheniya.html">Достижения</a><a href="uslugi.html">Доп. услуги</a>
+    </nav>
+    <a class="nav__phone" href="tel:+79271000033">+7&nbsp;927&nbsp;100-00-33</a>
+    <button class="burger" aria-label="Меню"><i></i><i></i><i></i></button>
+  </div>
+</header>
+
+<section class="sec page"><div class="wrap">
+  <div class="rv">
+    <h2 class="h2 h2--page">Секции клуба</h2>
+    <p class="sub sub--page">15&nbsp;разных секций в&nbsp;одном зале в&nbsp;центре Саратова. Программы тренировок расписаны для&nbsp;разного возраста и&nbsp;уровня подготовки</p>
+  </div>
+
+  <!-- Блок 1 -->
+  <div class="dirgroup rv">
+    <h3 class="dirgroup__h">Ударные <i>бьют руками и&nbsp;ногами</i></h3>
+    <div class="dircards">
+      <a class="card dircard dircard--ready" href="napravlenie-boks.html">
+        <span class="dircard__ph"><span>Фото направления</span><img src="media/sections/boxing-card.jpg" width="800" height="600" alt="Бокс" loading="lazy" decoding="async" onerror="this.remove()"></span>
+        <span class="dircard__body"><b>Бокс</b><i>с&nbsp;4&nbsp;лет</i></span>
+        <span class="dircard__go" aria-hidden="true">→</span>
+      </a>
+      <a class="card dircard dircard--ready" href="napravlenie-kickboxing.html">
+        <span class="dircard__ph"><span>Фото направления</span><img src="media/sections/kickboxing-card.jpg" width="800" height="600" alt="Кикбоксинг" loading="lazy" decoding="async" onerror="this.remove()"></span>
+        <span class="dircard__body"><b>Кикбоксинг</b><i>с&nbsp;5&nbsp;лет</i></span>
+        <span class="dircard__go" aria-hidden="true">→</span>
+      </a>
+      <a class="card dircard dircard--ready" href="napravlenie-tayskiy-boks.html">
+        <span class="dircard__ph"><span>Фото направления</span><img src="media/sections/muay-thai-card-clinch-knee.jpg" width="800" height="600" alt="Тайский бокс" loading="lazy" decoding="async" onerror="this.remove()"></span>
+        <span class="dircard__body"><b>Тайский бокс</b><i>с&nbsp;16&nbsp;лет</i></span>
+        <span class="dircard__go" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Блок 2 -->
+  <div class="dirgroup rv">
+    <h3 class="dirgroup__h">Борцовские <i>броски и&nbsp;борьба в&nbsp;партере</i></h3>
+    <div class="dircards">
+      <a class="card dircard dircard--ready" href="napravlenie-volnaya-borba.html">
+        <span class="dircard__ph"><span>Фото направления</span><img src="media/sections/freestyle-wrestling-card.jpg" width="800" height="600" alt="Вольная борьба" loading="lazy" decoding="async" onerror="this.remove()"></span>
+        <span class="dircard__body"><b>Вольная борьба</b><i>с&nbsp;6&nbsp;лет</i></span>
+        <span class="dircard__go" aria-hidden="true">→</span>
+      </a>
+      <!-- единственное направление со свёрстанной страницей — образец для остальных -->
+      <a class="card dircard dircard--ready" href="napravlenie-grappling.html">
+        <span class="dircard__ph"><span>Фото направления</span><img src="media/sections/grappling-card-standing.jpg" width="800" height="600" alt="Грэпплинг и БЖЖ" loading="lazy" decoding="async" onerror="this.remove()"></span>
+        <span class="dircard__body"><b>Грэпплинг и&nbsp;БЖЖ</b><i>с&nbsp;4&nbsp;лет</i></span>
+        <span class="dircard__go" aria-hidden="true">→</span>
+      </a>
+      <a class="card dircard dircard--ready" href="napravlenie-dzyudo.html">
+        <span class="dircard__ph"><span>Фото направления</span><img src="media/sections/judo-card-standing-throw-v2.jpg" width="800" height="600" alt="Дзюдо" loading="lazy" decoding="async" onerror="this.remove()"></span>
+        <span class="dircard__body"><b>Дзюдо</b><i>с&nbsp;4&nbsp;лет</i></span>
+        <span class="dircard__go" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Блок 3 -->
+  <div class="dirgroup rv">
+    <h3 class="dirgroup__h">Смешанные <i>и&nbsp;удары, и&nbsp;борьба</i></h3>
+    <div class="dircards">
+      <a class="card dircard dircard--ready" href="napravlenie-mma.html">
+        <span class="dircard__ph"><span>Фото направления</span><img src="media/sections/mma-card.jpg" width="800" height="600" alt="ММА" loading="lazy" decoding="async" onerror="this.remove()"></span>
+        <span class="dircard__body"><b>ММА</b><i>с&nbsp;3&nbsp;лет</i></span>
+        <span class="dircard__go" aria-hidden="true">→</span>
+      </a>
+      <a class="card dircard dircard--ready" href="napravlenie-rukopashnyy-boy.html">
+        <span class="dircard__ph"><span>Фото направления</span><img src="media/sections/hand-to-hand-combat-card-v4.jpg" width="800" height="600" alt="Рукопашный бой" loading="lazy" decoding="async" onerror="this.remove()"></span>
+        <span class="dircard__body"><b>Рукопашный бой</b><i>с&nbsp;14&nbsp;лет</i></span>
+        <span class="dircard__go" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Блок 4 -->
+  <div class="dirgroup rv">
+    <h3 class="dirgroup__h">Физподготовка <i>без&nbsp;спаррингов и&nbsp;соревнований</i></h3>
+    <div class="dircards">
+      <a class="card dircard dircard--ready" href="napravlenie-krossfit.html">
+        <span class="dircard__ph"><span>Фото направления</span><img src="media/sections/crossfit-card-side.jpg" width="800" height="600" alt="Кроссфит" loading="lazy" decoding="async" onerror="this.remove()"></span>
+        <span class="dircard__body"><b>Кроссфит</b><i>с&nbsp;16&nbsp;лет</i></span>
+        <span class="dircard__go" aria-hidden="true">→</span>
+      </a>
+      <a class="card dircard dircard--ready" href="napravlenie-ofp-vorkaut.html">
+        <span class="dircard__ph"><span>Фото направления</span><img src="media/sections/workout-pullup-bar-card-v2.jpg" width="800" height="600" alt="ОФП и воркаут" loading="lazy" decoding="async" onerror="this.remove()"></span>
+        <span class="dircard__body"><b>ОФП и&nbsp;воркаут</b><i>с&nbsp;5&nbsp;лет</i></span>
+        <span class="dircard__go" aria-hidden="true">→</span>
+      </a>
+      <a class="card dircard dircard--ready" href="napravlenie-funktsionalnaya.html">
+        <span class="dircard__ph"><span>Фото направления</span><img src="media/sections/fitness-dumbbells-card.jpg" width="800" height="600" alt="Функциональная подготовка" loading="lazy" decoding="async" onerror="this.remove()"></span>
+        <span class="dircard__body"><b>Функциональная подготовка</b><i>с&nbsp;16&nbsp;лет</i></span>
+        <span class="dircard__go" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Блок 5 -->
+  <div class="dirgroup rv">
+    <h3 class="dirgroup__h">Другие направления</h3>
+    <div class="dircards">
+      <a class="card dircard dircard--ready" href="napravlenie-akrobatika.html">
+        <span class="dircard__ph"><span>Фото направления</span><img src="media/sections/acrobatics-card-v5.jpg" width="800" height="600" alt="Акробатика" loading="lazy" decoding="async" onerror="this.remove()"></span>
+        <span class="dircard__body"><b>Акробатика</b><i>с&nbsp;5&nbsp;лет</i></span>
+        <span class="dircard__go" aria-hidden="true">→</span>
+      </a>
+      <a class="card dircard dircard--ready" href="napravlenie-hudozhestvennaya-gimnastika.html">
+        <span class="dircard__ph"><span>Фото направления</span><img src="media/sections/rhythmic-gymnastics-card-no-ribbon-v3.jpg" width="800" height="600" alt="Художественная гимнастика" loading="lazy" decoding="async" onerror="this.remove()"></span>
+        <span class="dircard__body"><b>Художественная гимнастика</b><i>с&nbsp;3&nbsp;лет</i></span>
+        <span class="dircard__go" aria-hidden="true">→</span>
+      </a>
+      <a class="card dircard dircard--ready" href="napravlenie-natsionalnye-tantsy.html">
+        <span class="dircard__ph"><span>Фото направления</span><img src="media/sections/dagestan-national-dance-card-plain-black.jpg" width="800" height="600" alt="Национальные танцы" loading="lazy" decoding="async" onerror="this.remove()"></span>
+        <span class="dircard__body"><b>Национальные танцы</b><i>с&nbsp;4&nbsp;лет</i></span>
+        <span class="dircard__go" aria-hidden="true">→</span>
+      </a>
+      <!-- Своей иллюстрации у лезгинки нет, берём кадр национальных танцев:
+           направление то же самое по пластике, только курсом к дате. -->
+      <a class="card dircard dircard--ready" href="napravlenie-svadebnaya-lezginka.html">
+        <span class="dircard__ph"><span>Фото направления</span><img src="media/sections/dagestan-national-dance-card-plain-black.jpg" width="800" height="600" alt="Свадебная лезгинка" loading="lazy" decoding="async" onerror="this.remove()"></span>
+        <span class="dircard__body"><b>Свадебная лезгинка</b><i>с&nbsp;14&nbsp;лет</i></span>
+        <span class="dircard__go" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="strip strip--free rv" style="margin-top:30px">
+    <div><h3>Не&nbsp;знаете, что&nbsp;выбрать?</h3>
+      <p>Несколько вопросов о&nbsp;возрасте, цели и&nbsp;удобном времени&nbsp;— и&nbsp;мы&nbsp;предложим подходящие направления.</p></div>
+    <button class="btn btn--primary" data-book="подбор секции" data-age="no" data-title="Подберём&nbsp;секцию&nbsp;за&nbsp;2&nbsp;минуты" data-sub="Оставьте контакты&nbsp;— менеджер задаст пару вопросов о&nbsp;возрасте, опыте и&nbsp;целях и&nbsp;предложит подходящие группы." data-cta="Помогите выбрать">Подобрать&nbsp;за&nbsp;2&nbsp;минуты</button>
+  </div>
+
+</div></section>
+
+<footer class="footer"><div class="wrap">
+  <div class="footer__in">
+    <img src="media/logo.png" alt="Datsiev Club">
+    <nav class="footer__links">
+      <a href="napravleniya.html">Секции</a><a href="raspisanie.html">Расписание</a><a href="treneri.html">Тренеры</a>
+      <a href="dostizheniya.html">Достижения</a><a href="uslugi.html">Доп. услуги</a><a href="sportsmenam.html">Действующим спортсменам</a>
+      <a href="index.html#kontakty">Контакты</a><a href="#">Партнёрам</a><a href="#">Вакансии</a>
+      <a href="#">Политика обработки данных</a>
+    </nav>
+  </div>
+  <p class="footer__meta">Саратов, ул.&nbsp;Астраханская, 103, 4&nbsp;этаж · ежедневно 9:30–22:00 · +7&nbsp;927&nbsp;100-00-33</p>
+</div></footer>
+<script src="assets/site.js" defer></script>
+</body>
+</html>
